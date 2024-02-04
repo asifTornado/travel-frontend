@@ -7,7 +7,7 @@
               <v-row class="mb-2 text-subtitle font-weight-bold">
                   Fields with * are mandatory
               </v-row>
-              <v-row class="row1   elevation-4 pa-4" >
+              <v-row class="row1   border-2 border-black  pa-4" >
                 
                 <v-col md="12"  class="col1">
                   
@@ -47,10 +47,10 @@
         
         
         
-        <v-row v-for="(location, locationCounter) in hotelsForBrand.locations" class=" mt-10 pa-10 elevation-5">
+        <v-row v-for="(location, locationCounter) in hotelsForBrand.locations" class=" mt-10 pa-10 ">
           <v-col cols="11" md="10">
             <!-- Your content for the first column -->
-        <v-card class="elevation-5 pa-5">
+        <v-card class="border pa-5">
           <v-card-title>
             <v-text-field name="name" label="City/State *" prepend-inner-icon="mdi-city"
              v-model="location.locationName"  
@@ -119,12 +119,12 @@
 
                   <v-row v-for="(room, roomCounter) in hotel.rooms" :key="roomCounter">
                     <v-col md="3" density="compact" style="font-size: 2px;">
-                   <v-text-field label="Room Type">
+                   <v-text-field label="Room Type" v-model="hotel.rooms[roomCounter].type">
 
                    </v-text-field>
                   </v-col>
                    <v-col md="3">
-                     <v-text-field label="Average Rate">
+                     <v-text-field label="Average Rate" v-model="hotel.rooms[roomCounter].average_rate">
   
                      </v-text-field>
 

@@ -130,7 +130,7 @@
            Total Daily Allowance
     </v-col>
     <v-col md="10">
-         {{request.budget.totalDailyAllowance}}
+         {{request.requestBudget.totalDailyAllowance}}
     </v-col>
   </v-row>
   <v-row>
@@ -138,7 +138,7 @@
            Total Budget
     </v-col>
     <v-col md="10">
-         {{request.budget.totalBudget}}
+         {{request.requestBudget.totalBudget}}
     </v-col>
   </v-row>
   <v-row>
@@ -146,7 +146,7 @@
            Notes
     </v-col>
     <v-col md="10">
-        {{ request.budget.notes }}
+        {{ request.requestBudget.notes }}
     </v-col>
   </v-row>
 
@@ -171,7 +171,7 @@
             Total
           </v-col>
         </v-row>
-        <v-row v-for="(breakdown, breakdownCounter) in request.budget.breakdown">
+        <v-row v-for="(breakdown, breakdownCounter) in request.requestBudget.breakdown">
               <v-col md="3">
                 {{ breakdown.item }}
               </v-col>

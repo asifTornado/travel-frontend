@@ -27,8 +27,6 @@
       max-width="100%"
       elevated="2"
       hover
-      
-      
       :variant="'elevated'"
       :density="2"
    >
@@ -73,6 +71,7 @@
         <v-col md="6" class="text-left">
            End Date
         </v-col>
+        
         <v-col md="6" class="text-left">
            {{ trip.arrival_date }}
         </v-col>
@@ -177,8 +176,8 @@
         <v-btn size="small" @click="complete(request)" v-if="request && request.processed == false && request.status == 'Being Processed'" color="green d-print-none" class="hover:cursor-pointer ml-2" prepend-icon="mdi-cogs">Complete Processing</v-btn>
      </v-row>
 
-        </v-window-item>
-      </v-window>
+     </v-window-item>
+   </v-window>
    
 
 </v-card>

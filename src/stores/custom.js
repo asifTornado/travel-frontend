@@ -26,6 +26,7 @@ var {globalUrl} = storeToRefs(useGlobalStore())
 var {getUserByName} = useUserStore();
 var router = useRouter();
 var route = useRoute();
+var {user, token} = storeToRefs(useUserStore());
 
 
 var form = ref(null)
@@ -176,6 +177,7 @@ var submit = async () => {
   var data = new FormData();
   data.append("request", JSON.stringify(request))
   data.append("user", JSON.stringify(user.value))
+  data.append("token", token.value)
   
   console.log("these are the data being sent")
   console.log(data)
@@ -217,6 +219,7 @@ var getRequestForApproval = () => {
 
   var data = new FormData();
   data.append("id", id)
+  data.append("token", token.value)
   axios.post(globalUrl.value + "getRequestForApproval", data).then((result)=>{
     debugger
     request.value = result.data
@@ -225,7 +228,7 @@ var getRequestForApproval = () => {
     meetings.value = request.value.meetings
     items.value = request.value.items
     personnel.value = request.value.personnel
-    requestBudget.value = request.value.budget
+    requestBudget.value = request.value.requestBudget
     requestBudget.value.travelSupervisor = request.value.requester.superVisor.empName
 
     toast.clear();
@@ -242,8 +245,9 @@ var giveInfo = () => {
   request.value.objectives = objectives.value;
   request.value.items = items.value;
   request.value.personnel = personnel.value;
-  request.value.budget = requestBudget.value;
+  request.value.requestBudget = requestBudget.value;
   data.append("request", JSON.stringify(request.value))
+  data.append("token", token.value)
   axios.post(globalUrl.value + "giveInfo", data).then((result)=>{
     request.value = result.data
     toast.clear();
@@ -256,6 +260,7 @@ var permanentlyReject = () => {
   toast.info("Rejecting Permanently Please Wait...")
   var data = new FormData();
   data.append("request", JSON.stringify(request.value))
+  data.append("token", token.value)
   axios.post(globalUrl.value + "permanentlyReject", data).then((result)=>{
     request.value = result.data
     toast.clear()
@@ -268,6 +273,7 @@ var reject = () => {
   toast.info("Rejecting Please Wait...")
   var data = new FormData();
   data.append("request", JSON.stringify(request.value))
+  data.append("token", token.value)
   axios.post(globalUrl.value + "reject", data).then((result)=>{
     request.value = result.data
     toast.clear()
@@ -279,9 +285,17 @@ var reject = () => {
 
 
 var approve = () => {
+  debugger
   toast.info("Approving Please Wait...")
   var data = new FormData();
+  request.value.activities = activities.value;
+  request.value.meetings = meetings.value;
+  request.value.objectives = objectives.value;
+  request.value.items = items.value;
+  request.value.personnel = personnel.value;
+  request.value.requestBudget = requestBudget.value;
   data.append("request", JSON.stringify(request.value))
+  data.append("token", token.value)
   axios.post(globalUrl.value + "approve", data).then((result)=>{
     request.value = result.data
     toast.clear()

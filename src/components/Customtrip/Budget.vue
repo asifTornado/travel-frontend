@@ -14,12 +14,21 @@
        <v-text-field
         label="Total Daily Allowance"
         v-model="requestBudget.totalDailyAllowance"
+        type="text"
+       ></v-text-field>
+    </v-col>
+    <v-col md="3">
+       <v-text-field
+        label="Emergency Fund"
+        v-model="requestBudget.emergencyFund"
+        type="text"
        ></v-text-field>
     </v-col>
     <v-col md="3">
        <v-text-field
         label="Total Budget"
         v-model="requestBudget.totalBudget"
+        type="text"
        ></v-text-field>
     </v-col>
 </v-row>
@@ -37,6 +46,7 @@
                    <v-text-field
                     label="Quantity"
                     id="id"
+                    type="number"
                     v-model="requestBudget.breakdown[breakdownCounter].quantity"
                     @change="getTotal(breakdownCounter)"
                    ></v-text-field>
@@ -46,6 +56,7 @@
                     label="Cost"
                     id="id"
                     v-model="requestBudget.breakdown[breakdownCounter].cost"
+                    type="number"
                     @change="getTotal(breakdownCounter)"
                    ></v-text-field>
                </v-col>
@@ -53,6 +64,7 @@
                    <v-text-field
                     label="Total"
                     id="id"
+                    type="number"
                     v-model="requestBudget.breakdown[breakdownCounter].total"
                    ></v-text-field>
                </v-col>

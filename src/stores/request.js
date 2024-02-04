@@ -447,6 +447,8 @@ function book(condition){
  function departmentHeadApprove(){
   toast.info("Seeking approval please wait")
   toast.clear()
+
+
     var data = new FormData();
 
     data.append("user", JSON.stringify(user.value))
@@ -454,6 +456,7 @@ function book(condition){
     data.append("what", what.value)
     data.append("approval", approval.value)
     data.append("message", message.value)
+    
  
     axios.post(globalUrl.value + "departmentHeadApprove", data).then((result)=>{
        if(result.data == true){

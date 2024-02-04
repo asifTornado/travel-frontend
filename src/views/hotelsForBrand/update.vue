@@ -7,7 +7,7 @@
                 <v-row class="mb-2 text-subtitle font-weight-bold">
                     Fields with * are mandatory
                 </v-row>
-                <v-row class="row1 pa-4  elevation-3" >
+                <v-row class="row1 pa-4  elevation-3 border-2 border-black border-solid"  >
                   
                   <v-col md="12"  class="col1">
                     
@@ -47,10 +47,10 @@
           
           
           
-          <v-row v-for="(location, locationCounter) in hotelsForBrand.locations" class=" mt-10  elevation-5 pa-5">
-            <v-col cols="11" md="10">
+          <v-row v-for="(location, locationCounter) in hotelsForBrand.locations" class="border-2 border-solid border-slate-300 mt-10   pa-5">
+            <v-col cols="11" md="10" class="">
               <!-- Your content for the first column -->
-          <v-card class="pa-10 elevation-10">
+          <v-card class="pa-10 border-2 border-black border-solid">
             <v-card-title >
               <v-text-field name="name" label="City/State *" prepend-inner-icon="mdi-city"
                v-model="location.locationName"  
@@ -59,8 +59,8 @@
                 :rules="exist"
               id="id"></v-text-field></v-card-title>
               <v-card-text>
-                <v-container>
-                  <v-row v-for="(hotel, hotelCounter) in location.hotels" class="" align="center" justify="center">
+                <v-container v-for="(hotel, hotelCounter) in location.hotels" class="border-2 border-solid border-slate-400">
+                  <v-row  class="" align="center" justify="center">
                  
                       <v-col md="3">
                         
@@ -95,7 +95,7 @@
                       </v-col>
                       
                       
-                
+<!--                 
                     <v-col md="3"><v-text-field
                       name="name"
                       label="Average Rate *"
@@ -105,7 +105,8 @@
                       clearable
                       variant="solo"
                       :rules="exist"
-                      ></v-text-field></v-col>
+                      ></v-text-field>
+                    </v-col> -->
               
                       <v-col md="1" class="flex flex-col ">
                         <v-btn  prepend-icon="mdi-plus" size="small" color="" dark @click="addHotel(hotelCounter, locationCounter)"></v-btn>
@@ -116,6 +117,32 @@
                         
                       </v-col>
                     </v-row>
+
+
+                    <v-row v-for="(room, roomCounter) in hotel.rooms" :key="roomCounter">
+                    <v-col md="3" density="compact" style="font-size: 2px;">
+                   <v-text-field label="Room Type" v-model="hotel.rooms[roomCounter].type">
+
+                   </v-text-field>
+                  </v-col>
+                   <v-col md="3">
+                     <v-text-field label="Average Rate" v-model="hotel.rooms[roomCounter].average_rate">
+  
+                     </v-text-field>
+
+                   </v-col>
+
+                   <v-col md="1" class="flex flex-col ">
+                      <v-btn  prepend-icon="mdi-plus" class="mt-3" size="small" color="" dark @click="addRoom(roomCounter, hotelCounter, locationCounter)"></v-btn>
+                      
+                    </v-col>
+                    <v-col md="1" class="flex flex-col ">
+                      <v-btn prepend-icon="mdi-minus" class="mt-3" color="primary" size="small" dark @click="deleteRoom(roomCounter, hotelCounter, locationCounter)"></v-btn>
+                      
+                    </v-col>
+                  
+
+                  </v-row>
                   </v-container>
                 </v-card-text>
               </v-card>
@@ -153,7 +180,7 @@
   
   
   var {addLocation, deleteLocation, addHotel, deleteHotel, updateHotelsForBrand, getHotelsForBrand,
-  deleteHotelBackEnd, deleteLocationBackEnd} = useHotelsForBrandStore()
+  deleteHotelBackEnd, deleteLocationBackEnd, addRoom, deleteRoom} = useHotelsForBrandStore()
   
   getHotelsForBrand()
   

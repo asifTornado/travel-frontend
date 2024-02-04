@@ -60,6 +60,7 @@ function removeFlyer(counter){
                toast.success("Success")
               console.log(result.data)
               user.value = result.data.result
+              token.value = result.data.token
               console.log("this is the user")
               console.log(user.value)
                           

@@ -20,7 +20,7 @@ import { useAuthStore } from './auth';
 export const useTripStore = defineStore("trip", ()=>{
 var trips = ref([])
 debugger
-var {user} = storeToRefs(useAuthStore())
+var {user, token} = storeToRefs(useAuthStore())
 var best = ref();
 var ticketRevokeDialog = ref(false)
 var ticketBookDialog = ref(false)
@@ -33,7 +33,6 @@ var filteredTrips = ref([])
 var quoteGiver = ref('')
 var ticketQuotationSelection = ref([])
 var overlay = ref(false)
-var customHotelOverlay = ref(false)
 var bookSelection = ref([])
 var trip = ref()
 var toast = useToast()
@@ -58,6 +57,7 @@ var showLogs = ref(false);
 var request = ref();
 var type = ref("");
 var travelerCosts = ref([]);
+var selectedHotels = ref([]);
 
 
 
@@ -120,6 +120,7 @@ var emailRequestCustom = () => {
     data.append("userId", user.value._id)
     data.append("whom", "custom")
     data.append("type", type.value)
+    data.append("token", token.value)
 
     axios.post(globalUrl.value + "emailRequest", data).then((result)=>{
         location.reload()
@@ -136,6 +137,7 @@ var emailRequest = () => {
     data.append("userId", user.value._id)
     data.append("whom", "accounts")
     data.append("type", type.value)
+    data.append("token", token.value)
 
     axios.post(globalUrl.value + "emailRequest", data).then((result)=>{
         location.reload()
@@ -156,8 +158,10 @@ var openEmailDialogCustom = (request2) => {
 
 var complete = (request2) => {
    var data = new FormData();
+   data.append("token", token.value)
    data.append("request", JSON.stringify(request2))
    data.append("userId", user.value._id)
+   data.append("token", token.value)
 
    axios.post(globalUrl.value + "processed", data).then((result)=>{
        location.reload()
@@ -182,10 +186,12 @@ var openHotelRevokeDialog = (quotation2) => {
 
 var uploadFile = (event, what, quotation) => {
     var data = new FormData();
+    data.append("token", token.value)
     data.append("what", what)
     data.append("quotation", JSON.stringify(quotation)) 
     data.append("file", event.target.files[0])
     data.append("userId", user.value._id)
+    data.append("token", token.value)
 
     axios.post(globalUrl.value + "TUploadTicketFile", data).then((result) => {
            trip.value.quotations = trip.value.quotations.map((x)=>{ 
@@ -205,10 +211,12 @@ var uploadFile = (event, what, quotation) => {
 
 var uploadHotelFile = (event, what, quotation) => {
     var data = new FormData();
+    data.append("token", token.value)
     data.append("what", what)
     data.append("quotation", JSON.stringify(quotation)) 
     data.append("file", event.target.files[0])
     data.append("userId", user.value._id)
+    data.append("token", token.value)
 
     axios.post(globalUrl.value + "TUploadHotelFile", data).then((result) => {
         trip.value.hotelQuotations = trip.value.hotelQuotations.map((x)=>{
@@ -229,21 +237,41 @@ var uploadHotelFile = (event, what, quotation) => {
 
 
 var THotelConfirm = () => {
-
+   
     toast.info("Confirming please wait")
   
     
     var data = new FormData();
+    data.append("token", token.value)
     data.append("userId", user.value._id)
+    
 
   //   data.append("user", JSON.stringify(user.value))
 
     data.append("quotation", JSON.stringify(quotation.value))
     axios.post(globalUrl.value + "THotelConfirm", data).then((result)=>{
            if(result.data){
+
+            trip.value.hotelQuotations = trip.value.hotelQuotations.map((x)=>{
+                if(x._id == result.data.quotation._id){
+                    return result.data.quotation
+                }else{
+                    return x
+                }
+             })
+        
+             trip.value.requests = trip.value.requests.map((x) => {
+                if(x._id == result.data.request._id){
+                    return result.data.request
+                }else{
+                    return x
+                }
+             })
+
+             hotelConfirmDialog.value = false
            
              toast.success("Quotation Confirmed")
-             location.reload()
+             
            }
     }).catch((error)=>console.log(error))
 
@@ -258,14 +286,35 @@ var THotelRevoke = () => {
     
     var data = new FormData();
     data.append("userId", user.value._id)
+    data.append("token", token.value)
+ 
 
   //   data.append("user", JSON.stringify(user.value))
 
     data.append("quotation", JSON.stringify(quotation.value))
     axios.post(globalUrl.value + "THotelRevoke", data).then((result)=>{
            if(result.data){
+
+            trip.value.hotelQuotations = trip.value.hotelQuotations.map((x)=>{
+                if(x._id == result.data.quotation._id){
+                    return result.data.quotation
+                }else{
+                    return x
+                }
+             })
+        
+             trip.value.requests = trip.value.requests.map((x) => {
+                if(x._id == result.data.request._id){
+                    return result.data.request
+                }else{
+                    return x
+                }
+             })
            
-             toast.success("Quotation Revoked")
+            
+            hotelRevokeDialog.value = false
+            toast.success("Quotation Revoked")
+
              location.reload()
            }
     }).catch((error)=>console.log(error))
@@ -273,11 +322,11 @@ var THotelRevoke = () => {
 }
 
 
-var openProceedHotelQuotationDialog = (quotation2) => {
+var openProceedHotelQuotationDialog = (selectedHotels2) => {
  
     hotelQuotationDialog.value = false;
     proceedHotelQuotationDialog.value = true;
-    customQuote.value = quotation2
+    selectedHotels.value = selectedHotels2
 
 
 
@@ -296,21 +345,89 @@ var openHotelQuotationDialog = () => {
 }
 
 
+var generateCustomQuoteString = () => {
+    
+    debugger 
+
+    var travelerInfoString = `
+    `
+    for(var request of travelerCosts.value){
+        debugger
+        var newString =  `
+        <div>
+        <span>${request.name}</span>
+        <span>${request.totalcost} </span>
+        </div>
+        `;
+        travelerInfoString = travelerInfoString.concat(newString);
+    }
+     
+    customQuote.value = customQuote.value.concat(travelerInfoString)
+    
+    var newQuote = customQuote.value
+    return newQuote
+
+}
+
+var generateQuoteString = () => {
+    var quoteString = ` `
+    var grandTotal = 0;
+    for(var hotel of selectedHotels.value){
+        var total = hotel.numberOfRooms * hotel.actual_rate
+        grandTotal += total;
+        var string = `
+        
+        <div><span>Hotel</span> ${hotel.hotel}<div>      
+        
+        <div>
+        <span>Location:</span>${hotel.location} </span>
+        <span>Room Type: </span>${hotel.type}</span>
+        </div>
+        <div>
+        <span>Average Rate:</span><span>${hotel.average_rate}</span>
+        <span>Actual Rate:</span><span>${hotel.actual_rate}</span>
+        <span>Number of Rooms:</span><span>${hotel.numberOfRooms}</span>
+        </div>
+        `;
+        quoteString = quoteString.concat(string)
+    }
+   
+   
+    var grandTotalString = `<div>
+    <div>  
+ <span >Grand Total</span>
+ <span>${grandTotal}</span>
+    </div>
+`
+
+    quoteString = quoteString.concat(grandTotalString);
+    var travelerInfoString = `
+    `
+    for(var request of travelerCosts.value){
+        debugger
+        var newString =  `
+        <div>
+        <span>${request.name}</span>
+        <span>${request.totalcost} </span>
+        </div>
+        `;
+        travelerInfoString = travelerInfoString.concat(newString);
+    }
+    
+    quoteString = quoteString.concat(travelerInfoString);
+
+    return quoteString;
+
+}
+
+
 var TAddHotelQuote = () => {
     toast.info("Adding custom quote please wait")
     var data = new FormData()
+    data.append("token", token.value)
     data.append("userId", user.value._id)
     data.append("travelerCosts", JSON.stringify(travelerCosts.value))
- 
-    var quoteString = `
-    <div class='flex flex-col justify-start items-center'>
-    <h2><span class='font-bold'>Location:</span> ${customQuote.value.location}</h2>
-      <h3><span class='font-bold'> Hotel: </span> ${customQuote.value.hotel}</h3>
-      <p><span class='font-bold'> Rate: </span> ${customQuote.value.actual_rate}</p>
-    </div>
-    `
- 
-    
+    var quoteString = generateQuoteString();
     data.append("quoteString", quoteString)
     data.append("quoteGiver", user.value.empName)
     data.append("tripId", trip.value._id)
@@ -321,7 +438,16 @@ var TAddHotelQuote = () => {
 
 
     axios.post(globalUrl.value + "TAddHotelQuote", data).then((result)=>{
-        location.reload()
+         
+
+         trip.value.hotelQuotations.push(result.data);
+
+         
+         toast.clear()
+         toast.success("Hotel Quotation Added")
+
+         customHotelOverlay.value = false;
+         proceedHotelQuotationDialog.value = false;
         
     }).catch((error)=>console.log(error))
 }
@@ -351,12 +477,32 @@ var THotelUnBook = () => {
 
    data.append("quotation", JSON.stringify(quotation.value))
    data.append("userId", user.value._id)
+   data.append("token", token.value)
   
 
    
    axios.post(globalUrl.value + "THotelUnBook", data).then((result)=>{
       if(result.data){
       toast.clear()
+
+      trip.value.hotelQuotations = trip.value.hotelQuotations.map((x)=>{
+        if(x._id == result.data.quotation._id){
+            return result.data.quotation
+        }else{
+            return x
+        }
+     })
+
+     trip.value.requests = trip.value.requests.map((x) => {
+        if(x._id == result.data.request._id){
+            return result.data.request
+        }else{
+            return x
+        }
+     })
+
+
+
       toast.success("Successfully unbooked")
          
       hotelUnBookDialog.value = false;
@@ -374,14 +520,33 @@ var TTicketRevoke = () => {
   
     data.append("quotation", JSON.stringify(quotation.value))
     data.append("userId", user.value._id)
+    data.append("token", token.value)
 
     axios.post(globalUrl.value + "TTicketRevoke", data).then((result)=>{
   
            if(result.data){
              
              toast.clear()
+             trip.value.quotations = trip.value.quotations.map((x)=>{
+                if(x._id == result.data.quotation._id){
+                    return result.data.quotation
+
+                }else{
+                    return x
+                }
+             })
+
+
+             trip.value.requests = trip.value.requests.map((x) => {
+                if(x._id == result.data.request._id){
+                    return result.data.request
+                }else{
+                    return x
+                }
+             })
+             ticketRevokeDialog.value = false
              toast.success("Successfully revoked quotation")
-             location.reload()
+             
              
            }
     }).catch((error)=>console.log(error))
@@ -403,15 +568,32 @@ var TTicketConfirm = () => {
       
       var data = new FormData();
       data.append("userId", user.value._id)
+      data.append("token", token.value)
   
     //   data.append("user", JSON.stringify(user.value))
   
       data.append("quotation", JSON.stringify(quotation.value))
       axios.post(globalUrl.value + "TTicketConfirm", data).then((result)=>{
              if(result.data){
-             
+                trip.value.quotations = trip.value.quotations.map((x)=>{
+                    if(x._id == result.data.quotation._id){
+                        return result.data.quotation
+                    }else{
+                        return x
+                    }
+                 })
+
+                 trip.value.requests = trip.value.requests.map((x) => {
+                    if(x._id == result.data.request._id){
+                        return result.data.request
+                    }else{
+                        return x
+                    }
+                 })
+
+                 ticketConfirmDialog.value = false
                toast.success("Quotation confirmed")
-               location.reload()
+            
              }
       }).catch((error)=>console.log(error))
 }
@@ -434,6 +616,7 @@ var getAllTrips = () => {
 var getTrip = () => {
     var data = new FormData();
     data.append("id", route.params.id)
+    data.append("token", token.value)
     axios.post(globalUrl.value + "getTrip", data).then((result)=>{
         trip.value = result.data
     }).catch((error)=> console.log(error))
@@ -449,13 +632,14 @@ var showTrip = (id) => {
 var TAddCustomQuote = (what) => {
     toast.info("Adding custom quote please wait")
     var data = new FormData()
-    
-    data.append("quotation", customQuote.value)
+    data.append("token", token.value)
+    var newQuotation = generateCustomQuoteString()
+    data.append("quotation", newQuotation)
     data.append("quoteGiver", quoteGiver.value)
     data.append("tripId", trip.value._id)
     data.append("requestIds", JSON.stringify(ticketQuotationSelection.value))
     data.append("userId", user.value._id)
-    data.append("travelerCosts", JSON.stringify(travelerCosts))
+    data.append("travelerCosts", JSON.stringify(travelerCosts.value))
     
     data.append("what", what)
     
@@ -622,20 +806,31 @@ var TTicketBook = (condition) => {
      data.append("quotation", JSON.stringify(quotation.value)) 
      data.append("condition", condition)
      data.append("userId", user.value._id)
+     data.append("token", token.value)
    
 
 
      axios.post(globalUrl.value + "TTicketBook", data).then((result)=>{
         debugger
-         toast.success("Ticket Booked check")
+      
          ticketBookDialog.value = false
          trip.value.quotations = trip.value.quotations.map((x)=>{
-            if(x._id == result.data._id){
-                return result.data
+            if(x._id == result.data.quotation._id){
+                return result.data.quotation
             }else{
                 return x
             }
          })
+
+         trip.value.requests = trip.value.requests.map((x) => {
+            if(x._id == result.data.request._id){
+                return result.data.request
+            }else{
+                return x
+            }
+         })
+
+         toast.success("Ticket Booked check")
      }).catch((error)=>console.log(error))
 
 }
@@ -648,19 +843,30 @@ var THotelBook = (condition) => {
   data.append("quotation", JSON.stringify(quotation.value)) 
   data.append("condition", condition)
   data.append("userId", user.value._id)
+  data.append("token", token.value)
 
 
 
   axios.post(globalUrl.value + "THotelBook", data).then((result)=>{
-      toast.success("Hotel Booked")
+     
       hotelBookDialog.value = false
       trip.value.hotelQuotations = trip.value.hotelQuotations.map((x)=>{
-        if(x._id == result.data._id){
-            return result.data
+        if(x._id == result.data.quotation._id){
+            return result.data.quotation
         }else{
             return x
         }
-      })
+     })
+
+     trip.value.requests = trip.value.requests.map((x) => {
+        if(x._id == result.data.request._id){
+            return result.data.request
+        }else{
+            return x
+        }
+     })
+     toast.success("Hotel Booked")
+
   }).catch((error)=>console.log(error))
 
 
@@ -683,15 +889,34 @@ var unBook = () => {
    data.append("quotation", JSON.stringify(quotation.value))
    data.append("requests", JSON.stringify(trip.value.requests))
    data.append("userId", user.value._id)
+   data.append("token", token.value)
 
    
    axios.post(globalUrl.value + "TUnBook", data).then((result)=>{
       if(result.data){
       toast.clear()
+      
+      trip.value.quotations = trip.value.quotations.map((x)=>{
+          if(x._id == result.data.quotation._id){
+              return result.data.quotation
+            }else{
+                return x
+            }
+        })
+    
+        trip.value.requests = trip.value.requests.map((x) => {
+            if(x._id == result.data.request._id){
+                return result.data.request
+            }else{
+                return x
+            }
+         })
+        
+      ticketUnBookDialog.value = false;
+
       toast.success("Successfully unbooked")
          
-      ticketUnBookDialog.value = false;
-      location.reload();
+     
        }  
    }).catch((error)=>console.log(error))
 }
@@ -785,6 +1010,9 @@ return {
     addTraveler,
     removeTraveler,
     addOrRemoveTraveler,
+    generateQuoteString,
+    generateCustomQuoteString,
+    selectedHotels,
     request,
     emailRecipient,
     emailDialogAccounts,

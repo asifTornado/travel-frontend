@@ -15,8 +15,10 @@ import { toastInjectionKey } from 'vue-toastification';
 
 
 export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
-   
+    
+    var selectedHotels = ref([])
 
+    var hotelsForBrands = ref([])
 
     var hotelsForBrand = ref({
         // _id:'',
@@ -383,7 +385,7 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
 
 
     return {
-        hotelsForBrand, brand, location, form, exist,
+        hotelsForBrand, brand, location, form, exist, hotelsForBrands, selectedHotels,
          
         addRoom, deleteRoom,
         searchHotelsForBrands, resetHotelsForBrand, deleteHotelBackEnd, deleteLocationBackEnd,

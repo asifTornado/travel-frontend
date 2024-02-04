@@ -19,9 +19,9 @@ class="align-center justify-center w-full pa-10"
     
     
     
-    <div class="w-full h-auto flex flex-col   bg-white  pa-2 mt-5">
-       <div class="font-bold text-xl w-full text-center"> Search</div>
-        <div class=" w-full h-auto flex flex-row justify-start ">
+    <div class="w-full h-auto flex flex-col   bg-white   mt-2">
+      
+        <div class=" w-full h-auto flex flex-row justify-start">
          <v-container >
            <v-row >
              
@@ -54,6 +54,11 @@ class="align-center justify-center w-full pa-10"
       Search
     </v-btn>
               </v-col>
+              <v-col>
+                <v-btn  @click="openProceedHotelQuotationDialog(selectedHotels)" class="mt-2" size="large" color="green">
+                      Proceed
+                </v-btn>
+              </v-col>
              
            </v-row>
      
@@ -67,6 +72,7 @@ class="align-center justify-center w-full pa-10"
       <v-table class="border border-solid border-black mt-[10px] mx-[10px] elevation-4 overflow-y-scroll">
             <thead class="bg-blue-400 ">
               <tr>
+                <th class="text-center text-white">Selection</th>
                 <th class="text-center text-white">
                   Brand
                 </th>
@@ -76,6 +82,9 @@ class="align-center justify-center w-full pa-10"
                 </th>
                 <th class="text-center text-white">
                   Location
+                </th>
+                <th class="text-center text-white">
+                  Room Type
                 </th>
                 <th class="text-center text-white">
                   Average Rate
@@ -88,7 +97,7 @@ class="align-center justify-center w-full pa-10"
                   Actual Rate
                 </th>    
                 <th class="text-center text-white">
-              
+                 Number of Rooms
                 </th>
               
               
@@ -99,10 +108,14 @@ class="align-center justify-center w-full pa-10"
                 v-for="(hotelForBrand, hotelForBrandCounter) in hotelsForBrands"
                 :key="hotelForBrandCounter" class=" " 
               >
+              <td class="text-center" justify="center" align="center">
+                   <v-checkbox v-model="selectedHotels" :value="hotelsForBrands[hotelForBrandCounter]"></v-checkbox>
+              </td>
               <td class="text-center">{{ hotelForBrand.brand }}</td>
                 <td class="text-center">{{ hotelForBrand.hotel }}</td>
                
                 <td class="text-center">{{ hotelForBrand.location }}</td>
+                <td class="text-center">{{ hotelForBrand.type }}</td>
                 <td class="text-center">{{ hotelForBrand.average_rate }}</td>
                 <!--class="text-center" <td >{{ budget.mode }}</td> -->
                 <td class="text-center">
@@ -114,7 +127,18 @@ class="align-center justify-center w-full pa-10"
                 ></v-text-field>
                 </td>
               
-               <td class="hover:cursor-pointer hover:bg-green-500 font-bold hover:text-white" @click="openProceedHotelQuotationDialog(hotelForBrand)">Select</td>
+               <!-- <td class="hover:cursor-pointer hover:bg-green-500 font-bold hover:text-white" @click="openProceedHotelQuotationDialog(hotelForBrand)">Select</td> -->
+               <td class="text-center">
+                    <v-text-field
+                    name="numberOfRooms"
+                    label="Number of Rooms"
+                    id="numberOfRooms"
+                    v-model="hotelsForBrands[hotelForBrandCounter].numberOfRooms"
+                    >
+
+                    </v-text-field>
+               </td>
+
               </tr>
             </tbody>
           </v-table>
@@ -155,7 +179,7 @@ var {hotelQuotationDialog, trip} = storeToRefs(useTripStore())
 var {TAddHotelQuote, openProceedHotelQuotationDialog} = useTripStore()
 
 
-var {brand, location, hotelsForBrands} = storeToRefs(useHotelsForBrandStore())
+var {brand, location, hotelsForBrands, selectedHotels} = storeToRefs(useHotelsForBrandStore())
 
 
 

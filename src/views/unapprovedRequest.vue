@@ -270,7 +270,7 @@
         </v-row>
     </v-container>
     
- <template v-if="user && request && request.requester && user._id == request.requesterId && request.currentHandlerId == user._id">
+ <template v-if="user && request && request.requester && user._id == request.requesterId && request.currentHandlerId == user._id && request.status != 'Seeking Supervisor Approval For Trip'">
           <Activities/>
           <Objectives/>
           <Personnel/>

@@ -3,11 +3,11 @@
 :model-value="proceedHotelQuotationDialog"
 
 
-
+persistent
 scrim="blue"
 class="align-center justify-center w-full"
 >
-<v-container class="bg-white min-w-[80vw] pa-5 bg-grey-lighten-2">
+<v-container class="bg-white min-w-[80vw] pa-5 ">
 
     <v-row class="" justify="center" align="center">
 
@@ -19,7 +19,7 @@ class="align-center justify-center w-full"
         <v-row class=" bg-white">
             
             <v-col cols v-for="(request, requestCounter) in trip.requests" :key="requestCounter">
-                <v-checkbox v-if="request.supervisorApproved == true && request.confirmed == true" :label="request.requester.empName" v-model="ticketQuotationSelection" :value="request._id"></v-checkbox>
+                <v-checkbox @change="addOrRemoveTraveler($event, request)" v-if="request.supervisorApproved == true && request.confirmed == true" :label="request.requester.empName" v-model="ticketQuotationSelection" :value="request._id"></v-checkbox>
             </v-col>
             <v-col cols >
                 <v-checkbox label="All" v-if="trip.requests.filter(x => x.supervisorApproved == true).length > 1" @change="ticketQuotationAll"  ></v-checkbox>
@@ -27,6 +27,46 @@ class="align-center justify-center w-full"
     
 
 </v-row> 
+<v-container>
+   <v-table
+    fixed-header
+    height="300px"
+    width="100px"
+    density="compact"
+    hover
+  >
+    <thead>
+      <tr class="bg-white">
+        <th class="text-center text-h6 text-black font-weight-bold">
+          Name
+        </th>
+        <th class="text-center text-h6 text-black font-weight-bold">
+          Total  Cost
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+      v-for="(cost, counter) in travelerCosts" :key="counter" 
+      class="bg-grey-lighten-5"
+      density="compact"
+      >
+        <td  class=" text-center " justify="center" align="center" >{{ cost.name }}</td>
+        <td justify="center" align-self="center" align="center" density="compact"> 
+         <v-text-field
+
+         class="text-center mt-3 "
+         name="totalcost"
+         density="compact"
+         id="totalCost"
+         
+         v-model="travelerCosts[counter].totalcost"
+       ></v-text-field></td>
+      </tr>
+    </tbody>
+  </v-table>
+
+</v-container>
 
 <v-row class="mt-2">
   
@@ -51,8 +91,8 @@ import { useTripStore } from '../../stores/trips';
 import {storeToRefs} from 'pinia';
 
 
-var {proceedHotelQuotationDialog, trip, ticketQuotationSelection} = storeToRefs(useTripStore())
-var {TAddHotelQuote, ticketQuotationAll, TAddCustomQuote} = useTripStore()
+var {proceedHotelQuotationDialog, trip, ticketQuotationSelection, travelerCosts} = storeToRefs(useTripStore())
+var {TAddHotelQuote, ticketQuotationAll, TAddCustomQuote, addOrRemoveTraveler} = useTripStore()
 
 
 </script>
