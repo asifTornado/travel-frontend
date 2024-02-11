@@ -4,17 +4,18 @@
     app
     right
     width="500"
+  
     
     clipped
   >
-    <div class="d-flex flex-row justify-between align-center pa-3 border-bottom border-1 border-black">
+    <div class="d-flex flex-row justify-between align-center pa-3 border-bottom border-1 border-black ">
       <label class="text-h5 font-weight-bold d-flex flex-row align-center justify-center w-100">Notifications</label>
       <v-icon large @click="notificationCheck = false">mdi-close</v-icon>
     </div>
     <div 
       v-for="(notification, notificationCounter) in notifications"
       :key="notificationCounter"
-      class="d-flex flex-column pa-3 border border-solid border-black hover:bg-gray-300 text-black hover:text-white border-bottom border-1 border-grey lighten-3"
+      class="d-flex flex-column pa-3 shadow-sm shadow-black hover:bg-gray-300 text-black hover:text-white "
     >
       <div v-if="notification.type === 'chat'" @click="getToSource($event, notification)" class="d-flex flex-column hover:cursor-pointer pa-3">
         <div>You have received a message from {{ notification.from.empName }}:</div>

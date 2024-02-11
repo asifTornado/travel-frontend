@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="showExpenseReportDialog" class="ml-12">
+    <v-dialog v-model="showExpenseReportDialog" class="ml-12" persistent>
 
 
         <v-container class="bg-white overflow-y-scroll ml-10 " id="report"   ref="report">

@@ -4,6 +4,7 @@
     v-model="ticketBookDialog"
     width="50%"
     height="auto"
+    persistent
     >
    
   

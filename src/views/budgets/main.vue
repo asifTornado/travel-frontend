@@ -5,33 +5,33 @@
 
 <div class="mx-10 pl-[50px] ">
 
-<v-table class="border-2 border-solid border-black elevation-4 overflow-y-scroll max-h-[80vh]">
-    <thead class="border-2 border-b-solid border-b-black bg-blue-lighten-1 ">
+<v-table fixed-header max-height="60vh" class=" elevation-4  max-h-[80vh]" density="compact">
+    <thead class=" bg-blue-lighten-1 ">
       <tr>
       
         
-        <th class="text-center text-xl text-white " >
+        <th class="text-center text-xl text-white bg-blue-lighten-2" >
           Destination
-        </th>
-        <th class="text-center text-xl text-white " >
+        </th> 
+        <th class="text-center text-xl text-white bg-blue-lighten-2" >
           Purpose
         </th>
-        <th class="text-center text-xl text-white " >
+        <th class="text-center text-xl text-white bg-blue-lighten-2" >
           Departure Date
         </th>
-        <th class="text-center text-xl text-white " >
+        <th class="text-center text-xl text-white bg-blue-lighten-2" >
           Arrival Date
         </th>
-        <th class="text-center text-xl text-white " >
+        <th class="text-center text-xl text-white bg-blue-lighten-2" >
           Estimated Total Cost
         </th>
-        <th class="text-center text-xl text-white " >
+        <th class="text-center text-xl text-white bg-blue-lighten-2" >
           Initiated
         </th>
-        <th class="text-center text-xl text-white " >
+        <th class="text-center text-xl text-white bg-blue-lighten-2" >
 
         </th>
-        <th class="text-center text-xl text-white " >
+        <th class="text-center text-xl text-white bg-blue-lighten-2" >
 
         </th>
       

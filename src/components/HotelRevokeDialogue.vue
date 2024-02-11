@@ -2,6 +2,7 @@
     <v-dialog
     v-model="hotelRevokeDialogue"
     width="auto"
+    persistent
     >
     <v-card>
       <v-card-text>

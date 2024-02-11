@@ -3,6 +3,7 @@
 :model-value="proceedHotelQuotationDialog"
 
 
+
 persistent
 scrim="blue"
 class="align-center justify-center w-full"
@@ -22,7 +23,7 @@ class="align-center justify-center w-full"
                 <v-checkbox @change="addOrRemoveTraveler($event, request)" v-if="request.supervisorApproved == true && request.confirmed == true" :label="request.requester.empName" v-model="ticketQuotationSelection" :value="request._id"></v-checkbox>
             </v-col>
             <v-col cols >
-                <v-checkbox label="All" v-if="trip.requests.filter(x => x.supervisorApproved == true).length > 1" @change="ticketQuotationAll"  ></v-checkbox>
+                <v-checkbox label="All"  v-if="trip.requests.filter(x => x.supervisorApproved == true && x.departmentHeadApproved == true).length > 1" @change="ticketQuotationAll"  ></v-checkbox>
     </v-col>
     
 
@@ -59,6 +60,7 @@ class="align-center justify-center w-full"
          name="totalcost"
          density="compact"
          id="totalCost"
+         variant="solo"
          
          v-model="travelerCosts[counter].totalcost"
        ></v-text-field></td>
@@ -71,7 +73,7 @@ class="align-center justify-center w-full"
 <v-row class="mt-2">
   
     <v-col md="12" class="text-end">
-       <v-btn color="success" @click="TAddHotelQuote">Proceed</v-btn>
+       <v-btn color="success" class="mr-2" @click="TAddHotelQuote">Proceed</v-btn>
        <v-btn color="warning" @click="proceedHotelQuotationDialog = false">Cancel</v-btn>
     </v-col>
 

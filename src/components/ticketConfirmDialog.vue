@@ -3,6 +3,7 @@
     <v-dialog
     v-model="ticketConfirmDialog"
     width="auto"
+    persistent
     >
     <v-card>
       <v-card-text>

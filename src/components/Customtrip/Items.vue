@@ -8,13 +8,13 @@
         </v-row>
             <v-row  v-for="(item, itemCounter) in items" :key="itemCounter">
                 <v-col md="10">
-                    <v-textarea :label="'Item ' + (itemCounter + 1)" rows="1" v-model="items[itemCounter]">
+                    <v-textarea      variant="outlined" density="compact" :label="'Item ' + (itemCounter + 1)" rows="1" v-model="items[itemCounter]">
                         
                     </v-textarea>
                 </v-col>
                 <v-col md="2" >
-                    <v-btn color="success" @click="add(itemCounter)"><v-icon>mdi-plus</v-icon></v-btn>
-                    <v-btn color="red" @click="remove(itemCounter)" ><v-icon>mdi-minus</v-icon></v-btn>
+                    <v-btn class="bg-blue-darken-4" @click="add(itemCounter)"><v-icon>mdi-plus</v-icon></v-btn>
+                    <v-btn class="bg-blue-lighten-1"  @click="remove(itemCounter)" ><v-icon>mdi-minus</v-icon></v-btn>
                 </v-col>
             </v-row>
       
@@ -74,7 +74,6 @@
 
 
 .v-container {
-    border:2px solid grey;
 }
 
 </style>

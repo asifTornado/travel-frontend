@@ -5,7 +5,7 @@
      <v-divider></v-divider>
 
      <v-form @submit.prevent="updateUser" ref="form">
-      <v-container class="bg-grey-lighten-3 font-weight-bold">
+      <v-container class="bg-blue-lighten-5 font-weight-bold">
       <v-row >
         Fields with * are mandatory
       </v-row>
@@ -90,7 +90,7 @@
                 id="section"
                 type="text"
                 v-model="user.section"
-                :rules="exist"
+             
               ></v-text-field>
               </v-col>
 
@@ -171,7 +171,7 @@
                id="passwort number"
                type="text"
                v-model="user.passportNo"
-               :rules="exist"
+            
                ></v-text-field>
                </v-col>
                
@@ -234,9 +234,13 @@
               </v-col>
 
               <v-col md="6" class="flex flex-row justify-start items-center mb-4" >
-                <v-btn color="green" prepend-icon="mdi-plus" class="mr-4" @click="insertFlyer(flyerCounter)"></v-btn>
+                <v-btn  class="bg-blue-darken-4 mr-4" @click="insertFlyer(flyerCounter)">
+                <v-icon>mdi-plus</v-icon>
+                </v-btn>
         
-                <v-btn color="red" prepend-icon="mdi-minus" @click="removeFlyer(flyerCounter)"></v-btn>
+                <v-btn class="bg-blue-lighten-2 text-white"  @click="removeFlyer(flyerCounter)">
+                <v-icon>mdi-minus</v-icon>
+                </v-btn>
               </v-col>
             </v-row>
 
@@ -261,13 +265,13 @@
             </v-row>
 
 
-
+<!-- 
             <v-row>
               <v-col cols="12" md="12">
                  <v-autocomplete label="User's Travel Handler*"   :rules="exist" :items="mappedUsers" v-model="user.travelHandler.empName" v-if="user.travelHandler"></v-autocomplete>
-                 <!-- <v-autocomplete label="User's Zonal Head" :items="mappedUsers" v-model="user.zonalHead" v-else></v-autocomplete> -->
-              </v-col>
-            </v-row>
+                 <v-autocomplete label="User's Zonal Head" :items="mappedUsers" v-model="user.zonalHead" v-else></v-autocomplete> -->
+              <!-- </v-col>
+            </v-row> --> 
           </v-container>
     
     
@@ -282,7 +286,7 @@
         
 </v-container>
           <v-divider></v-divider>
-     <v-container style="margin-bottom:20vh" class="bg-grey-lighten-3">
+     <v-container style="margin-bottom:20vh" class="mt-5 bg-blue-lighten-5">
        
 
          

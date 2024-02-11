@@ -199,14 +199,7 @@
                    {{ request.requester.zonalHead.empName }}
                 </v-col>
              </v-row>
-             <v-row class="pl-[80px]">
-                <v-col md="6" class="text-left">
-                   Travel Handler
-                </v-col>
-                <v-col md="6" class="text-left">
-                   {{ request.requester.travelHandler.empName }}
-                </v-col>
-             </v-row>
+          
          
             </v-card>
     
@@ -566,8 +559,8 @@ class="align-center justify-center w-full"
     </v-row>
 
     <div class="w-full flex flex-row justify-center items-center mt-3" >
-<div v-if="(request && user && (user.userType == 'admin' || user.mailAddress == request.travelHandler.mailAddress )) && request.confirmed == true && request.hotelConfirmed == false" class="p-3 mr-4 bg-blue-500 text-white font-bold hover:bg-blue-900 hover:text-black hover:cursor-pointer" @click="hotelOverlay = !hotelOverlay" >Add Hotel Quotation</div>
-<div v-if="(request && user && (user.userType == 'admin' || user.mailAddress == request.travelHandler.mailAddress )) && request.confirmed == true && request.hotelConfirmed == false" class="p-3 bg-blue-500 text-white font-bold hover:bg-blue-900 hover:text-black hover:cursor-pointer" @click="customHotelOverlay = !customHotelOverlay" >Add Custom Hotel Quotation</div>
+<div v-if="(request && user && (user.userType == 'admin')) && request.confirmed == true && request.hotelConfirmed == false" class="p-3 mr-4 bg-blue-500 text-white font-bold hover:bg-blue-900 hover:text-black hover:cursor-pointer" @click="hotelOverlay = !hotelOverlay" >Add Hotel Quotation</div>
+<div v-if="(request && user && (user.userType == 'admin' )) && request.confirmed == true && request.hotelConfirmed == false" class="p-3 bg-blue-500 text-white font-bold hover:bg-blue-900 hover:text-black hover:cursor-pointer" @click="customHotelOverlay = !customHotelOverlay" >Add Custom Hotel Quotation</div>
 </div>
     
     
@@ -626,7 +619,7 @@ class="align-center justify-center w-full"
     
     
     
-    <div class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" v-if="user && request &&( (request.requester.travelHandler && request.requester.travelHandler.mailAddress == user.mailAddress) || (user.userType == 'admin')) && request.status == 'Seeking Invoices'">
+    <div class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" v-if="user && request && (user.userType == 'admin') && request.status == 'Seeking Invoices'">
        <v-btn @click="openEmailDialogue('accounts')" class="d-print-none" color="blue">Email To Accounts</v-btn>
     </div>
     
@@ -636,7 +629,7 @@ class="align-center justify-center w-full"
     </div>
     
     
-    <div class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" v-if="user && request &&( (request.requester.travelHandler && request.requester.travelHandler.mailAddress == user.mailAddress) || (user.userType == 'admin')) && request.status == 'Being Processed'">
+    <div class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" v-if="user && request & (user.userType == 'admin') && request.status == 'Being Processed'">
        <v-btn @click="complete" color="green d-print-none" prepend-icon="mdi-cogs">Complete Processing</v-btn>
     </div>
     

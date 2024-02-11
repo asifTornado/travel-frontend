@@ -219,9 +219,13 @@
               </v-col>
 
               <v-col md="6" class="flex flex-row justify-start items-center mb-4" >
-                <v-btn color="green" prepend-icon="mdi-plus" class="mr-4" @click="insertFlyer(flyerCounter)"></v-btn>
+                <v-btn  class="mr-4 bg-blue-darken-4" @click="insertFlyer(flyerCounter)">
+                <v-icon>mdi-plus</v-icon>
+                </v-btn>
         
-                <v-btn color="red" prepend-icon="mdi-minus" @click="removeFlyer(flyerCounter)"></v-btn>
+                <v-btn class="bg-blue-lighten-2 text-white"  @click="removeFlyer(flyerCounter)">
+                <v-icon>mdi-minus</v-icon>
+                </v-btn>
               </v-col>
             </v-row>
 

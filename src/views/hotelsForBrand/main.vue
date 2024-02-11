@@ -2,8 +2,8 @@
 
     <div class="mx-10 pl-[50px] mt-16 ">
     
-    <v-table class="border-2 border-solid border-black bg-white"> 
-        <thead class="border-b-2 border-b-solid border-b-black text-white" >
+    <v-table fixed-header max-height="60vh" class=" elevation-4 bg-white" density="compact"> 
+        <thead class=" text-white" >
           <tr>
             <th class="text-center font-extrabold text-xl  bg-blue-lighten-1" style="padding: 8px;">
               Brand Name

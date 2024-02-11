@@ -1,20 +1,20 @@
 <template>
 <v-container class="mt-10 mb-10 elevation-5">
       <v-row>
-               <v-col align=center justify="center" md="12" class="font-weight-bold">
+               <v-col align="center" justify="center" md="12" class="font-weight-bold">
                   Objectives
                </v-col>
 
         </v-row>
-               <v-row justify="center" align="center" v-for="(objective, objectiveCounter) in objectives" :key="objectiveCounter">
+               <v-row  v-for="(objective, objectiveCounter) in objectives" :key="objectiveCounter">
                 <v-col md="10">
-                     <v-textarea rows="1" :label="'Objective ' + (objectiveCounter + 1)" v-model="objectives[objectiveCounter]">
+                     <v-textarea       variant="outlined" rows="1" density="compact" :label="'Objective ' + (objectiveCounter + 1)" v-model="objectives[objectiveCounter]">
                                                   
                      </v-textarea>
                 </v-col>
                 <v-col md="2">
-                     <v-btn color="success" @click="add(objectiveCounter)"><v-icon>mdi-plus</v-icon></v-btn>
-                     <v-btn color="red" @click="remove(objectiveCounter)" ><v-icon>mdi-minus</v-icon></v-btn>
+                     <v-btn class="bg-blue-darken-4" @click="add(objectiveCounter)"><v-icon>mdi-plus</v-icon></v-btn>
+                     <v-btn class="bg-blue-lighten-1" @click="remove(objectiveCounter)" ><v-icon>mdi-minus</v-icon></v-btn>
                 </v-col>
                </v-row>
           
@@ -75,7 +75,7 @@ var remove = (counter) => {
 
 
 .v-container {
-    border:2px solid grey;
+   
 }
 
 

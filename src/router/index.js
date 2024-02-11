@@ -205,9 +205,9 @@ const routes = [
 
 
       {
-        path: 'email/:requestId/:userId',
+        path: 'email/:id/:token',
         name: 'emailRequest',
-        component: () => import('../views/emailRequest.vue')
+        component: () => import('../views/request.vue')
       },
 
 

@@ -9,15 +9,15 @@
     
     
       </v-row>
-               <v-row justify="center" align="center" v-for="(person, personnelCounter) in personnel" :key="personnelCounter">
+               <v-row  v-for="(person, personnelCounter) in personnel" :key="personnelCounter">
                 <v-col md="10">
-                     <v-textarea rows="1" label="Object" v-model="personnel[personnelCounter]">
+                     <v-textarea density="compact"      variant="outlined" rows="1" :label="'Personnel' + (personnelCounter + 1)" v-model="personnel[personnelCounter]">
                                                   
                      </v-textarea>
                 </v-col>
                 <v-col md="2">
-                     <v-btn color="success" @click="add(personnelCounter)"><v-icon>mdi-plus</v-icon></v-btn>
-                     <v-btn color="red" @click="remove(personnelCounter)" ><v-icon>mdi-minus</v-icon></v-btn>
+                     <v-btn class="bg-blue-lighten-1" @click="add(personnelCounter)"><v-icon>mdi-plus</v-icon></v-btn>
+                     <v-btn class="bg-blue-darken-4" @click="remove(personnelCounter)" ><v-icon>mdi-minus</v-icon></v-btn>
                 </v-col>
                </v-row>
          
@@ -77,7 +77,6 @@ var remove = (counter) => {
 
 
 .v-container {
-    border:2px solid grey;
 }
 
 </style>

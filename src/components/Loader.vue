@@ -3,6 +3,7 @@
     <v-dialog
     v-model="show"
     width="auto"
+    persistent
 >
   <img src="../assets/loader.svg" alt="">
   <span class="text-h5 text-black">

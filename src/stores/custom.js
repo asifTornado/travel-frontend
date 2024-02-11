@@ -26,7 +26,7 @@ var {globalUrl} = storeToRefs(useGlobalStore())
 var {getUserByName} = useUserStore();
 var router = useRouter();
 var route = useRoute();
-var {user, token} = storeToRefs(useUserStore());
+var {user, token} = storeToRefs(useAuthStore());
 
 
 var form = ref(null)
@@ -52,6 +52,7 @@ var requestBudget = ref({
   travelSupervisor:'',
   totalDailyAllowance:'',
   totalBudget:'',
+  emergencyFund:'',
   approvalStatus:'',
   notes:'',
   breakdown:[{
@@ -283,11 +284,52 @@ var reject = () => {
 }
 
 
+var validate = (item) => {
+  
+  
+  debugger
+  
+  var notValid = true
+
+  for(var x in item.value){
+    if(x == 'approvalStatus'){
+      continue
+    }
+    if(item.value[x] == null || item.value[x] == ''){
+     notValid = false;
+     item.value[x] = ''
+    }
+  }
+
+  for(var y of item.value.breakdown){
+    debugger
+     for(var z in y){
+      if(y[z] == null || y[z] == ''){
+        notValid = false;
+        y[z] = ''
+      }
+     }
+  }
+
+  return notValid
+}
+
 
 var approve = () => {
   debugger
   toast.info("Approving Please Wait...")
   var data = new FormData();
+   
+
+   var valid = validate(requestBudget)
+    
+   if(valid == false){
+    toast.clear()
+    toast.warning("Required Fields Missing")
+    return
+   }
+
+
   request.value.activities = activities.value;
   request.value.meetings = meetings.value;
   request.value.objectives = objectives.value;
@@ -303,6 +345,64 @@ var approve = () => {
   }).catch((error)=> toast.warning(error))
 
 }
+
+
+var DepartmentHeadPermanentlyRejectTrip = () => {
+  toast.info("Rejecting Permanently Please Wait...")
+  var data = new FormData();
+  data.append("request", JSON.stringify(request.value))
+  data.append("token", token.value)
+  axios.post(globalUrl.value + "departmentHeadPermanentlyRejectTrip", data).then((result)=>{
+    request.value = result.data
+    toast.clear()
+    toast.success("Success")
+  }).catch((error)=> toast.warning(error))
+
+}
+
+
+var departmentHeadRejectTrip = () => {
+  toast.info("Rejecting Please Wait...")
+  var data = new FormData();
+  debugger
+  data.append("request", JSON.stringify(request.value))
+  data.append("token", token.value)
+  axios.post(globalUrl.value + "departmentHeadRejectTrip", data).then((result)=>{
+    request.value = result.data
+    toast.clear()
+    toast.success("Success")
+  }).catch((error)=> toast.warning(error))
+
+}
+
+
+var departmentHeadApproveTrip = () => {
+  console.log("department head approved called")
+  debugger
+  toast.info("Approving Please Wait...")
+  var data = new FormData();
+   
+
+   var valid = validate(requestBudget)
+    
+   if(valid == false){
+    toast.clear()
+    toast.warning("Required Fields Missing")
+    return
+   }
+
+
+  
+  data.append("request", JSON.stringify(request.value))
+  data.append("token", token.value)
+  axios.post(globalUrl.value + "departmentHeadApproveTrip", data).then((result)=>{
+    request.value = result.data
+    toast.clear()
+    toast.success("Success")
+  }).catch((error)=> toast.warning(error))
+
+}
+
 
 
 return {
@@ -331,6 +431,9 @@ return {
     form,
     exist,
     request,
+    departmentHeadApproveTrip,
+    departmentHeadRejectTrip,
+    DepartmentHeadPermanentlyRejectTrip,
     permanentlyReject,
     reject,
     approve,

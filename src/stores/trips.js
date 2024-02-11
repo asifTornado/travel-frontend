@@ -113,6 +113,7 @@ var openEmailDialogAccounts = (request2) => {
 
 
 var emailRequestCustom = () => {
+    toast.info("Mailing please wait....")
     var data = new FormData();
     data.append("recipient", emailRecipient.value)
     data.append("user", JSON.stringify(user.value))
@@ -123,6 +124,8 @@ var emailRequestCustom = () => {
     data.append("token", token.value)
 
     axios.post(globalUrl.value + "emailRequest", data).then((result)=>{
+        toast.clear();
+        toast.success("Mailed Successfully")
         location.reload()
     }).catch((error)=> toast.warning(error))
 }
@@ -130,6 +133,8 @@ var emailRequestCustom = () => {
 
 
 var emailRequest = () => {
+    toast.info("Mailing please wait...")
+
     var data = new FormData();
     data.append("recipient", emailRecipient.value)
     data.append("user", JSON.stringify(user.value))
@@ -140,6 +145,8 @@ var emailRequest = () => {
     data.append("token", token.value)
 
     axios.post(globalUrl.value + "emailRequest", data).then((result)=>{
+        toast.clear()
+        toast.success("Mailed Successfully")
         location.reload()
     }).catch((error)=> toast.warning(error))
 
@@ -185,15 +192,20 @@ var openHotelRevokeDialog = (quotation2) => {
 
 
 var uploadFile = (event, what, quotation) => {
+    debugger
+    toast.info("Uploading File Please Wait")
     var data = new FormData();
     data.append("token", token.value)
     data.append("what", what)
     data.append("quotation", JSON.stringify(quotation)) 
     data.append("file", event.target.files[0])
     data.append("userId", user.value._id)
-    data.append("token", token.value)
+ 
 
     axios.post(globalUrl.value + "TUploadTicketFile", data).then((result) => {
+        toast.clear()
+        toast.success("File Uploaded Successfully")
+        debugger
            trip.value.quotations = trip.value.quotations.map((x)=>{ 
                    
             if(x._id == quotation._id){
@@ -210,15 +222,18 @@ var uploadFile = (event, what, quotation) => {
 
 
 var uploadHotelFile = (event, what, quotation) => {
+    toast.info("Uploading File Please Wait")
     var data = new FormData();
     data.append("token", token.value)
     data.append("what", what)
     data.append("quotation", JSON.stringify(quotation)) 
     data.append("file", event.target.files[0])
     data.append("userId", user.value._id)
-    data.append("token", token.value)
+   
 
     axios.post(globalUrl.value + "TUploadHotelFile", data).then((result) => {
+        toast.clear()
+        toast.success("File Uploaded Successfully")
         trip.value.hotelQuotations = trip.value.hotelQuotations.map((x)=>{
           if(x._id == quotation._id){
               var newQuotation = x
@@ -351,18 +366,31 @@ var generateCustomQuoteString = () => {
 
     var travelerInfoString = `
     `
+
+    var totalCosts = 0;
     for(var request of travelerCosts.value){
         debugger
+
         var newString =  `
         <div>
         <span>${request.name}</span>
         <span>${request.totalcost} </span>
         </div>
         `;
+
+        totalCosts += request.totalcost
         travelerInfoString = travelerInfoString.concat(newString);
     }
      
+    var totalCostString = `
+    <div>
+    <span>Total Cost</span>
+    <span>${totalCosts} </span>
+    </div>
+    `;
+
     customQuote.value = customQuote.value.concat(travelerInfoString)
+    customQuote.value = customQuote.value.concat(totalCostString)
     
     var newQuote = customQuote.value
     return newQuote
@@ -376,17 +404,18 @@ var generateQuoteString = () => {
         var total = hotel.numberOfRooms * hotel.actual_rate
         grandTotal += total;
         var string = `
-        
-        <div><span>Hotel</span> ${hotel.hotel}<div>      
+        <div style="border:2px solid black; padding:10px; margin-bottom:10px">
+        <div style="font-weight:bold"><span>Hotel</span> ${hotel.hotel}</div>      
         
         <div>
-        <span>Location:</span>${hotel.location} </span>
-        <span>Room Type: </span>${hotel.type}</span>
+        <span style="font-weight:bold">Location:</span><span style="margin-right:4px">${hotel.location} </span>
+        <span style="font-weight:bold">Room Type: </span><span>${hotel.type}</span>
         </div>
-        <div>
-        <span>Average Rate:</span><span>${hotel.average_rate}</span>
-        <span>Actual Rate:</span><span>${hotel.actual_rate}</span>
-        <span>Number of Rooms:</span><span>${hotel.numberOfRooms}</span>
+        <div >
+        <span style=" font-weight:bold">Average Rate:</span><span style=" margin-right:4px">${hotel.average_rate}</span>
+        <span style=" font-weight:bold">Actual Rate:</span><span style=" margin-right:4px">${hotel.actual_rate}</span>
+        <span style=" font-weight:bold">Number of Rooms:</span><span style=" margin-right:4px">${hotel.numberOfRooms}</span>
+        </div>
         </div>
         `;
         quoteString = quoteString.concat(string)
@@ -395,7 +424,7 @@ var generateQuoteString = () => {
    
     var grandTotalString = `<div>
     <div>  
- <span >Grand Total</span>
+ <span style=" font-weight:bold">Grand Total</span>
  <span>${grandTotal}</span>
     </div>
 `
@@ -407,7 +436,7 @@ var generateQuoteString = () => {
         debugger
         var newString =  `
         <div>
-        <span>${request.name}</span>
+        <span style=" font-weight:bold">${request.name}</span>
         <span>${request.totalcost} </span>
         </div>
         `;

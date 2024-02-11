@@ -7,11 +7,15 @@
 </v-row>
 
 <v-row justify="center">
-    <v-combobox
+    <v-col md="5">
+        <v-combobox
   label="User Email"
   :items="userEmails"
   v-model="emailRecipient"
 ></v-combobox>
+
+    </v-col>
+   
 
 </v-row>
 <v-row>

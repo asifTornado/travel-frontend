@@ -3,13 +3,13 @@
     <div  class="   pa-10  "> 
   
      <v-divider></v-divider>
-     <v-container class="bg-grey-lighten-3">
+     <v-container class="bg-blue-lighten-5">
       <v-row>
         Fields with * are mandatory
       </v-row>
      </v-container>
      <v-form  @submit.prevent="addBudget" ref=form>
-               <v-container class="elevation-10 pa-6">
+               <v-container class="elevation-5 pa-6">
             <v-row><v-col cols="12" class="text-h4">Travel Information</v-col></v-row>
             <v-row>
               <v-col
@@ -21,6 +21,7 @@
                 v-model="budget.subject"
                 label="Subject *"
                 :rules="exist"
+                density="compact"
                ></v-text-field>
               </v-col>
       
@@ -31,6 +32,7 @@
               <v-text-field
                 v-model="budget.brand"
                 label="Brand *"
+                density="compact"
                 :rules="exist"
               ></v-text-field>
               </v-col>
@@ -43,6 +45,7 @@
                 v-model="budget.destination"
                 label="destination *"
                 :rules="exist"
+                density="compact"
               ></v-text-field>
 
               </v-col>
@@ -62,6 +65,7 @@
                 v-model="budget.departure_date"
                 :rules="exist"
                 @change="getNumberOfDays"
+                density="compact"
               ></v-text-field>
               </v-col>
               <v-col
@@ -76,6 +80,7 @@
                 v-model="budget.arrival_date"
                 :rules="exist"
                 @change="getNumberOfDays"
+                density="compact"
               ></v-text-field>
               </v-col>
                 <v-col
@@ -89,6 +94,7 @@
                 type="text"
                 v-model="budget.numberOfDays"
                 :rules="exist"
+                density="compact"
               ></v-text-field>
               </v-col>
 
@@ -104,6 +110,7 @@
                 type="text"
                 v-model="budget.numberOfTravelers"
                 :rules="exist"
+                density="compact"
                 
               ></v-text-field>
               </v-col>
@@ -113,7 +120,7 @@
           </v-container >
 
 
-          <v-container class="elevation-10 mt-10">
+          <v-container class="elevation-4 mt-10">
             <v-row>
               <v-col md="12" class="text-h4">
                     Travelers
@@ -127,16 +134,21 @@
                        v-model="budget.travellerEmails[travelerCounter]"
                         :label="'Traveler ' + (travelerCounter+1) + ' Email *'"
                         :rules="exist"
+                        density="compact"
                        >
 
                        </v-autocomplete>
                   </v-col>    
                   
                   <v-col md="1">
-                       <v-btn class="mt-2" prepend-icon="mdi-plus" color="blue-darken-2" @click="addTraveler(travelerCounter)"></v-btn>
+                       <v-btn class="mt-2 bg-blue-darken-4"   @click="addTraveler(travelerCounter)">
+                      <v-icon>mdi-plus</v-icon>
+                      </v-btn>
                   </v-col>
                   <v-col md="1">
-                       <v-btn class="mt-2" prepend-icon="mdi-minus" color="red-darken-2" @click="deleteTraveler(travelerCounter)"></v-btn>
+                       <v-btn class="mt-2 bg-blue-lighten-2 text-white"   @click="deleteTraveler(travelerCounter)">
+                      <v-icon>mdi-minus</v-icon>
+                      </v-btn>
                   </v-col>
             </v-row>
           </v-container>
@@ -146,7 +158,7 @@
           <!-- budget costing details  -->
 
 
-          <v-container class="pa-5 elevation-10 mt-10">
+          <v-container class="pa-5 elevation-4 mt-10">
           <v-row>
             <v-col md="12" class="text-h4">
                Budget Information
@@ -164,6 +176,7 @@
                type="text"
                @change="changeTotal"
                :rules="exist"
+               density="compact"
                />
 
              
@@ -177,6 +190,7 @@
                type="text"
                @change="changeTotal"
                :rules="exist"
+               density="compact"
                />
 
             </v-col>
@@ -189,6 +203,7 @@
                id="Total Booking Cost"
                type="text"
                :rules="exist"
+               density="compact"
                />
             </v-col>
           </v-row>
@@ -203,6 +218,7 @@
                id="Transport Expense"
                type="text"
                @change="changeTotal"
+               density="compact"
                :rules="exist"
                />
             </v-col>
@@ -215,6 +231,7 @@
                id="Incidental Expense"
                type="text"
                @change="changeTotal"
+               density="compact"
                :rules="exist"
                />
             </v-col>
@@ -225,6 +242,7 @@
                name="Total Trip Budget"
                id="Total Trip Budget"
                type="text"
+               density="compact"
                :rules="exist"
                />
             </v-col>
@@ -234,7 +252,8 @@
     
     
           <v-divider></v-divider>
-            <v-container style="margin-bottom:2vh" class="bg-grey-lighten-3 mt-10" >
+
+            <v-container style="margin-bottom:2vh" class="mt-4 bg-blue-lighten-5" >
        
 
          

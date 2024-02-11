@@ -4,6 +4,7 @@
     v-model="hotelBookDialog"
     width="50%"
     height="auto"
+    persistent
     >
    
     <v-card>

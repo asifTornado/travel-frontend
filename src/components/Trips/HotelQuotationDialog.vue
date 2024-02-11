@@ -1,7 +1,7 @@
 <template>
 <v-overlay
 :model-value="hotelQuotationDialog"
-
+persistent
 
 
 scrim="blue"
@@ -15,11 +15,11 @@ class="align-center justify-center w-full pa-10"
 
 
 
-<div class="w-[90vw] h-[95vh] bg-grey-lighten-2 p-[10px] flex ml-15 flex-col  elevation-10">
+<div class="w-[90vw] h-[95vh] bg-blue-lighten-5 p-[10px] flex ml-15 flex-col  elevation-10">
     
     
     
-    <div class="w-full h-auto flex flex-col   bg-white   mt-2">
+    <div class="w-full h-auto flex flex-col   bg-white  elevation-4 mt-2">
       
         <div class=" w-full h-auto flex flex-row justify-start">
          <v-container >
@@ -69,7 +69,7 @@ class="align-center justify-center w-full pa-10"
     
     
     
-      <v-table class="border border-solid border-black mt-[10px] mx-[10px] elevation-4 overflow-y-scroll">
+      <v-table class="border border-solid border-black mt-2 elevation-4 " height="70vh" density="compact">
             <thead class="bg-blue-400 ">
               <tr>
                 <th class="text-center text-white">Selection</th>
@@ -108,8 +108,8 @@ class="align-center justify-center w-full pa-10"
                 v-for="(hotelForBrand, hotelForBrandCounter) in hotelsForBrands"
                 :key="hotelForBrandCounter" class=" " 
               >
-              <td class="text-center" justify="center" align="center">
-                   <v-checkbox v-model="selectedHotels" :value="hotelsForBrands[hotelForBrandCounter]"></v-checkbox>
+              <td class="text-center pt-3" justify="center" align="center" >
+                   <v-checkbox v-model="selectedHotels" :value="hotelsForBrands[hotelForBrandCounter]" ></v-checkbox>
               </td>
               <td class="text-center">{{ hotelForBrand.brand }}</td>
                 <td class="text-center">{{ hotelForBrand.hotel }}</td>
@@ -118,12 +118,16 @@ class="align-center justify-center w-full pa-10"
                 <td class="text-center">{{ hotelForBrand.type }}</td>
                 <td class="text-center">{{ hotelForBrand.average_rate }}</td>
                 <!--class="text-center" <td >{{ budget.mode }}</td> -->
-                <td class="text-center">
+                <td class="text-center" >
                 <v-text-field
                    name="actual_rate"
                    label="Actual Rate"
                    id="actual_rate"
                    v-model="hotelsForBrands[hotelForBrandCounter].actual_rate"
+                   variant="solo"
+                   density="compact"
+                   class="mt-3"
+                
                 ></v-text-field>
                 </td>
               
@@ -134,6 +138,9 @@ class="align-center justify-center w-full pa-10"
                     label="Number of Rooms"
                     id="numberOfRooms"
                     v-model="hotelsForBrands[hotelForBrandCounter].numberOfRooms"
+                    variant="solo"
+                   density="compact"
+                   class="mt-3"
                     >
 
                     </v-text-field>

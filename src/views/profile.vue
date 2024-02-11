@@ -6,9 +6,9 @@
  
     
 <div class="flex flex-col  ">
-    <div class=" bg-blue-lighten-1 text-white flex flex-row justify-center items-center  p-4 mb-10 elevation-5 border-2 border-black border-solid">  <label class="text-white text-4xl font-bold">My Profile</label></div>
+    <div class=" bg-blue-lighten-1 text-white flex flex-row justify-center items-center  p-4 mb-10 shadow-md shadow-black">  <label class="text-white text-4xl font-bold">My Profile</label></div>
     
-        <div class='flex flex-col w-full elevation-4  pa-1 border-2 border-solid border-black bg-white ' v-if="user">
+        <div class='flex flex-col w-full   pa-1  bg-white shadow-md shadow-black ' v-if="user">
         
             
                 <div class=" mt-5 text-black  w-full flex flex-row">

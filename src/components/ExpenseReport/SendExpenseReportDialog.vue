@@ -4,7 +4,7 @@
             mdi-close
         </v-icon>
 
-        <v-container class=" overflow-y-scroll bg-grey-lighten-3 ml-10 report elevation-10 pa-10 "  ref="report">
+        <v-container class=" overflow-y-scroll bg-white ml-10 report elevation-10 pa-10 "  ref="report">
             <v-row class="bg-white">
                 <v-col md="11" class="text-center text-h2">
                     Travel Expense Report
@@ -16,13 +16,13 @@
            
              <v-row class="bg-white mb-1 mt-3 pa-5">
                 <v-col md="4">
-                    <v-text-field  label="Employee Name" variant="solo"  v-model="user.empName"></v-text-field>
+                    <v-text-field   label="Employee Name" variant="solo"  v-model="user.empName"></v-text-field>
                 </v-col>
                 <v-col md="4">
                     <v-text-field  label="Employee Id" variant="solo" v-model="user._id"></v-text-field>
                 </v-col>
                 <v-col md="4">
-                    <v-text-field  class="text-h5" variant="solo" label="Department" v-model="user.department"></v-text-field>
+                    <v-text-field  class="" variant="solo" label="Department" v-model="user.department"></v-text-field>
                 </v-col>
             </v-row>
 
@@ -62,27 +62,27 @@
 
             <v-row v-for="(expense, expenseCounter) in expenses" :key="expenseCounter" class="bg-white">
                 <v-col md="2" class="text-center font-weight-bold">
-                    <v-text-field type="date" v-model="expenses[expenseCounter].date">
+                    <v-text-field density="compact" type="date" v-model="expenses[expenseCounter].date">
 
                     </v-text-field>
                 </v-col>
                 <v-col md="2"  class="text-center font-weight-bold">
-                     <v-text-field type="text" v-model="expenses[expenseCounter].expenseType">
+                     <v-text-field density="compact" type="text" v-model="expenses[expenseCounter].expenseType">
                         
                     </v-text-field>
                 </v-col>
                 <v-col md="2" class="text-center font-weight-bold">
-                    <v-textarea rows="1" auto-grow v-model="expenses[expenseCounter].description">
+                    <v-textarea density="compact" rows="1" auto-grow v-model="expenses[expenseCounter].description">
                         
                     </v-textarea>
                 </v-col>
                 <v-col md="2" class="text-center font-weight-bold">
-                    <v-text-field v-model="expenses[expenseCounter].amount">
+                    <v-text-field density="compact" v-model="expenses[expenseCounter].amount">
                         
                     </v-text-field>
                 </v-col>
                 <v-col md="2" class="text-center font-weight-bold">
-                    <v-textarea rows="1" class="text-h6 changed-text"  auto-grow v-model="expenses[expenseCounter].notes">
+                    <v-textarea rows="1" density="compact" auto-grow v-model="expenses[expenseCounter].notes">
                         
                     </v-textarea>
                 </v-col>

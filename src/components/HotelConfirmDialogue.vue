@@ -3,6 +3,7 @@
     <v-dialog
     v-model="hotelConfirmDialogue"
     width="auto"
+    persistent
     >
     <v-card>
       <v-card-text>

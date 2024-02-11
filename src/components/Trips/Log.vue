@@ -7,6 +7,7 @@
         v-model="showLogs"
         
         class="ml-15 "
+        persistent
         >
     
         <div class="overflow-y-scroll  bg-white pa-10 elevation-5 w-[90vw] border-2 border-solid border-black  ">
@@ -25,7 +26,7 @@
     
        
     
-       <v-row class=" ">
+       <v-row class="shadow-sm shadow-black ">
          <v-col md="1" class="text-sm font-bold">
             Serial
          </v-col>
@@ -46,7 +47,7 @@
          </v-col>
        </v-row>
     
-       <v-row v-for="(log, logCounter) in logs" class="border-t-2  border-black">
+       <v-row v-for="(log, logCounter) in logs" class="shadow-sm shadow-black">
           <v-col md="1" class="text-sm">
             {{ logCounter + 1 }}
           </v-col>

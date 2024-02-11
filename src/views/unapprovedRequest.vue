@@ -31,7 +31,7 @@
        
        </div>
     
-    <v-container id="info"  grid-list-xs  color="indigo-darken-200" class="bg-blue-lighten-2 elevation-10 border border-solid border-black mb-[20px]">
+    <v-container id="info"  grid-list-xs   class="bg-blue-lighten-5  border border-solid border-black mb-[20px]">
       <div class="flex flex-row w-full justify-end my-[20px] "> 
        
        <v-btn prepend-icon="mdi-file " class="mr-3 d-print-none" @click="showLogs = true">View Log</v-btn>
@@ -48,10 +48,10 @@
              <Loader/>
           </div>
         
-    <v-card class="pa-10 v-card "  v-if="request && request.requester"
+    <v-card class="pa-10 v-card elevation-5 "  v-if="request && request.requester"
             
               max-width="100%"
-              elevated="2"
+           
               hover
               
               
@@ -137,7 +137,7 @@
     
         
     <v-card v-if="request && request.requester"
-              class="pa-10 v-card "
+              class="pa-10 v-card elevation-5"
               max-width="100%"
              elevated="2"
               :variant="'elevated'"
@@ -269,8 +269,14 @@
             </v-col>
         </v-row>
     </v-container>
+   
     
- <template v-if="user && request && request.requester && user._id == request.requesterId && request.currentHandlerId == user._id && request.status != 'Seeking Supervisor Approval For Trip'">
+
+
+
+
+   
+ <template v-if="user && request && request.requester && user._id == request.requesterId && request.currentHandlerId == user._id && request.status == Events.SeekingTravelerInfo">
           <Activities/>
           <Objectives/>
           <Personnel/>
@@ -279,7 +285,7 @@
           
  </template>
 
- <template v-else-if="user && request && request.requester && (user._id == request.requester.superVisor._id || user._id == request.requester.zonalHead._id) && request.currentHandlerId == user._id">
+ <template v-else-if="user && Events && request && request.requester && (user._id == request.requester.superVisor._id || user._id == request.requester.zonalHead._id) && request.currentHandlerId == user._id && request.status == Events.SupervisorApprovalTrip">
      <Information :request="request"/>
      <Budget/>
 
@@ -292,38 +298,38 @@
     
     
         
-<div class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" v-if="request && request.requester && request.supervisorApproved == false &&  request.requesterId == user._id && request.currentHandlerId == user._id">
-       <v-btn @click="giveInfo" class="d-print-none" color="blue">Submit</v-btn>
-    </div>
-
-
-<v-container class="bg-grey-lighten-3" v-if="request.supervisorApproved == false">
-
-   <v-row>
-  
-      <v-col md="12">
-
-      <v-btn @click="approve" class="d-print-none mr-3" color="green" v-if="request && request.requester && request.supervisorApproved == false &&  request.requester.superVisorId == user._id && request.currentHandlerId == user._id">Approve</v-btn>
-      <v-btn @click="reject" class="d-print-none mr-3 text-white" v-if="request && request.requester && request.supervisorApproved == false &&  request.requester.superVisorId == user._id && request.currentHandlerId == user._id" color="orange">Reject</v-btn>
-      <v-btn @click="permanentlyReject" class="d-print-none" color="red" v-if="request && request.requester && request.supervisorApproved == false &&  request.requester.superVisorId == user._id && request.currentHandlerId == user._id">Permanently Reject</v-btn>
-    
-   </v-col>
-   
-</v-row>
-   
-</v-container>
+<div class="flex flex-row w-[100vw]  justify-center items-center bg-blue-lighten-5 mt-4" v-if="request && Events && request.requester && request.supervisorApproved == false &&  request.requesterId == user._id && request.currentHandlerId == user._id && request.status == Events.SeekingTravelerInfo">
+   <v-btn @click="giveInfo" class="d-print-none" color="blue">Submit</v-btn>
+</div>
 
 
 
-<v-container class="bg-grey-lighten-3" v-if="request.supervisorApproved == true && request.departmentHeadApproved == false ">
+<v-container  class="bg-blue-lighten-5 mt-4" v-if="request && Events && user && request.supervisorApproved == false && request.status == Events.SupervisorApprovalTrip">
 
 <v-row>
 
    <v-col md="12">
 
-   <v-btn @click="approve" class="d-print-none mr-3" color="green" v-if="request && request.requester && request.departmentHeadApproved == false &&  request.requester.zonalHeadId == user._id && request.currentHandlerId == user._id">Approve</v-btn>
-   <v-btn @click="reject" class="d-print-none mr-3 text-white" v-if="request && request.requester && request.departmentHeadApproved == false &&  request.requester.zonalHeadId == user._id && request.currentHandlerId == user._id" color="orange">Reject</v-btn>
-   <v-btn @click="permanentlyReject" class="d-print-none" color="red" v-if="request && request.requester && request.departmentHeadApproved == false &&  request.requester.zonalHeadId == user._id && request.currentHandlerId == user._id">Permanently Reject</v-btn>
+   <v-btn @click="approve" class="d-print-none mr-3" color="green" v-if="request && request.requester && request.supervisorApproved == false &&  request.requester.superVisorId == user._id && request.currentHandlerId == user._id">Approve</v-btn>
+   <v-btn @click="reject" class="d-print-none mr-3 text-white" v-if="request && request.requester && request.supervisorApproved == false &&  request.requester.superVisorId == user._id && request.currentHandlerId == user._id" color="orange">Reject</v-btn>
+   <v-btn @click="permanentlyReject" class="d-print-none" color="red" v-if="request && request.requester && request.supervisorApproved == false &&  request.requester.superVisorId == user._id && request.currentHandlerId == user._id">Permanently Reject</v-btn>
+ 
+</v-col>
+
+</v-row>
+
+</v-container>
+
+
+<v-container class="bg-blue-lighten-5 mt-4"  v-if="request && Events && request.supervisorApproved == true && request.departmentHeadApproved == false && request.status == Events.SeekingDepartMentHeadApproval ">
+
+<v-row>
+
+   <v-col md="12">
+
+   <v-btn @click="departmentHeadApproveTrip" class="d-print-none mr-3" color="green" v-if="request && request.requester && request.departmentHeadApproved == false &&  request.requester.zonalHeadId == user._id && request.currentHandlerId == user._id">Approve</v-btn>
+   <v-btn @click="departmentHeadRejectTrip" class="d-print-none mr-3 text-white" v-if="request && request.requester && request.departmentHeadApproved == false &&  request.requester.zonalHeadId == user._id && request.currentHandlerId == user._id" color="orange">Reject</v-btn>
+   <v-btn @click="DepartmentHeadPermanentlyRejectTrip" class="d-print-none" color="red" v-if="request && request.requester && request.departmentHeadApproved == false &&  request.requester.zonalHeadId == user._id && request.currentHandlerId == user._id">Permanently Reject</v-btn>
  
 </v-col>
 
@@ -331,7 +337,7 @@
 
 </v-container>
     
-   
+
    
    
     
@@ -377,6 +383,7 @@
     import Information from '../components/Information.vue';
     import Meetings from '../components/Customtrip/Meetings.vue';
     import Budget from '../components/Customtrip/Budget.vue';
+    import { Events } from '../stores/events';
     
 
 
@@ -402,7 +409,10 @@
    //  var globalStore = useGlobalStore();
 
 
-    var {giveInfo, approve, reject, permanentlyReject, getRequestForApproval} = useCustomStore();
+    var {giveInfo, approve, reject, permanentlyReject, getRequestForApproval,
+      departmentHeadApproveTrip, departmentHeadRejectTrip, DepartmentHeadPermanentlyRejectTrip
+   
+   } = useCustomStore();
     
     var {shareDialogue} = storeToRefs(useRequestsStore());
 
@@ -411,7 +421,7 @@
 
   
     
-    var {request} = storeToRefs(useCustomStore())
+    var {request, form} = storeToRefs(useCustomStore())
     
     var {user} = storeToRefs(useAuthStore())
     

@@ -3,6 +3,7 @@
     <v-dialog
     v-model="emailDialogue"
     width="400px"
+    persistent
     >
     <v-card>
       <v-card-text>

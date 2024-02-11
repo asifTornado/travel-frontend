@@ -7,7 +7,7 @@
   
 
      <v-container class="border border-solid border-black elevation-4 bg-white">
-      <span class="font-weight-bold">  Search </span>    
+      <span class="font-weight-bold text-h5">  Search </span>    
        <v-row class="bg-white">
          
          <v-col class="" color="bg-white">  
@@ -16,6 +16,8 @@
                 label="Name"
                 id="name"
                 type="text"
+                density="compact"
+                prepend-inner-icon="mdi-rename-outline"
                
                 v-model="name">
             </v-text-field>
@@ -26,6 +28,8 @@
                 label="Destination"
                 id="destination"
                 type="text"
+                density="compact"
+                prepend-inner-icon="mdi-map-marker-outline"
                 v-model="destination">
             </v-text-field>
           </v-col>
@@ -35,6 +39,8 @@
                 label="Departure Date"
                 id="startDate"
                 type="text"
+                density="compact"
+                prepend-inner-icon="mdi-clock-outline"
                 v-model="departure_date">
             </v-text-field>
           </v-col>
@@ -44,6 +50,8 @@
                 label="Arrival Date"
                 id="endDate"
                 type="text"
+                density="compact"
+                prepend-inner-icon="mdi-clock-outline"
                 v-model="arrival_date">
             </v-text-field>
           </v-col>
@@ -60,36 +68,36 @@
 
 
 
-  <v-table class="border-2 border-solid border-black  bg-white  elevation-4 mx-10 " style="max-height: 40vh;">
-        <thead class="bg-blue-400 ">
+  <v-table fixed-header max-height="40vh" density="compact" class=" bg-white  elevation-4 mx-10 " style="max-height: 40vh;">
+        <thead class="bg-blue-lighten-2 ">
           <tr>
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-2">
               Travellers
             </th>
         
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-2">
               Purpose
             </th>
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-2">
               Destination
             </th>
     
-            <!-- <th class="text-center text-white">
+            <!-- <th class="text-center text-white bg-blue-lighten-2">
               Mode
             </th> -->
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-2">
               Start Date
             </th>    
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-2">
               End Date
             </th>
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-2">
               Initiated
             </th>
-            <th>
+            <th class="bg-blue-lighten-2">
 
             </th>
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-2">
           
             </th>
           </tr>
@@ -100,7 +108,7 @@
             :key="budgetCounter" class=" " 
           >
             <td >
-              <v-chip close class="pa-2 ma-1" v-for="(traveler, travelerCounter) in budget.travelers" :key="travelerCounter">
+              <v-chip close label  class="pa-2 ma-1" v-for="(traveler, travelerCounter) in budget.travelers" :key="travelerCounter">
               {{ traveler.empName }}
             </v-chip>
           </td>

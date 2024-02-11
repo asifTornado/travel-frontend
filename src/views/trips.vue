@@ -5,7 +5,7 @@
 
 <div class="mx-16    elevation-4  ">
 
-<v-table class="border-2 border-solid border-black elevation-4 ">
+<v-table class=" elevation-4 " density="compact">
     <thead class="bg-blue-lighten-1 ">
       <tr>
         <th class="text-center text-white">

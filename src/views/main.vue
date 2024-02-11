@@ -15,7 +15,8 @@
         theme="light" class=" d-print-none bg-blue-darken-2" v-if="route.path.split('/')[2] != 'quotation' && route.path.split('/')[2] != 'confirm'"
         expand-on-hover
         rail
-        style="z-index: 99999999999999999999;"
+        
+        style="z-index: 9;"
       >
         <v-list>
           <v-list-item
@@ -29,8 +30,8 @@
 
         <v-list density="compact" nav class="text-left" v-if="user">
           <v-list-item  v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-wallet-travel" title="Trips" value="Trips" @click="router.push('/travel/trips')"></v-list-item>
-          <v-list-item  v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-briefcase-edit" title="Custom Trips" value="Custom Trips" @click="router.push('/travel/custom-trips')"></v-list-item>
-          <v-list-item  v-if="user.userType=='admin' || user.userType == 'manager'" prepend-icon="mdi-airplane" title="New Request (Normal)" value="myfiles" @click="router.push('/travel/newRequest')"> </v-list-item>
+          <!-- <v-list-item   prepend-icon="mdi-briefcase-edit" title="Custom Trips" value="Custom Trips" @click="router.push('/travel/custom-trips')"></v-list-item> -->
+          <v-list-item   prepend-icon="mdi-airplane" title="New Request (Normal)" value="myfiles" @click="router.push('/travel/newRequest')"> </v-list-item>
           <v-list-item  v-if="user.userType=='admin' || user.userType == 'manager'" prepend-icon="mdi-airplane-alert" title="New Request (Custom)" value="myfiles 2" @click="router.push('/travel/newRequestUpper')"> </v-list-item>
 
           <v-list-item  prepend-icon="mdi-account-multiple" title="My Requests" value="myRequests" @click="router.push('/travel/myRequests')">   </v-list-item>
@@ -43,11 +44,86 @@
           <v-list-item v-if="user.userType == 'admin'"  prepend-icon="mdi-cash-plus" title="Budgets" value="budgets" @click="router.push('/travel/budget')">   </v-list-item>
           <v-list-item v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-account-multiple" title="Users" value="users" @click="router.push('/travel/users')">   </v-list-item>
           <!-- <v-list-item v-if="user.userType == 'admin'"  prepend-icon="mdi-poll" title="Analytics" value="analytics" @click="router.push('/travel/analytics')">   </v-list-item> -->
+
+          <v-menu
+      v-model="menu"
+      :close-on-content-click="false"
+      location="end"
+    >
+      <!-- <template v-slot:activator="{ props }">
+        <v-btn
+          color="indigo"
+          v-bind="props"
+        >
+          Menu as Popover
+        </v-btn>
+      </template> -->
+
+      <v-card min-width="300" style="z-index: 99999999999999;">
+        <v-list>
+          <v-list-item
+            prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
+            title="John Leider"
+            subtitle="Founder of Vuetify"
+          >
+            <template v-slot:append>
+              <v-btn
+                variant="text"
+                :class="fav ? 'text-red' : ''"
+                icon="mdi-heart"
+                @click="fav = !fav"
+              ></v-btn>
+            </template>
+          </v-list-item>
+        </v-list>
+
+        <v-divider></v-divider>
+
+        <v-list>
+          <v-list-item>
+            <v-switch
+              v-model="message"
+              color="purple"
+              label="Enable messages"
+              hide-details
+            ></v-switch>
+          </v-list-item>
+
+          <v-list-item>
+            <v-switch
+              v-model="hints"
+              color="purple"
+              label="Enable hints"
+              hide-details
+            ></v-switch>
+          </v-list-item>
+        </v-list>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            variant="text"
+            @click="menu = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            color="primary"
+            variant="text"
+            @click="menu = false"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-menu>
         </v-list>
       </v-navigation-drawer>
 
-      <v-main style=" width:100vw;  padding: 0%;"  class="bg-grey-lighten-3 pa-5">
-        <v-app-bar class="d-print-none " :elevation="2" > 
+
+      <v-main style=" width:100vw;  padding: 0%;"  class="bg-blue-lighten-5 pa-5">
+        <v-app-bar class="d-print-none " :elevation="2" style="z-index: 1;" > 
           
           <template v-slot:prepend>
             <img src="../assets/logo.png" style="width:70px; height:40px" alt="">
@@ -81,7 +157,14 @@
        
         </template>
         </v-app-bar>
-      <router-view ></router-view>
+
+       
+
+<router-view ></router-view>
+
+        
+
+     
       
       </v-main>
       <NotificationsDrawer/>
@@ -100,6 +183,7 @@ import notifications from "../components/notifications.vue";
 import {useNotificationStore} from "../stores/notification.js"
 import {storeToRefs} from "pinia"
 import {useAuthStore} from "../stores/auth.js"
+import {ref} from "vue"
 
 
 
@@ -112,7 +196,7 @@ var {showNotifications} = storeToRefs(useNotificationStore())
 
 
 
-
+var menu = ref(false)
 
 
 

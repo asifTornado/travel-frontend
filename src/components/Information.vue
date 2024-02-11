@@ -1,7 +1,30 @@
 <template>
 
 
+
+<v-container class=" mb-2 elevation-5"> 
+        
+        <v-row class=" bg-blue-lighten-1">
+            <v-col  md="12" class="font-weight-bold">
+                Traveller Travel Preferences
+            </v-col>
+        </v-row>
+
+        <v-row class="    font-weight-bold text-black">
+          <v-col md="12">
+               <div v-html="user.preferences">
+
+               </div>
+          </v-col>
+        </v-row>
+        
+   
+        
+</v-container>
+
 <!-- activities  -->
+
+
     
 <v-container class=" mb-2 elevation-5"> 
         
@@ -35,7 +58,7 @@
   
     <!-- meetings  -->
     <v-container class=" mb-2 elevation-5">
-        <v-row class="bg-blue-darken-1">
+        <v-row class="bg-blue-lighten-1">
                  <v-col align=center justify="center" md="12" class="font-weight-bold">
                     Meetings
                  </v-col>
@@ -61,7 +84,7 @@
                     {{request.meetings[meetingCounter].subject}}                                            
                   </v-col>
                   <v-col md="5">
-                       <v-chip v-for="(attendee, attendeeCounter) in request.meetings[meetingCounter].attendees" :key="attendeeCounter">
+                       <v-chip label class="m-1" v-for="(attendee, attendeeCounter) in request.meetings[meetingCounter].attendees" :key="attendeeCounter">
                                {{ attendee}}                     
                        </v-chip>
                   </v-col>
@@ -77,12 +100,12 @@
   
 
 <v-container class="mb-2 elevation-4">
-  <v-row class="bg-blue-darken-2 pa-2">
+  <v-row class="bg-blue-lighten-1 pa-2">
     <v-col md="12">Objectives</v-col>
   </v-row>
   <v-row>
     <v-col md="12">
-      <v-chip v-for="(objective, objectiveCounter) in request.objectives" :key="objectiveCounter">
+      <v-chip label class="m-1" v-for="(objective, objectiveCounter) in request.objectives" :key="objectiveCounter">
       {{ objective }}
       </v-chip>
     </v-col>
@@ -91,12 +114,12 @@
 
 
 <v-container class="elevation-4 mb-2">
-  <v-row class="bg-blue-darken-2 pa-2 ">
+  <v-row class="bg-blue-lighten-1 pa-2 ">
     <v-col md="12">Items Needed To Take</v-col>
   </v-row>
   <v-row>
     <v-col md="12">
-      <v-chip v-for="(objective, objectiveCounter) in request.items" :key="objectiveCounter">
+      <v-chip  label class="m-1" v-for="(objective, objectiveCounter) in request.items" :key="objectiveCounter">
       {{ objective }}
       </v-chip>
     </v-col>
@@ -105,12 +128,12 @@
 
 
 <v-container class="elevation-4 mb-10">
-  <v-row class="bg-blue-darken-2 pa-2 ">
+  <v-row class="bg-blue-lighten-1 pa-2 ">
     <v-col md="12">Help Required From</v-col>
   </v-row>
   <v-row>
     <v-col md="12">
-      <v-chip v-for="(objective, objectiveCounter) in request.personnel" :key="objectiveCounter">
+      <v-chip  label class="m-1" v-for="(objective, objectiveCounter) in request.personnel" :key="objectiveCounter">
       {{ objective }}
       </v-chip>
     </v-col>
@@ -120,7 +143,7 @@
 
 
 <v-container class="elevation-4 mb-10">
-  <v-row class="bg-blue-darken-2 pa-2">
+  <v-row class="bg-blue-lighten-1 pa-2">
         <v-col md="12">
             Allocated Budget
         </v-col>
@@ -131,6 +154,14 @@
     </v-col>
     <v-col md="10">
          {{request.requestBudget.totalDailyAllowance}}
+    </v-col>
+  </v-row>
+  <v-row>
+    <v-col md="2">
+           Emergency Fund
+    </v-col>
+    <v-col md="10">
+         {{request.requestBudget.emergencyFund}}
     </v-col>
   </v-row>
   <v-row>
@@ -195,10 +226,11 @@
 <script setup>
 import {defineProps} from "vue"
 import { useCustomStore } from '../stores/custom';
+import { useAuthStore } from "../stores/auth";
 import {storeToRefs} from 'pinia'
 
 var {request} = storeToRefs(useCustomStore())
-
+var {user} = storeToRefs(useAuthStore())
 
 
 

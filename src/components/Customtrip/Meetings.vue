@@ -21,9 +21,9 @@
         </v-row>
     
     
-                 <v-row justify="center" align="center" v-for="(meeting, meetingCounter) in meetings" :key="meetingCounter">
+                 <v-row  v-for="(meeting, meetingCounter) in meetings" :key="meetingCounter">
                   <v-col md="3" class="mr-2">
-                       <v-textarea label="Subject" rows="1" v-model="meetings[meetingCounter].subject">
+                       <v-textarea      variant="outlined"  density="compact" rows="1" v-model="meetings[meetingCounter].subject">
                                                     
                        </v-textarea>
                   </v-col>
@@ -32,8 +32,9 @@
                         chips
                         multiple
                         clearable
-                        label="Attendees"
+                        variant="outlined"
                         filter-mode="every"
+                        density="compact"
                         v-model="meetings[meetingCounter].attendees"
                         :items="meetings[meetingCounter].attendees">
                        
@@ -41,13 +42,13 @@
                     
                   </v-col>
                   <v-col md="3" class="mr-2">
-                    <v-textarea label="Agenda" rows="1" v-model="meetings[meetingCounter].agenda">
+                    <v-textarea       variant="outlined" density="compact" rows="1" v-model="meetings[meetingCounter].agenda">
                                                     
                         </v-textarea>
                   </v-col>
                   <v-col md="2">
-                       <v-btn color="success" @click="add(meetingCounter)"><v-icon>mdi-plus</v-icon></v-btn>
-                       <v-btn color="red" @click="remove(meetingCounter)" ><v-icon>mdi-minus</v-icon></v-btn>
+                       <v-btn class="bg-blue-darken-4" @click="add(meetingCounter)"><v-icon>mdi-plus</v-icon></v-btn>
+                       <v-btn class="bg-blue-lighten-1" @click="remove(meetingCounter)" ><v-icon>mdi-minus</v-icon></v-btn>
                   </v-col>
                  </v-row>
             
@@ -108,8 +109,6 @@
 }
 
 
-.v-container {
-    border:2px solid grey;
-}
+
 
 </style>

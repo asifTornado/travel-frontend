@@ -6,7 +6,12 @@ const Events = {
     DepartmentHeadReject:"Trip rejected by department head",
     DepartmentHeadApprove:"Trip approved by department head",
     DepartmentHeadPermanentlyReject:"Trip permanently rejected by department head",
-    SupervisorApprovalTrip:"Supervisor Approval For Trip",
+    SupervisorApprovalTrip:"Seeking Supervisor Approval For Trip",
+    SeekingTravelerInfo:"Seeking Information From Traveler",
+    SeekingDepartMentHeadApproval:"Seeking Approval From Department Head",
+
+    
+    
 
 }
 

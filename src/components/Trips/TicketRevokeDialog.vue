@@ -2,6 +2,7 @@
     <v-dialog
     v-model="ticketRevokeDialog"
     width="auto"
+    persistent
     >
     <v-card>
       <v-card-text>

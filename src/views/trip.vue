@@ -5,7 +5,7 @@
 
 
 
-<v-container id="info"  grid-list-xs  color="indigo-darken-200" class="bg-blue-lighten-2   border-2 border-solid border-black mb-[20px]">
+<v-container id="info"  grid-list-xs  color="indigo-darken-200" class="bg-blue-lighten-5 mb-[20px]">
 <div class="flex flex-row w-full justify-end my-[20px] "> 
 
 <v-btn prepend-icon="mdi-file " class="mr-3 d-print-none" @click="showLogs = true">View Log</v-btn>
@@ -22,7 +22,7 @@
      <Loader/>
   </div>
 
-<v-card class="pa-10 v-card elevation-10"  v-if="trip"
+<v-card class="pa-10 v-card elevation-15 shadow-md shadow-black"  v-if="trip"
     
       max-width="100%"
       elevated="2"
@@ -34,7 +34,7 @@
       <v-card-item>
         <div>
     
-          <div class="text-h6 mb-1 bg-blue-500 text-white elevation-5">
+          <div class="text-h6 mb-1 bg-blue-darken-1 text-white shadow-sm shadow-black">
           Trip Information
           </div>
           
@@ -84,7 +84,7 @@
 
 
 <v-col cols >
-   <v-card class="pa-10 v-card elevation-10 "   v-if="trip"
+   <v-card class="pa-10 elevation-15 v-card shadow-md shadow-black "   v-if="trip"
     
     max-width="100%"
     elevated="2"
@@ -101,11 +101,13 @@
    
    <v-tabs
       v-model="tab"
-      bg-color="primary"
+      bg-color="blue-darken-1"
+      
+      
       v-if="trip"
     >
-      <v-tab :value="request.requester.empName" v-for="(request, requestCounter) in trip.requests" :key="requestCounter">
-      {{ request.requester.empName }}
+      <v-tab    :value="request.requester.empName" v-for="(request, requestCounter) in trip.requests" :key="requestCounter">
+     <span class=" text-h6"> {{ request.requester.empName }}</span>
       </v-tab>
       
     </v-tabs>
@@ -174,6 +176,8 @@
         <v-btn size="small" @click="openEmailDialogAccounts(request)" v-if="request && request.confirmed == true && request.hotelConfirmed == true && request.processed == false"  class="d-print-none" color="blue"> Email To Accounts </v-btn>
         <v-btn size="small" @click="openEmailDialogCustom(request)" v-if="request && request.confirmed == true && request.hotelConfirmed == true && request.processed == true"  prepend-icon="mdi-mail" color="blue" class="d-print-none hover:cursor-pointer">Email</v-btn>
         <v-btn size="small" @click="complete(request)" v-if="request && request.processed == false && request.status == 'Being Processed'" color="green d-print-none" class="hover:cursor-pointer ml-2" prepend-icon="mdi-cogs">Complete Processing</v-btn>
+        <v-btn size="small" v-if="request && request.processed && request.expenseReportGiven" @click="showExpenseReport(request)" prepend-icon="mdi-file-chart-outline"   color="blue-darken-4 d-print-none ml-2" class="shadow-md shadow-black ">Show Expense Report</v-btn>
+
      </v-row>
 
      </v-window-item>
@@ -191,8 +195,8 @@
 
 
 
-<v-container v-if="trip" class="border-2 border-solid border-black bg-yellow-lighten-2  mt-[80px] elevation-10 my-[20px] pa-10">
-<v-row class="border-2 border-solid border-black">
+<v-container v-if="trip" class=" bg-yellow-lighten-2  mt-[80px] shadow-md shadow-black my-[20px] pa-10">
+<v-row class="shadow-sm shadow-black">
 <v-col md="12" class="font-bold text-black text-xl bg-white elevation-5">
 Ticket Quotations
  
@@ -203,18 +207,18 @@ Ticket Quotations
 
 
 
-      <v-col md="5"    v-for="(quotation, quotationCounter) in trip.quotations" :key="quotationCounter" class="relative mr-5 mt-5  elevation-10 pa-10 bg-white   mb-10   border-2 border-solid border-black"  >
+      <v-col md="5"    v-for="(quotation, quotationCounter) in trip.quotations" :key="quotationCounter" class="relative mr-5 mt-5   pa-10 bg-white   mb-10   shadow-md shadow-black"  >
   
       <v-row>
-              <v-col md="12" class="bg-gray-400 font-bold text-xl text-white ">{{ quotation.quoteGiver }}</v-col>
+              <v-col md="12" class="bg-blue-darken-1 font-bold text-xl text-white ">{{ quotation.quoteGiver }}</v-col>
            </v-row>
 
       <v-row>
          <v-col md="12">
-              <v-chip class="text-caption font-weight-thin pa-2 mr-2 bg-blue-darken-2 border-2 border-solid border-black" v-for="(requestId, requestIdCounter) in quotation.requestIds" :key="requestIdCounter">{{ getUserName(requestId) }}</v-chip>
+              <v-chip label class="text-caption font-weight-thin pa-2 mr-2 bg-blue-darken-2 border-2 border-solid border-black" v-for="(requestId, requestIdCounter) in quotation.requestIds" :key="requestIdCounter">{{ getUserName(requestId) }}</v-chip>
          </v-col>
       </v-row>
-           <v-row>
+           <v-row class="shadow-sm shadow-black p-4">
         
               <v-col md="12" >
               
@@ -258,7 +262,7 @@ Ticket Quotations
 
 
 
-           <v-row v-if="quotation.confirmed" >
+           <v-row v-if="quotation.confirmed"  >
               <v-col  md="12">
                <v-file-input
                       @change="uploadFile($event, 'ticket', quotation)"
@@ -269,7 +273,8 @@ Ticket Quotations
                       
                       placeholder="Select your file"
                       prepend-icon="mdi-paperclip"
-                      variant="outlined"
+                      variant="solo"
+                      density="compact"
                       chips
                       :show-size="1000"></v-file-input>
               </v-col>
@@ -277,7 +282,7 @@ Ticket Quotations
            </v-row>
 
 
-           <v-row v-if="quotation.confirmed" class="elevation-4 mb-2">
+           <v-row v-if="quotation && quotation.confirmed && quotation.invoices.length > 0" class="shadow-sm shadow-black mb-2">
        
                  <v-col md="12" class="text-h8 font-weight-bold bg-blue-lighten-2  ">
                      Ticket Invoices
@@ -285,19 +290,19 @@ Ticket Quotations
          
                 <v-col md="12">
                   <div v-for="(invoice, invoiceCounter) in quotation.invoices" :key="invoiceCounter" class="flex flex-row justify-start">
-                       <v-chip class="text-blue-darken-2  hover:cursor-pointer" @click="getInvoice(invoice.filename)">{{ invoice.filename }}</v-chip> 
+                       <v-chip label class="text-blue-darken-2 m-1  hover:cursor-pointer" @click="getInvoice(invoice.filename)">{{ invoice.filename }}</v-chip> 
                   </div>
                 </v-col>
            </v-row>
 
 
-           <v-row class="elevation-4">
+           <v-row class="shadow-sm shadow-black" v-if="quotation.ticketApprovals.length > 0">
             <v-col md="12" class="text-h8 font-weight-bold bg-blue-lighten-2 ">
                      Ticket Approvals
                  </v-col>
              
             <v-col md="12">
-                <v-chip v-for="(ticketApproval, ticketApprovalCounter) in quotation.ticketApprovals" :key="ticketApprovalCounter">
+                <v-chip label class="text-blue-darken-2 m-1  hover:cursor-pointer" v-for="(ticketApproval, ticketApprovalCounter) in quotation.ticketApprovals" :key="ticketApprovalCounter">
                       {{ ticketApproval.empName }}
                 </v-chip>
                 
@@ -323,7 +328,7 @@ Ticket Quotations
 
 <div class="w-full mt-[10px] flex flex-row justify-center items-center " >
 
-<div class="p-3 border-2 border-solid border-black bg-blue-400 text-white font-bold hover:bg-blue-900 hover:text-black hover:cursor-pointer" @click="overlay = !overlay" >Add Custom Quotation</div>
+<div class="p-3 shadow-sm shadow-black bg-blue-400 text-white font-bold hover:bg-blue-900 hover:text-black hover:cursor-pointer" @click="overlay = !overlay" >Add Custom Quotation</div>
 </div>
 </v-row>
 
@@ -362,7 +367,7 @@ class="align-center justify-center w-full  border-2 border-solid border-black"
    <v-checkbox v-if="request.supervisorApproved == true" :label="request.requester.empName" @change="addOrRemoveTraveler($event, request)" :value="request._id" v-model="ticketQuotationSelection"></v-checkbox>
 </v-col>
 <v-col cols>
-   <v-checkbox v-if="trip.requests.filter(x => x.supervisorApproved == true).length > 1" label="All" value="All" @change="ticketQuotationAll"></v-checkbox>
+   <v-checkbox v-if="trip.requests.filter(x => x.supervisorApproved == true && x.departmentHeadApproved == true).length > 1" label="All" value="All" @change="ticketQuotationAll"></v-checkbox>
 </v-col>
 </v-row> 
 <v-container>
@@ -397,6 +402,7 @@ class="align-center justify-center w-full  border-2 border-solid border-black"
          name="totalcost"
          density="compact"
          id="totalCost"
+         variant="solo"
          
          v-model="travelerCosts[counter].totalcost"
        ></v-text-field></td>
@@ -428,10 +434,8 @@ class="align-center justify-center w-full  border-2 border-solid border-black"
 
 
 
-
-
-<v-container  class="border-2 bg-green-lighten-2  border-black border-solid mt-[40px] pa-10 elevation-4" v-if=" trip">
-<v-row class="bg-white border-2 border-solid border-black">
+<v-container  class=" bg-green-lighten-1 mt-[40px] pa-10 shadow-md shadow-black" v-if=" trip">
+<v-row class="bg-white shadow-sm shadow-black">
 <v-col md="12" class="font-bold text-black text-xl elevation-10">
 Hotel Quotations
  
@@ -440,19 +444,19 @@ Hotel Quotations
 
 <v-row justify="center">
 
-<v-col  v-for="(quotation, quotationCounter) in trip.hotelQuotations" :key="quotationCounter" md="5"  :class="{'relative  mb-10 mr-5 mt-5  bg-white  hover:bg-emerald-300 border-2 border-solid border-black elevation-10 pa-10':user.userType == 'admin' }"  >
+<v-col  v-for="(quotation, quotationCounter) in trip.hotelQuotations" :key="quotationCounter" md="5"  :class="{'relative  mb-10 mr-5 mt-5  bg-white  hover:bg-emerald-300 shadow-md shadow-black pa-10':user.userType == 'admin' }"  >
     
   <v-row>
-          <v-col md="12" class="bg-gray-400 font-bold text-xl text-white ">{{ quotation.quoteGiver }}</v-col>
+          <v-col md="12" class="bg-blue-darken-2 font-bold text-xl text-white ">{{ quotation.quoteGiver }}</v-col>
        </v-row>
        <v-row>
          <v-col md="12" class="">
-              <v-chip class="text-caption font-weight-thin pa-2 mr-2 bg-blue-darken-2 border-2 border-solid border-black" v-for="(requestId, requestIdCounter) in quotation.requestIds" :key="requestIdCounter">{{ getUserName(requestId) }} </v-chip>
+              <v-chip label class="text-caption font-weight-thin pa-2 mr-2 bg-blue-darken-2 border-2 border-solid border-black" v-for="(requestId, requestIdCounter) in quotation.requestIds" :key="requestIdCounter">{{ getUserName(requestId) }} </v-chip>
          </v-col>
       </v-row>
        <v-row>
     
-          <v-col md="12" >
+          <v-col md="12" class="shadow-sm shadow-black p-4" >
          
                      <div v-html="quotation.quotationText"></div>
                                            
@@ -502,11 +506,12 @@ Hotel Quotations
     @change="uploadHotelFile($event, 'hotel', quotation)"
     color="deep-purple-accent-4"
     counter
-    label="File input"
+    label="Upload Invoice"
     
     placeholder="Select your file"
     prepend-icon="mdi-paperclip"
-    variant="outlined"
+    variant="solo"
+    density="compact"
     chips
     :show-size="1000"
   >
@@ -517,14 +522,14 @@ Hotel Quotations
            </v-row>
 
 
-           <v-row v-if="quotation.confirmed" class="elevation-10 mb-2">
+           <v-row v-if="quotation && quotation.confirmed && quotation.invoices.length > 0" class="shadow-sm shadow-black mb-2">
 
             <v-col md="12" class="text-h8 font-weight-bold bg-blue-lighten-2 mb-2  ">
                      Hotel Invoices
                  </v-col>
               
-                <v-col md="12">
-                  <v-chip v-for="(invoice, invoiceCounter) in quotation.invoices" :key="invoiceCounter" class="flex flex-row justify-start" @click="getInvoice(invoice.filename)">
+                <v-col md="12" justify="start" align="start">
+                  <v-chip label color="blue" v-for="(invoice, invoiceCounter) in quotation.invoices" :key="invoiceCounter" class="flex flex-row m-1 justify-start" @click="getInvoice(invoice.filename)">
                         {{ invoice.filename }}
                   </v-chip>
                 </v-col>
@@ -532,16 +537,16 @@ Hotel Quotations
 
 
 
-           <v-row class="elevation-10">
+           <v-row class="shadow-sm shadow-black" v-if="quotation.hotelApprovals.length > 0">
 
             <v-col md="12" class="text-h8 font-weight-bold bg-blue-lighten-2  ">
                      Hotel Approvals
                  </v-col>
              
-             <v-col md="12">
-                 <div v-for="(hotelApproval, hotelApprovalCounter) in quotation.hotelApprovals" :key="hotelApprovalCounter">
+             <v-col md="12" justify="start" align="start">
+                 <v-chip label class="m-1" v-for="(hotelApproval, hotelApprovalCounter) in quotation.hotelApprovals" :key="hotelApprovalCounter">
                        {{ hotelApproval.empName }}
-                 </div>
+                 </v-chip>
                  
              </v-col>
  
@@ -561,8 +566,8 @@ Hotel Quotations
 <v-row>
 
 <div class="w-full flex flex-row justify-center items-center mt-3"  v-if="checkConfirmation('hotel') == false">
-<div v-if="user && trip && user.userType == 'admin'" class="border-2 border-solid border-black  p-3 mr-4 bg-blue-500 text-white font-bold hover:bg-blue-900 hover:text-black hover:cursor-pointer" @click="hotelQuotationDialog = !hotelQuotationDialog" >Add Hotel Quotation</div>
-<div v-if="user && trip && user.userType == 'admin'" class="border-2 border-solid border-black  p-3 bg-blue-500 text-white font-bold hover:bg-blue-900 hover:text-black hover:cursor-pointer" @click="customHotelOverlay = !customHotelOverlay" >Add Custom Hotel Quotation</div>
+<div v-if="user && trip && user.userType == 'admin'" class="shadow-sm shadow-black  p-3 mr-4 bg-blue-500 text-white font-bold hover:bg-blue-900 hover:text-black hover:cursor-pointer" @click="hotelQuotationDialog = !hotelQuotationDialog" >Add Hotel Quotation</div>
+<div v-if="user && trip && user.userType == 'admin'" class="shadow-sm shadow-black  p-3 bg-blue-500 text-white font-bold hover:bg-blue-900 hover:text-black hover:cursor-pointer" @click="customHotelOverlay = !customHotelOverlay" >Add Custom Hotel Quotation</div>
 </div>
 
 </v-row>
@@ -603,7 +608,7 @@ class="align-center justify-center w-full border-2 border-solid border-black"
    <v-checkbox v-if="request.supervisorApproved == true && request.confirmed == true" @change="addOrRemoveTraveler($event, request)" :label="request.requester.empName" :value="request._id" v-model="ticketQuotationSelection"></v-checkbox>
 </v-col>
 <v-col cols>
-   <v-checkbox label="All" v-if="trip.requests.filter(x => x.supervisorApproved == true).length > 1" value="All" @change="ticketQuotationAll"></v-checkbox>
+   <v-checkbox label="All" v-if="trip.requests.filter(x => x.supervisorApproved == true && x.departmentHeadApproved == true).length > 1" value="All" @change="ticketQuotationAll"></v-checkbox>
 </v-col>
 </v-row> 
 </v-container>
@@ -713,7 +718,7 @@ class="align-center justify-center w-full border-2 border-solid border-black"
 <Log v-if="trip" />
 <MoreInformationDialog />
 
-
+<ShowExpenseReportDialog/>
 </template>
 
 
@@ -747,9 +752,10 @@ import EmailCustomDialog from '../components/Trips/EmailCustomDialog.vue';
 import Log from '../components/Trips/Log.vue';
 import MoreInformationDialog from '../components/MoreInformationDialog.vue';
 import ShareDialogue from '../components/ShareDialogue.vue';
+import ShowExpenseReportDialog from '../components/ExpenseReport/ShowExpenseReportDialog.vue';
 
 
-
+var toast = useToast();
 var {user} = storeToRefs(useAuthStore())
 
 var tripStore = useTripStore();
@@ -783,8 +789,11 @@ var {getTrip, ticketQuotationAll, TAddCustomQuote,
  
 } = useTripStore()
 
+var {globalUrl} = storeToRefs(useGlobalStore())
 
-var {moreInformationDialog, shareDialogue} = storeToRefs(useRequestsStore())
+var requestStore = useRequestsStore();
+
+var {moreInformationDialog, shareDialogue, expenseReport, showExpenseReportDialog} = storeToRefs(useRequestsStore())
 
 var {request} = storeToRefs(useCustomStore())
 
@@ -795,6 +804,24 @@ var showMoreInformation = (request2) => {
    debugger
    moreInformationDialog.value = true
    request.value = request2
+}
+
+
+var showExpenseReport = (request2) =>{
+   toast.info("Getting Expense Report")
+
+  var data = new FormData()
+  data.append("id", request2._id);
+
+  axios.post(globalUrl.value + "getExpenseReport", data).then((result)=>{
+    expenseReport.value = result.data
+    showExpenseReportDialog.value = true
+ 
+    toast.clear();
+    toast.success("Got Expense Report")
+  })
+
+   
 }
 
 

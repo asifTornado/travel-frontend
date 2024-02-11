@@ -1,17 +1,17 @@
 <template>
   
-    <div v-if="mappedUserEmails" class=" w-full h-full flex flex-row justify-center items-start elevation-10   ml-[50px] bg-white pa-10"   id="login">
+    <div v-if="mappedUserEmails" class=" w-full h-full flex flex-row justify-center items-start    ml-[50px] bg-blue-lighten-5 pa-10"   id="login">
    
  <div class="flex flex-col"> 
-  <img src="../assets/front.png" class=" mt-10 mr-24" style="filter:grayscale(0.4)" alt="" srcset="">
-<div class="text-[60px] bg-red-darken-4 mt-10 mr-15 font-bold text-white">Travel </div>
-<div class="text-[60px]    bg-blue-darken-4  mr-15 font-bold text-white mt-0">Management </div>
+  <img src="../assets/front.png" class=" mt-10 mr-24 " style="filter:grayscale(0.4)" alt="" srcset="">
+<div class="text-[60px] bg-red-darken-4 mt-10 mr-15 font-bold text-white ">Travel </div>
+<div class="text-[60px]    bg-blue-darken-4  mr-15 font-bold text-white mt-0 ">Management </div>
 
 </div>
   
   <div class="w-96 h-50   hover:shadow-blue-500 ml-10 ">
   
-  <div style="box-shadow: 10px 10px 1px rgba(0, 0, 0, 0.5)"    class=" drop-shadow-md   rounded-b-md    pb-8  h-auto " id="form">
+  <div     class=" shadow-2xl shaodow-black bg-white   rounded-b-md    pb-8  h-auto " id="form">
   
   
   

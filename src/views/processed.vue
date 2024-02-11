@@ -3,37 +3,37 @@
 
 <div class="flex flex-row mt-5 justify-center elevation-4">
 
- <input v-model="searchTerm" type="search" name="" placeholder="Search Request" id="" class="focus:outline-none text-bold text-lg border-b-2 border-t-2 border-l-2 border-solid border-l-gray-500 border-t-gray-500 border-b-gray-500 p-3 w-[200px]">
- <div class="flex flex-col  justify-center bg-blue-lighten-1 items-center p-3 border-t-2 border-r-2 border-b-2 border-solid border-r-gray-500 border-t-gray-500 border-b-gray-500 hover:cursor-pointer" @click="search"><v-icon>mdi-magnify</v-icon></div>
+ <input v-model="searchTerm" type="search" name="" placeholder="Search Request" id="" class="focus:outline-none text-bold  p-3 w-[200px]">
+ <div class="flex flex-col  justify-center bg-blue-lighten-1 items-center p-3 hover:cursor-pointer" @click="search"><v-icon>mdi-magnify</v-icon></div>
 </div>
 
 </div>
 
-    <div class="box pl-[100px]">
+    <div class="box pl-[100px] ">
     
-    <v-table class="border-2 border-solid border-black">
-        <thead  class="bg-blue-lighten-1 border-b-2 border-b-solid border-b-black">
+    <v-table fixed-header max-height="60vh" class="elevation-4" density="compact">
+        <thead  class="bg-blue-lighten-1 ">
           <tr>
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-1">
               Number
             </th>
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-1">
              Status
             </th>
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-1">
               Purpose
             </th>
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-1">
               Destination
             </th>
     
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-1">
               Start Date
             </th>    
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-1">
               End Date
             </th>
-            <th class="text-center text-white">
+            <th class="text-center text-white bg-blue-lighten-1">
               Current Handler
             </th>
           </tr>

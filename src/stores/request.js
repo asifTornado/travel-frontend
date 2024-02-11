@@ -506,6 +506,7 @@ function book(condition){
     
     data.append("user", JSON.stringify(user.value))
     data.append("id", request.value._id)
+    data.append("request", JSON.stringify(request))
  
     axios.post(globalUrl.value + "processed", data).then((result)=>{
 

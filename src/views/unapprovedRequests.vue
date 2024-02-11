@@ -5,33 +5,35 @@
   
       
   
-      <v-table class="border-2 elevation-4 border-solid border-black "   
+      <v-table class=" elevation-4  "
+      density="compact" 
+      fixed-header max-height="60vh"  
      
       >
-          <thead class="bg-blue-lighten-1 text-white border-b-2 border-b-solid border-b-black elevation-4">
+          <thead class="bg-blue-lighten-1 text-white  elevation-4">
             <tr>
-              <th class="text-center text-white ">
+              <th class="text-center text-white bg-blue-lighten-2 ">
                 Number
               </th>
             
-              <th class="text-center text-white ">
+              <th class="text-center text-white bg-blue-lighten-2 ">
                 Status
               </th>
-              <th class="text-center text-white ">
+              <th class="text-center text-white bg-blue-lighten-2 ">
                 Purpose
               </th>
-              <th class="text-center text-white ">
+              <th class="text-center text-white bg-blue-lighten-2 ">
                 Destination
               </th>
       
             
-              <th class="text-center text-white ">
+              <th class="text-center text-white bg-blue-lighten-2 ">
                 Start Date
               </th>    
-              <th class="text-center text-white ">
+              <th class="text-center text-white bg-blue-lighten-2 ">
                 End Date
               </th>
-              <th class="text-center text-white ">
+              <th class="text-center text-white bg-blue-lighten-2 ">
                 Current Handler
               </th>
             </tr>

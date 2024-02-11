@@ -136,35 +136,35 @@
     <!-- update agent end  -->
     
     
-    <div class="ml-[40px]   elevation-4">
+    <div class="ml-[40px]   ">
     
-    <v-table class="h-[60vh] m-[20px] border-2 border-solid border-black elevation-8 ">
-        <thead class="bg-blue-lighten-1">
+    <v-table  fixed-header max-height="60vh" class="h-[60vh] m-[20px]   elevation-4tr " density="compact">
+        <thead   class="bg-blue-lighten-2">
           <tr>
-            <th class="text-center font-extrabold text-xl text-white">
+            <th class="text-center font-extrabold text-xl text-white bg-blue-lighten-2">
               Name
             </th>
-            <th class="text-center font-extrabold text-xl text-white">
+            <th class="text-center font-extrabold text-xl text-white  bg-blue-lighten-2">
               Email
             </th>
-            <th class="text-center text-xl text-white">
+            <th class="text-center text-xl text-white bg-blue-lighten-2">
               Department
             </th>
-            <th class="text-center text-xl text-white">
+            <th class="text-center text-xl text-white bg-blue-lighten-2">
               Designation
             </th>
-            <th class="text-center text-xl text-white">
+            <th class="text-center text-xl text-white bg-blue-lighten-2">
               Location
             </th>
 
-            <th class="text-center text-xl text-white">
+            <th class="text-center text-xl text-white bg-blue-lighten-2">
                Unique Id
               </th>
             
-            <th class="text-center text-xl text-white">
+            <th class="text-center text-xl text-white bg-blue-lighten-2">
                
             </th>
-            <th class="text-center text-xl text-white">
+            <th class="text-center text-xl text-white bg-blue-lighten-2">
                
               </th>
      

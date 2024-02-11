@@ -21,6 +21,8 @@
                 v-model="requester"
                 label="Requester*"
                 :rules="exist"
+                density="compact"
+                variant="outlined"
                ></v-autocomplete>
               </v-col>
               <v-col
@@ -34,6 +36,8 @@
                 v-model="destination"
                 label="Location*"
                 :rules="exist"
+                density="compact"
+                variant="outlined"
                ></v-select>
               </v-col>
       
@@ -46,6 +50,8 @@
                 v-model="mode"
                 label="Travel Mode"
                 :rules="exist"
+                density="compact"
+                variant="outlined"
               ></v-select>
               </v-col>
 
@@ -62,8 +68,10 @@
                 label="Start Date*"
                 id="startDate"
                 type="date"
+                density="compact"
                 v-model="startDate"
                 :rules="exist"
+                variant="outlined"
                 @change="getNumberOfDays"
               ></v-text-field>
               </v-col>
@@ -77,7 +85,9 @@
                 id="endDate"
                 type="date"
                 v-model="endDate"
+                density="compact"
                 :rules="exist"
+                variant="outlined"
                 @change="getNumberOfDays"
               ></v-text-field>
               </v-col>
@@ -91,6 +101,8 @@
                 id="id"
                 type="number"
                 :rules="exist"
+                variant="outlined"
+                density="compact"
                 v-model="numberOfNights"
               ></v-text-field>
               </v-col>
@@ -102,7 +114,7 @@
                 cols="12"
                 md="4"
               >
-             <v-textarea box label="Purpose of travel*" v-model="purpose"></v-textarea>
+             <v-textarea density="compact"      variant="outlined" box label="Purpose of travel*" v-model="purpose"></v-textarea>
               </v-col>
           </v-row>
           
@@ -121,7 +133,7 @@
             <v-container  class="elevation-5 mt-3 mb-4">
             <v-row><v-col cols="12" class="font-bold">Estimated Total Cost</v-col></v-row>
 
-            <v-row  class="bg-blue-lighten-1">
+            <v-row  class="">
             <v-col
             cols="4"
             class="font-bold"
@@ -163,6 +175,8 @@
               <v-text-field
                type="string"
                v-model="item.item"
+               density="compact"
+               variant="outlined"
               ></v-text-field>
             </v-col>
             <v-col
@@ -171,6 +185,8 @@
             <v-text-field
             type="string"
             v-model="item.numberOfItems"
+            density="compact"
+            variant="outlined"
            ></v-text-field>
             </v-col>
             <v-col
@@ -179,6 +195,9 @@
             <v-text-field
             type="string"
             v-model="item.itemCost"
+            density="compact"
+
+            variant="outlined"
            ></v-text-field>
             </v-col>
             <v-col cols="1" >
@@ -187,8 +206,8 @@
             </v-col>
          
             <v-col cols="2">
-             <v-btn color="success" @click="addItem(itemCounter)" style="margin-right: 20px;"><v-icon>mdi-plus</v-icon></v-btn>
-               <v-btn  color="red" @click="removeItem(itemCounter)"><v-icon>mdi-plus</v-icon></v-btn>
+             <v-btn class="bg-blue-darken-4 mr-1" @click="addItem(itemCounter)" ><v-icon>mdi-plus</v-icon></v-btn>
+               <v-btn  class="bg-blue-lighten-1" @click="removeItem(itemCounter)"><v-icon>mdi-plus</v-icon></v-btn>
             
             </v-col>
            
@@ -238,14 +257,15 @@ import axios from "axios";
 import { useRequestsStore } from '../stores/request';
 import { storeToRefs } from 'pinia';
 import {provide} from "vue"
+import { useAuthStore } from '../stores/auth';
 
 
 
+var {user, token} = storeToRefs(useAuthStore())
 
+var {getUsersForSupervisor} = useUserStore()
 
-var {getAllUsers} = useUserStore()
-
-getAllUsers()
+getUsersForSupervisor(user)
 
 var {mappedUsers} = storeToRefs(useUserStore())
 
@@ -297,8 +317,8 @@ var { locations,
 <style scoped>
 
 .v-container{
-  border:1px solid gray;
-  background-color:rgb(255, 255, 255);
+ 
+
 }
 
 

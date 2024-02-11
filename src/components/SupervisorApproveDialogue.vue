@@ -3,6 +3,7 @@
     <v-dialog
     v-model="superVisorApproveDialogue"
     width="400"
+    persistent
     
     >
     <v-card>

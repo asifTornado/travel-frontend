@@ -1,13 +1,13 @@
 <template>
-    <div class="mx-10 pl-[20px] mt-15 bg-grey-lighten-3 " >
+    <div class="mx-10 pl-[20px] mt-15  b" >
             
-            <v-form @submit.prevent="updateHotelsForBrand" ref="form">
+            <v-form @submit.prevent="updateHotelsForBrand"  ref="form">
   
-              <v-container class="pa-10 bg-white elevation-4 ">
+              <v-container class="pa-10  bg-blue-lighten-5 ">
                 <v-row class="mb-2 text-subtitle font-weight-bold">
                     Fields with * are mandatory
                 </v-row>
-                <v-row class="row1 pa-4  elevation-3 border-2 border-black border-solid"  >
+                <v-row class="row1 pa-4  bg-white shadow-md shadow-black "  >
                   
                   <v-col md="12"  class="col1">
                     
@@ -18,6 +18,7 @@
                 v-model="hotelsForBrand.brand"
                 class="brand "
                 :rules="exist"
+                variant="outlined"
               
              
                 
@@ -35,6 +36,7 @@
                 id="brandOfficeAddress"
                 class="brandOfficeAddress"
                 prepend-inner-icon="mdi-map-marker"
+                variant="outlined"
                 
                 clearable
                 :rules="exist"
@@ -47,22 +49,23 @@
           
           
           
-          <v-row v-for="(location, locationCounter) in hotelsForBrand.locations" class="border-2 border-solid border-slate-300 mt-10   pa-5">
+          <v-row v-for="(location, locationCounter) in hotelsForBrand.locations" class=" mt-10   pa-5">
             <v-col cols="11" md="10" class="">
               <!-- Your content for the first column -->
-          <v-card class="pa-10 border-2 border-black border-solid">
+          <v-card class="pa-10 border-2 border-black border-solid shadow-md shadow-black">
             <v-card-title >
               <v-text-field name="name" label="City/State *" prepend-inner-icon="mdi-city"
                v-model="location.locationName"  
-                variant="outlined"  
+               variant="outlined"
+                 
                 clearable
                 :rules="exist"
               id="id"></v-text-field></v-card-title>
               <v-card-text>
-                <v-container v-for="(hotel, hotelCounter) in location.hotels" class="border-2 border-solid border-slate-400">
-                  <v-row  class="" align="center" justify="center">
+                <v-container  v-for="(hotel, hotelCounter) in location.hotels" class=" border border-black mt-5">
+                  <v-row  class="border-b border-b-black" align="center" justify="center">
                  
-                      <v-col md="3">
+                      <v-col md="5">
                         
                         <v-text-field
                         name="name"
@@ -72,13 +75,13 @@
                         v-model="hotel.hotelName"
                         prepend-inner-icon="mdi-rename"
                         clearable
-                        variant="solo"
+                        variant="outlined"
                         :rules="exist"
                         ></v-text-field>
                         
                       </v-col>
                       
-                      <v-col md="4">
+                      <v-col md="5">
                         
                         <v-text-field
                         name="name"
@@ -87,7 +90,7 @@
                         class="hotelAddress"
                         prepend-inner-icon="mdi-store-marker"
                         clearable
-                        variant="solo"
+                        variant="outlined"
                         :rules="exist"
                         v-model="hotel.hotelAddress"
                         ></v-text-field>
@@ -109,35 +112,47 @@
                     </v-col> -->
               
                       <v-col md="1" class="flex flex-col ">
-                        <v-btn  prepend-icon="mdi-plus" size="small" color="" dark @click="addHotel(hotelCounter, locationCounter)"></v-btn>
+                        <v-btn   size="small" class="bg-blue-darken-4" dark @click="addHotel(hotelCounter, locationCounter)">
+                        <v-icon>mdi-plus</v-icon>
+                        </v-btn>
                         
                       </v-col>
                       <v-col md="1" class="flex flex-col ">
-                        <v-btn prepend-icon="mdi-minus" color="primary" size="small" dark @click="deleteHotel(hotelCounter, locationCounter)"></v-btn>
+                        <v-btn class="bg-blue-lighten-1" size="small" dark @click="deleteHotel(hotelCounter, locationCounter)">
+                        <v-icon>mdi-minus</v-icon>
+                        </v-btn>
                         
                       </v-col>
                     </v-row>
 
 
-                    <v-row v-for="(room, roomCounter) in hotel.rooms" :key="roomCounter">
+                    <v-row density="compact" v-for="(room, roomCounter) in hotel.rooms" :key="roomCounter">
                     <v-col md="3" density="compact" style="font-size: 2px;">
-                   <v-text-field label="Room Type" v-model="hotel.rooms[roomCounter].type">
+                   <v-text-field label="Room Type" variant="outlined" v-model="hotel.rooms[roomCounter].type">
 
                    </v-text-field>
                   </v-col>
                    <v-col md="3">
-                     <v-text-field label="Average Rate" v-model="hotel.rooms[roomCounter].average_rate">
+                     <v-text-field label="Average Rate" variant="outlined" v-model="hotel.rooms[roomCounter].average_rate">
   
                      </v-text-field>
 
                    </v-col>
 
                    <v-col md="1" class="flex flex-col ">
-                      <v-btn  prepend-icon="mdi-plus" class="mt-3" size="small" color="" dark @click="addRoom(roomCounter, hotelCounter, locationCounter)"></v-btn>
+                      <v-btn   class="mt-3 bg-indigo-darken-3" size="extra-small"  dark @click="addRoom(roomCounter, hotelCounter, locationCounter)">
+                      <v-icon>
+                        mdi-plus
+                      </v-icon>
+                      </v-btn>
                       
                     </v-col>
                     <v-col md="1" class="flex flex-col ">
-                      <v-btn prepend-icon="mdi-minus" class="mt-3" color="primary" size="small" dark @click="deleteRoom(roomCounter, hotelCounter, locationCounter)"></v-btn>
+                      <v-btn class="mt-3 bg-indigo-lighten-2"   size="extra-small" dark @click="deleteRoom(roomCounter, hotelCounter, locationCounter)">
+                      <v-icon>
+                        mdi-minus
+                      </v-icon>
+                      </v-btn>
                       
                     </v-col>
                   
@@ -148,11 +163,19 @@
               </v-card>
             </v-col>
             <v-col>
-              <v-btn color="success" prepend-icon="mdi-plus" class="mt-[20px]" @click="addLocation(locationCounter)"></v-btn>
+              <v-btn class="bg-blue-darken-4 mt-[20px]" @click="addLocation(locationCounter)">
+              <v-icon>
+                mdi-plus
+              </v-icon>
+              </v-btn>
             </v-col>
             
             <v-col>
-              <v-btn color="success" prepend-icon="mdi-minus" class="mt-[20px]" @click="deleteLocation(locationCounter)"></v-btn>
+              <v-btn  class="bg-blue-lighten-2 text-white mt-[20px]" @click="deleteLocation(locationCounter)">
+              <v-icon>
+                mdi-minus
+              </v-icon>
+              </v-btn>
             </v-col>
             
           </v-row>

@@ -3,12 +3,12 @@
     <v-container class="mt-10 mb-10 elevation-5"> 
         
         <v-row class="mb-2">
-            <v-col  md="12" class="font-weight-bold">
+            <v-col  md="12" class="font-weight-bold ">
                 Activites
             </v-col>
         </v-row>
 
-        <v-row class="mb-2 text-h5 bg-blue-lighten-1 pa-2 font-weight-bold text-white">
+        <v-row class="mb-2 text-h5   pa-2 font-weight-bold text-black font-weight-bold ">
             <v-col md="2">
                    Date
             </v-col>
@@ -19,19 +19,19 @@
         
         <v-row v-for="(activity, activityCounter) in activities" :key="activityCounter">
             <v-col md="2">
-                   <v-text-field type="date" v-model="activities[activityCounter].date" />
+                   <v-text-field variant="outlined" type="date" density="compact" v-model="activities[activityCounter].date" />
 
                   
             </v-col>
             <v-spacer></v-spacer>
             <v-col md=7>
-                <v-textarea rows="1" auto-grow v-model="activities[activityCounter].description" />
+                <v-textarea  variant="outlined" rows="1" density="compact" auto-grow v-model="activities[activityCounter].description" />
 
                 </v-col>
 
-                <v-col md="2">
-                      <v-btn color="success"  @click="add(activityCounter)"><v-icon>mdi-plus</v-icon></v-btn>
-                      <v-btn color="red" @click="remove(activityCounter)"><v-icon >mdi-minus</v-icon></v-btn>
+                <v-col md="2" >
+                      <v-btn class="bg-blue-darken-4"    @click="add(activityCounter)"><v-icon>mdi-plus</v-icon></v-btn>
+                      <v-btn  class="bg-blue-lighten-1 "     @click="remove(activityCounter)"><v-icon >mdi-minus</v-icon></v-btn>
                 </v-col>
         </v-row>
         
@@ -91,7 +91,6 @@
 
 
 .v-container {
-    border:2px solid grey;
 }
 
 </style>

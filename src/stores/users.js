@@ -9,6 +9,7 @@ import axios from 'axios';
 
 import {useRouter, useRoute} from 'vue-router'
 import { VSlideYReverseTransition } from 'vuetify/lib/components/index.mjs';
+import { useAuthStore } from './auth';
 
 
 
@@ -41,6 +42,8 @@ export const useUserStore = defineStore("users", () => {
     var userEmails = ref([])
     var searchTerm = ref('')
     var filteredUsers = ref([])
+
+    
 
 
     var options = ref({
@@ -106,7 +109,17 @@ export const useUserStore = defineStore("users", () => {
             
         } 
     
-
+  function getUsersForSupervisor(AuthUser){
+    var data = new FormData();
+    debugger
+    data.append("id", AuthUser.value._id)
+    axios.post(globalUrl.value + "getUsersForSupervisor", data).then((result)=>{
+        debugger
+        users.value = result.data
+        filteredUsers.value = result.data
+        fuse.value = new Fuse(result.data, options.value)
+    }).catch((error) => toast.warning(error))
+  }
 
 
     function getUserByName(name){
@@ -330,7 +343,8 @@ function setText(value){
        
          getAllUsers, getUserByName, addUser, getUser, setText, updateUser, resetUser, adduserPage, updateuserPage,
          uploadExcel, deleteuser, getUserEmails, getNumberOfDays, addFlyer, insertFlyer, removeFlyer,
-         getApiUsers, search, getUserEmails
+         getApiUsers, search, getUserEmails,
+         getUsersForSupervisor
 
     }
 

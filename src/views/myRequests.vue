@@ -10,30 +10,30 @@
 
 <div class="mx-16    elevation-4  ">
 
-<v-table class="border-2 border-solid border-black elevation-4 ">
+<v-table fixed-header max-height="60vh" class=" elevation-4 " density="compact">
     <thead class="bg-blue-lighten-1 ">
       <tr>
-        <th class="text-center text-white">
+        <th class="text-center text-white bg-blue-lighten-1">
           Number
         </th>
-        <th class="text-center text-white">
+        <th class="text-center text-white bg-blue-lighten-1">
           Status
         </th>
-        <th class="text-center text-white">
+        <th class="text-center text-white bg-blue-lighten-1">
           Purpose
         </th>
-        <th class="text-center text-white">
+        <th class="text-center text-white bg-blue-lighten-1">
           Destination
         </th>
 
     
-        <th class="text-center text-white">
+        <th class="text-center text-white bg-blue-lighten-1">
           Start Date
         </th>    
-        <th class="text-center text-white">
+        <th class="text-center text-white bg-blue-lighten-1">
           End Date
         </th>
-        <th class="text-center text-white">
+        <th class="text-center text-white bg-blue-lighten-1">
           Current Handler
         </th>
       </tr>

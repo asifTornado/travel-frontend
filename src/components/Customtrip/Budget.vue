@@ -1,6 +1,6 @@
 <template>
 
-<v-container v-if="requestBudget && request.supervisorApproved == false">
+<v-container v-if="requestBudget && request.supervisorApproved == false" class="elevation-4">
 <v-row class="border border-solid bg-blue-lighten-1 pa-2">
     <v-col md="3" align="end" class="font-weight-bold text-h6">
         Travel Supervisor:
@@ -15,6 +15,9 @@
         label="Total Daily Allowance"
         v-model="requestBudget.totalDailyAllowance"
         type="text"
+        density="compact"
+        variant="outlined"
+        :rules="exist"
        ></v-text-field>
     </v-col>
     <v-col md="3">
@@ -22,6 +25,9 @@
         label="Emergency Fund"
         v-model="requestBudget.emergencyFund"
         type="text"
+        density="compact"
+        variant="outlined"
+        :rules="exist"
        ></v-text-field>
     </v-col>
     <v-col md="3">
@@ -29,9 +35,25 @@
         label="Total Budget"
         v-model="requestBudget.totalBudget"
         type="text"
+        density="compact"
+        variant="outlined"
+        :rules="exist"
        ></v-text-field>
     </v-col>
+    <v-col md="3">
+     <v-textarea
+     label="Additional Notes"
+     v-model="requestBudget.notes"
+     density="compact"
+     rows="1"
+     :rules="exist"
+     
+     />
+      
+
+    </v-col>
 </v-row>
+
 <v-row>
     <v-col md="12">
           <v-row v-for="(breakdown, breakdownCounter) in requestBudget.breakdown" :key="breakdownCounter">
@@ -39,6 +61,9 @@
                    <v-text-field
                     label="Item"
                     id="id"
+                    density="compact"
+                    type="text"
+                    :rules="exist"
                     v-model="requestBudget.breakdown[breakdownCounter].item"
                    ></v-text-field>
                </v-col>
@@ -46,7 +71,9 @@
                    <v-text-field
                     label="Quantity"
                     id="id"
-                    type="number"
+                    type="text"
+                    density="compact"
+                    :rules="exist"
                     v-model="requestBudget.breakdown[breakdownCounter].quantity"
                     @change="getTotal(breakdownCounter)"
                    ></v-text-field>
@@ -55,8 +82,10 @@
                    <v-text-field
                     label="Cost"
                     id="id"
+                    density="compact"
+                    :rules="exist"
                     v-model="requestBudget.breakdown[breakdownCounter].cost"
-                    type="number"
+                    type="text"
                     @change="getTotal(breakdownCounter)"
                    ></v-text-field>
                </v-col>
@@ -64,7 +93,9 @@
                    <v-text-field
                     label="Total"
                     id="id"
-                    type="number"
+                    type="text"
+                    :rules="exist"
+                    density="compact"
                     v-model="requestBudget.breakdown[breakdownCounter].total"
                    ></v-text-field>
                </v-col>
@@ -80,15 +111,22 @@
 
 
 
+
+
 </template>
 
 
 <script setup>
    import {storeToRefs} from "pinia"
   import { useCustomStore } from '../../stores/custom';
+  import {Events} from "../../stores/events";
+  import { useAuthStore } from "../../stores/auth";
 
 
-  var {request, requestBudget} = storeToRefs(useCustomStore())
+
+  var {request, requestBudget, exist} = storeToRefs(useCustomStore())
+  var {approve, reject, permanentlyReject} =  useCustomStore()
+  var {user} = storeToRefs(useAuthStore())
 
 
   var add = (counter) => {
@@ -109,7 +147,7 @@
 
 
   var getTotal = (counter) => {
-    requestBudget.value.breakdown[counter].total = requestBudget.value.breakdown[counter].quantity * requestBudget.value.breakdown[counter].cost
+    requestBudget.value.breakdown[counter].total = (requestBudget.value.breakdown[counter].quantity * requestBudget.value.breakdown[counter].cost).toString()
   }
 
 

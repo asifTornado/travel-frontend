@@ -1,7 +1,7 @@
 <template>
 
-<v-dialog v-model="moreInformationDialog" width="100vw" height="100vh" >
-    <v-container class="overflow-y-scroll  mr-10 bg-grey-lighten-3 elevation-10 ">
+<v-dialog v-model="moreInformationDialog" width="100vw" height="100vh"  persistent>
+    <v-container class="overflow-y-scroll  mr-10 bg-blue-lighten-5 elevation-10 ">
         <v-row justify="end mb-1">
             <v-col justify="end" align="end">
                 <v-icon color="red" size="large" @click="moreInformationDialog = false">
