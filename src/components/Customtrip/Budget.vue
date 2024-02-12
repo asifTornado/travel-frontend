@@ -46,6 +46,7 @@
      v-model="requestBudget.notes"
      density="compact"
      rows="1"
+     variant="outlined"
      :rules="exist"
      
      />
@@ -64,6 +65,7 @@
                     density="compact"
                     type="text"
                     :rules="exist"
+                    variant="outlined"
                     v-model="requestBudget.breakdown[breakdownCounter].item"
                    ></v-text-field>
                </v-col>
@@ -73,6 +75,7 @@
                     id="id"
                     type="text"
                     density="compact"
+                    variant="outlined"
                     :rules="exist"
                     v-model="requestBudget.breakdown[breakdownCounter].quantity"
                     @change="getTotal(breakdownCounter)"
@@ -84,6 +87,7 @@
                     id="id"
                     density="compact"
                     :rules="exist"
+                    variant="outlined"
                     v-model="requestBudget.breakdown[breakdownCounter].cost"
                     type="text"
                     @change="getTotal(breakdownCounter)"
@@ -96,12 +100,13 @@
                     type="text"
                     :rules="exist"
                     density="compact"
+                    variant="outlined"
                     v-model="requestBudget.breakdown[breakdownCounter].total"
                    ></v-text-field>
                </v-col>
                <v-col md="2" class="mt-2">
-                       <v-btn color="success" class="mr-2" @click="add(breakdownCounter)"><v-icon>mdi-plus</v-icon></v-btn>
-                       <v-btn color="red" class="mr-2" @click="remove(breakdownCounter)"><v-icon>mdi-minus</v-icon></v-btn>
+                       <v-btn  class="bg-blue-darken-4 mr-2" @click="add(breakdownCounter)"><v-icon>mdi-plus</v-icon></v-btn>
+                       <v-btn  class="bg-blue-lighten-2 mr-2" @click="remove(breakdownCounter)"><v-icon>mdi-minus</v-icon></v-btn>
                </v-col>
           </v-row>
     </v-col>

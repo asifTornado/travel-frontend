@@ -210,7 +210,38 @@ const routes = [
         component: () => import('../views/request.vue')
       },
 
+// money receipts start from here
 
+{
+  path: 'allMoneyReceipts',
+  name: 'allMoneyReceipts',
+  component: () => import('../views/moneyReceipts/allMoneyReceipts.vue')
+},
+
+{
+  path: 'myMoneyReceipts',
+  name: 'myMoneyReceipts',
+  component: () => import('../views/moneyReceipts/myMoneyReceipts.vue')
+},
+
+{
+  path: 'moneyReceiptsProcessedByMe',
+  name: 'moneyReceiptsProcessedByMe',
+  component: () => import('../views/moneyReceipts/moneyReceiptsProcessedByMe.vue')
+},
+
+{
+  path: 'moneyReceiptsForMe',
+  name: 'moneyReceiptsForMe',
+  component: () => import('../views/moneyReceipts/moneyReceiptsForMe.vue')
+},
+
+
+{
+  path: 'moneyReceipt/:id',
+  name: 'moneyReceipt',
+  component: () => import('../views/moneyReceipts/moneyReceipt.vue')
+},
 
 
 

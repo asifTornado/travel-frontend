@@ -2,7 +2,7 @@
 <div class="w-screen px-[20px] mt-10" >
 
    
-    <div class="sticky   bg-blue-lighten-5 h-12 w-full flex flex-row justify-center" style="z-index: 99;" v-if="request && request.currentHandler && user">
+    <div class="sticky   bg-blue-lighten-5 h-12 w-full flex flex-row justify-center"  v-if="request && request.currentHandler && user">
 
       <div v-if="request.currentHandler.empName == request.requester.superVisor.empName && request.status == 'Seeking Supervisor\'s Approval'" >
          <v-btn color="success" class="mr-[10px]" @click="openApprovalDialogue('superVisor', 'ticket', 'approved')">Approve</v-btn>
@@ -500,6 +500,12 @@
    <v-btn @click="print()" prepend-icon="mdi-printer" class="text-white shadow-md shadow-black " color="orange d-print-none" >Print</v-btn>
 </div>
 
+<div v-if="request && request.hotelConfirmed == true && request.moneyReceiptSubmitted == false" class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" >
+   <v-btn @click="moneyReceiptDialog = true" prepend-icon="mdi-cash" class="text-white shadow-md shadow-black d-print-none bg-indigo-darken-2" color=" " >Apply For Advance Payment</v-btn>
+</div>
+
+
+
 
 
 
@@ -545,13 +551,15 @@
 
 <MoreInformationDialog />
 
+<MoneyReceiptDialog/>
+
 </template>
 
 
 
 <script setup>
 
-
+import MoneyReceiptDialog from '../components/MoneyReceiptDialog.vue';
 import {ref, onMounted} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import { useGlobalStore } from '../stores/global';
@@ -583,6 +591,7 @@ import SendExpenseReportDialog from '../components/ExpenseReport/SendExpenseRepo
 import SupervisorRequestApprovalDialog from '../components/SupervisorRequestApprovalDialog.vue';
 import MoreInformationDialog from '../components/MoreInformationDialog.vue';
 import { useCustomStore } from '../stores/custom';
+import { useMoneyReceiptStore } from '../stores/moneyReceiptStore';
 
 
 
@@ -601,7 +610,7 @@ var {getRequest, openBookDialogue, openunbookDialogue, openRevokeDialogue,
 
 var globalStore = useGlobalStore();
 var customStore = useCustomStore();
-
+var {moneyReceiptDialog} = storeToRefs(useMoneyReceiptStore())
 
 getRequest();
 

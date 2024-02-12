@@ -8,8 +8,8 @@
   
   <div class="flex flex-row h-[92vh]" >
 
-      <div class="" >
-        <RouterView class=" w-full z-0 " />
+      <div class="bg-blue-lighten-5" >
+        <RouterView class=" w-full z-0 bg-blue-lighten-5" />
         </div>
   </div>
   
