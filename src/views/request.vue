@@ -206,14 +206,7 @@
                {{ request.requester.zonalHead.empName }}
             </v-col>
          </v-row>
-         <v-row class="pl-[80px]">
-            <v-col md="6" class="text-left">
-               Travel Handler
-            </v-col>
-            <v-col md="6" class="text-left">
-               {{ request.requester.travelHandler.empName }}
-            </v-col>
-         </v-row>
+      
 
          <v-row class="pl-[80px]">
         <v-col md="12" class="text-left">
@@ -505,7 +498,17 @@
 </div>
 
 
-
+<v-row justify="center" align="center" v-if="request && request.currentHandlerId == user._id && request.beingProcessed == true && request.processed == false">
+                    <v-btn class="mr-2 bg-blue-darken-2"  size="large" @click="openRequestForwardDialog">
+                         Forward
+                    </v-btn>
+                    <v-btn size="large"  class="bg-grey-darken-1 mr-2" @click="requestBackward">
+                        Reject
+                    </v-btn>
+                    <v-btn size="large" class="bg-green-darken-1" @click="requestProcessingComplete">
+                       Complete Processing
+                    </v-btn>
+</v-row>
 
 
 

@@ -10,6 +10,7 @@ import axios from 'axios';
 import {useRouter, useRoute} from 'vue-router'
 import { VSlideYReverseTransition } from 'vuetify/lib/components/index.mjs';
 import { useAuthStore } from './auth';
+import { useRoleStore } from './roles';
 
 
 
@@ -39,6 +40,7 @@ export const useUserStore = defineStore("users", () => {
     var route = useRoute()
     var fileInput = ref(null)
     var {globalUrl} = storeToRefs(useGlobalStore())
+    var {roles} = storeToRefs(useRoleStore())
     var userEmails = ref([])
     var searchTerm = ref('')
     var filteredUsers = ref([])
@@ -53,9 +55,10 @@ export const useUserStore = defineStore("users", () => {
          
           {name:'mailAddress', weight:0.1},
           {name:'department', weight:0.1},
-          {name:'designation', weight:0.5},
+          {name:'designation', weight:0.3},
           {name:'Location', weight:0.1},
           {name:'_id', weight:0.1}, 
+          {name:'roles.value', weight:0.2}
         ]
 
         })
@@ -211,6 +214,7 @@ function getUser(){
         console.log("this is the user")
         console.log(result.data)
         user.value = result.data
+        user.value.roles = user.value.roles.map((x)=>x.value)
 
         if(!user.value.superVisor){
             user.value.superVisor = {}
@@ -235,12 +239,24 @@ function getUser(){
 var updateUser = async () => {
     var validation = await form.value.validate();
     if(validation.valid){
+        debugger
     toast.info("Updating User, please wait...")
     var data = new FormData()
 
     console.log("these are the users")
     console.log(users.value)
+     
+    var changedRoles = []
 
+    for(var x of roles.value){
+        for(var y of user.value.roles){
+            if(y == x.value){
+                changedRoles.push(x)
+            }
+        }
+    }
+
+    user.value.roles = changedRoles
     
 
     var superVisor = users.value.filter((x)=>user.value.superVisor && x.empName == user.value.superVisor.empName)[0]

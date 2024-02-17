@@ -31,8 +31,14 @@ export const useNotificationStore = defineStore("notification", () => {
                  debugger
                console.log(notification.event)
                console.log(eventsMap)
-               if(eventsMap.includes(notification.event)){
+
+               
+               if(notification.type == "unapproved"){
                 router.push("/travel/unapproved-request/" + notification.ticketId)
+               }else if(notification.type == "moneyReceipt"){
+                router.push("/travel/moneyReceipt/" + notification.ticketId)
+               }else if(notification.type == "expenseReport"){
+                router.push("/travel/expenseReport/" + notification.ticketId)
                }else{
                 router.push("/travel/showRequest/" + notification.ticketId)
                }

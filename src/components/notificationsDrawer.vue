@@ -19,7 +19,7 @@
     >
       <div v-if="notification.type === 'chat'" @click="getToSource($event, notification)" class="d-flex flex-column hover:cursor-pointer pa-3">
         <div>You have received a message from {{ notification.from.empName }}:</div>
-        <div class="font-weight-bold">{{ notification.message }}</div>
+        <div class="font-weight-bold">asdf{{ notification.message }}</div>
         <div class="d-flex flex-row justify-end text-caption pt-2">{{ notification.time }}</div>
       </div>
       <div v-else-if="notification.type === 'mention'" @click="getToSource($event, notification)" class="d-flex flex-column hover:cursor-pointer pa-3">

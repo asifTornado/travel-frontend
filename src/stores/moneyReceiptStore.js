@@ -26,6 +26,8 @@ export const useMoneyReceiptStore = defineStore("moneyReceipt", ()=>{
 var {request} = storeToRefs(useRequestsStore())
 var toast = useToast()
 var {globalUrl} = storeToRefs(useGlobalStore())
+var {getAllUsers} = useUserStore()
+var {users} = storeToRefs(useUserStore())
 
 var router = useRouter();
 var route = useRoute();
@@ -54,7 +56,9 @@ var options = ref({
     })
 
 var moneyReceiptDialog = ref(false)
-var next = ref({})
+var next = ref()
+var selectedUserEmail = ref()
+var moneyReceiptForwardDialog = ref(false)
 
 var moneyReceipt = ref({
     no:'',
@@ -196,7 +200,7 @@ var showMoneyReceipt = (moneyReceipt)=> {
 var moneyReceiptSupervisorApprove = () => {
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
-    data.append("moneyReceipt", JSON.stringify(moneyReceipt.value))
+    data.append("id", moneyReceipt.value._id)
 
     axios.post(globalUrl.value + "moneyReceiptSupervisorApprove", data).then((result)=>{
         moneyReceipt.value = result.data
@@ -207,7 +211,7 @@ var moneyReceiptSupervisorApprove = () => {
 var moneyReceiptSupervisorReject = () => {
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
-    data.append("moneyReceipt", JSON.stringify(moneyReceipt.value))
+    data.append("id", moneyReceipt.value._id)
 
     axios.post(globalUrl.value + "moneyReceiptSupervisorReject", data).then((result)=>{
         moneyReceipt.value = result.data
@@ -218,8 +222,9 @@ var moneyReceiptSupervisorReject = () => {
 var moneyReceiptForward = () => {
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
-    data.append("moneyReceipt", JSON.stringify(moneyReceipt.value))
-    data.append("next", JSON.stringify(next.value))
+    data.append("id", moneyReceipt.value._id)
+    next.value = users.value.filter((x)=> x.mailAddress == selectedUserEmail.value)[0]
+    data.append("next", next.value._id)
 
     axios.post(globalUrl.value + "moneyReceiptForward", data).then((result)=>{
         moneyReceipt.value = result.data
@@ -230,7 +235,7 @@ var moneyReceiptForward = () => {
 var moneyReceiptBackWard = () => {
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
-    data.append("moneyReceipt", JSON.stringify(moneyReceipt.value))
+    data.append("id", moneyReceipt.value._id)
 
 
     axios.post(globalUrl.value + "moneyReceiptBackWard", data).then((result)=>{
@@ -242,7 +247,7 @@ var moneyReceiptBackWard = () => {
 var moneyReceiptProcessingComplete = () => {
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
-    data.append("moneyReceipt", JSON.stringify(moneyReceipt.value))
+    data.append("id", moneyReceipt.value._id)
 
 
     axios.post(globalUrl.value + "moneyReceiptProcessingComplete", data).then((result)=>{
@@ -250,6 +255,14 @@ var moneyReceiptProcessingComplete = () => {
     }).catch((error)=>console.log(error))
 }
 
+
+
+var openMoneyReceiptForwardDialog = () =>{
+    getAllUsers()
+    moneyReceiptForwardDialog.value = true
+
+
+}
 
 
 
@@ -265,7 +278,9 @@ return {
  filteredMoneyReceipts,
  moneyReceipts,
  next, 
-
+ moneyReceiptForwardDialog,
+ selectedUserEmail,
+ openMoneyReceiptForwardDialog,
  moneyReceiptSupervisorApprove,
  moneyReceiptSupervisorReject,
  moneyReceiptForward,

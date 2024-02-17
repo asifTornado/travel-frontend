@@ -8,7 +8,7 @@
 
      <v-container class="border border-solid border-black elevation-4 bg-white">
       <span class="font-weight-bold text-h5">  Search </span>    
-       <v-row class="bg-white">
+       <v-row class="bg-white" >
          
          <v-col class="" color="bg-white">  
           <v-text-field  
@@ -18,6 +18,7 @@
                 type="text"
                 density="compact"
                 prepend-inner-icon="mdi-rename-outline"
+                variant="outlined"
                
                 v-model="name">
             </v-text-field>
@@ -30,6 +31,7 @@
                 type="text"
                 density="compact"
                 prepend-inner-icon="mdi-map-marker-outline"
+                variant="outlined"
                 v-model="destination">
             </v-text-field>
           </v-col>
@@ -41,6 +43,7 @@
                 type="text"
                 density="compact"
                 prepend-inner-icon="mdi-clock-outline"
+                variant="outlined"
                 v-model="departure_date">
             </v-text-field>
           </v-col>
@@ -52,15 +55,17 @@
                 type="text"
                 density="compact"
                 prepend-inner-icon="mdi-clock-outline"
+                variant="outlined"
                 v-model="arrival_date">
             </v-text-field>
           </v-col>
-       </v-row>
-       <v-row class="flex flex-row justify-end">
-      <v-btn @click="searchBudget" class="bg-blue-darken-2">
+          <v-col>      <v-btn @click="searchBudget" class="mt-1 bg-blue-darken-2">
   Search
-</v-btn>
+</v-btn></v-col>
        </v-row>
+       <!-- <v-row class="flex flex-row justify-end">
+
+       </v-row> -->
      </v-container>
   
   </div>

@@ -168,7 +168,7 @@
             
             
         <v-col md="2" class="text-h5 bg-blue-darken-2">Approvals</v-col>    
-        <v-col md="10" justify="start" align="start">     <v-chip label v-for="(approval, approvalCounter) in moneyReceipt.approvals" :key="approvalCounter">
+        <v-col md="10" justify="start" align="start">     <v-chip label v-for="(approval, approvalCounter) in moneyReceipt.approvals" class="m-1" :key="approvalCounter">
                 {{ approval.empName }}
             </v-chip></v-col>
         
@@ -180,16 +180,29 @@
 
     <div v-if="moneyReceipt" class="mb-10">
         <v-containr>
-            <v-row justify="center" align="center" v-if="moneyReceipt.currentHandlerId == user._id && moneyReceipt.supervisorApproved == false">
-                <v-btn class="mr-2 bg-blue-darken-2"  size="large" @click="moneyReceipt">
+            <v-row justify="center" align="center" v-if="moneyReceipt.currentHandlerId == user._id && moneyReceipt.supervisorApproved == false && moneyReceipt.processed == false">
+                <v-btn class="mr-2 bg-blue-darken-2"  size="large" @click="moneyReceiptSupervisorApprove">
                      Approve
                 </v-btn>
-                <v-btn size="large"  class="bg-grey-darken-1">
+                <v-btn size="large"  class="bg-grey-darken-1" @click="moneyReceiptSupervisorReject">
                     Reject
+                </v-btn>
+            </v-row>
+            <v-row justify="center" align="center" v-if="moneyReceipt.currentHandlerId == user._id && moneyReceipt.supervisorApproved == true && moneyReceipt.processed == false">
+                <v-btn class="mr-2 bg-blue-darken-2"  size="large" @click="openMoneyReceiptForwardDialog">
+                     Forward
+                </v-btn>
+                <v-btn size="large"  class="bg-grey-darken-1 mr-2" @click="moneyReceiptBackWard">
+                    Reject
+                </v-btn>
+                <v-btn size="large" class="bg-green-darken-1" @click="moneyReceiptProcessingComplete">
+                   Complete Processing
                 </v-btn>
             </v-row>
         </v-containr>
     </div>
+
+    <MoneyReceiptForwardDialog/>
 </template>
 
 
@@ -201,6 +214,7 @@
 import { useMoneyReceiptStore } from '../../stores/moneyReceiptStore';
     import { useAuthStore } from '../../stores/auth';
     import { storeToRefs } from 'pinia';
+    import MoneyReceiptForwardDialog from '../../components/moneyReceiptForwardDialog.vue';
 
     
     var {user, token} = storeToRefs(useAuthStore())
@@ -208,7 +222,8 @@ import { useMoneyReceiptStore } from '../../stores/moneyReceiptStore';
  moneyReceiptSupervisorReject,
  moneyReceiptForward,
  moneyReceiptBackWard,
- moneyReceiptProcessingComplete} = useMoneyReceiptStore();
+ moneyReceiptProcessingComplete,
+openMoneyReceiptForwardDialog} = useMoneyReceiptStore();
     
      getMoneyReceipt()
     

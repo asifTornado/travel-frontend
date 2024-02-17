@@ -340,7 +340,7 @@ Ticket Quotations
 :model-value="overlay"
 
 
-
+persistent
 scrim="blue"
 class="align-center justify-center w-full  border-2 border-solid border-black"
 >
@@ -373,7 +373,7 @@ class="align-center justify-center w-full  border-2 border-solid border-black"
 <v-container>
    <v-table
     fixed-header
-    height="300px"
+   
     width="100px"
     density="compact"
     hover
@@ -402,7 +402,7 @@ class="align-center justify-center w-full  border-2 border-solid border-black"
          name="totalcost"
          density="compact"
          id="totalCost"
-         variant="solo"
+         variant="outlined"
          
          v-model="travelerCosts[counter].totalcost"
        ></v-text-field></td>
@@ -412,9 +412,10 @@ class="align-center justify-center w-full  border-2 border-solid border-black"
 
 </v-container>
 </v-container>
-<div class="w-full flex flex-row justify-end items-center mt-2 p-3">
+<v-row class="w-full flex flex-row justify-end items-center  p-3">
 <div class="p-3 bg-green-400 text-white font-bold hover:bg-green-700 hover:text-black hover:cursor-pointer" @click="TAddCustomQuote('ticket')">Add</div>
-</div>
+<div class="p-3 bg-grey-darken-1 ml-2  text-white font-bold hover:bg-green-700 hover:text-black hover:cursor-pointer" @click="overlay = false">Cancel</div>
+</v-row>
 
 </div>
 
@@ -581,7 +582,7 @@ Hotel Quotations
 :model-value="customHotelOverlay"
 
 
-
+persistent
 scrim="blue"
 class="align-center justify-center w-full border-2 border-solid border-black"
 >
@@ -615,7 +616,7 @@ class="align-center justify-center w-full border-2 border-solid border-black"
 <v-container>
    <v-table
     fixed-header
-    height="300px"
+
     width="100px"
     density="compact"
     hover
@@ -644,7 +645,7 @@ class="align-center justify-center w-full border-2 border-solid border-black"
          name="totalcost"
          density="compact"
          id="totalCost"
-         
+         variant="outlined"
          v-model="travelerCosts[counter].totalcost"
        ></v-text-field></td>
       </tr>
@@ -655,6 +656,7 @@ class="align-center justify-center w-full border-2 border-solid border-black"
 
 <div class="w-full flex flex-row justify-end items-center mt-2 p-3">
 <div class="p-3 bg-green-400 text-white font-bold hover:bg-green-700 hover:text-black hover:cursor-pointer" @click="TAddCustomQuote('hotel')">Add</div>
+<div class="p-3 bg-grey-darken-1 ml-2  text-white font-bold hover:bg-green-700 hover:text-black hover:cursor-pointer" @click="customHotelOverlay = false">Cancel</div>
 </div>
 
 

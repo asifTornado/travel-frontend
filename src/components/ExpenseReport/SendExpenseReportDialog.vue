@@ -1,10 +1,10 @@
 <template>
-    <v-dialog v-model="sendExpenseReportDialog" width="100vw" class="ml-10 elevation-10" height="100vh">
+    <v-dialog v-model="sendExpenseReportDialog"  width="100vw" class="ml-10 elevation-10" height="100vh">
         <v-icon class=" hover:cursor-pointer" style="position:absolute; top:0px; right:40px" @click="sendExpenseReportDialog = false" >
             mdi-close
         </v-icon>
 
-        <v-container class=" overflow-y-scroll bg-white ml-10 report elevation-10 pa-10 "  ref="report">
+        <v-container class=" overflow-y-scroll bg-white ml-10 report elevation-10   "  ref="report">
             <v-row class="bg-white">
                 <v-col md="11" class="text-center text-h2">
                     Travel Expense Report
@@ -14,30 +14,30 @@
                 </v-col>
             </v-row>
            
-             <v-row class="bg-white mb-1 mt-3 pa-5">
+             <v-row class="bg-white  ">
                 <v-col md="4">
-                    <v-text-field   label="Employee Name" variant="solo"  v-model="user.empName"></v-text-field>
+                    <v-text-field  density="compact"  label="Employee Name" variant="outlined"  v-model="user.empName"></v-text-field>
                 </v-col>
                 <v-col md="4">
-                    <v-text-field  label="Employee Id" variant="solo" v-model="user._id"></v-text-field>
+                    <v-text-field density="compact"  label="Employee Id" variant="outlined" v-model="user._id"></v-text-field>
                 </v-col>
                 <v-col md="4">
-                    <v-text-field  class="" variant="solo" label="Department" v-model="user.department"></v-text-field>
+                    <v-text-field density="compact"  class="" variant="outlined" label="Department" v-model="user.department"></v-text-field>
                 </v-col>
             </v-row>
 
             
             <v-row class="border border-solid border-black bg-white ">
-                <v-col md="4" class="text-center mt-5">
+                <v-col md="4" class="text-center ">
                     <span class="font-weight-bold text-h6 ">
                         Travel Period
                     </span>
                 </v-col>
                 <v-col md="4">
-                   <v-text-field label="Start Date" variant="solo" type="date" v-model="request.startDate"></v-text-field>
+                   <v-text-field label="Start Date" variant="outlined" density="compact" type="date" v-model="request.startDate"></v-text-field>
                 </v-col>
                 <v-col md="4">
-                    <v-text-field label="End Date" variant="solo" type="date" v-model="request.endDate"></v-text-field>
+                    <v-text-field label="End Date" variant="outlined" density="compact" type="date" v-model="request.endDate"></v-text-field>
                 </v-col>
             </v-row>
 
@@ -58,7 +58,12 @@
                 <v-col md="2" class="text-center font-weight-bold">
                     Notes
                 </v-col>
+                <v-col md="1" class="text-center font-weight-bold">
+                    Voucher
+                </v-col>
             </v-row>
+
+        
 
             <v-row v-for="(expense, expenseCounter) in expenses" :key="expenseCounter" class="bg-white">
                 <v-col md="2" class="text-center font-weight-bold">
@@ -86,16 +91,29 @@
                         
                     </v-textarea>
                 </v-col>
-                <v-col md="2" class="text-center font-weight-bold mt-3">
+                <v-col md="1">
+                       <v-file-input variant="outlined" density="compact" prepend-icon=""  @change="uploadVoucher($event, expenseCounter)" v-if="expenses[expenseCounter].voucherGiven == false">Upload </v-file-input>
+                       <v-btn class="bg-grey-darken-1" v-if="expenses[expenseCounter].voucherGiven == true" @click="showVoucher(expenseCounter)">View </v-btn>
+                </v-col>
+                <v-col md="1" class="font-weight-bold ">
                      
-                        <v-btn color="success" prepend-icon="mdi-plus" class="mr-2" size="small" @click="addExpense(expenseCounter)"></v-btn>
-                        <v-btn class="" color="red" prepend-icon="mdi-minus" size="small" @click="deleteExpense(expenseCounter)"></v-btn>
+                        <v-btn class="bg-blue-darken-2 "  size="x-small" @click="addExpense(expenseCounter)">
+                        <v-icon>mdi-plus</v-icon>
+                        </v-btn>
+                        <v-btn class="bg-blue-lighten-4"  size="x-small" @click="deleteExpense(expenseCounter)">
+                        <v-icon>
+                            mdi-minus
+                        </v-icon>
+                        </v-btn>
                 </v-col>
             </v-row>
 
+
+
+
 <v-row align="end">
             <v-col offset="8" md="4">
-                  <v-btn color="success" @click="showSendReportProceedDialog = true">Send Report</v-btn>
+                  <v-btn color="success" @click="sendExpenseReport">Send Report</v-btn>
             </v-col>
 </v-row>
 
@@ -132,7 +150,7 @@ var showProceedDialog = ref()
 
 
 var {sendExpenseReportDialog, expenses, expenseReport, request, showSendReportProceedDialog} = storeToRefs(useRequestsStore());
-var {addExpense, deleteExpense} = useRequestsStore();
+var {addExpense, deleteExpense, sendExpenseReport, uploadVoucher, showVoucher} = useRequestsStore();
 var {user} = storeToRefs(useAuthStore())
 
 

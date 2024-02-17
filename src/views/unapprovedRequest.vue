@@ -204,14 +204,7 @@
                    {{ request.requester.zonalHead.empName }}
                 </v-col>
              </v-row>
-             <v-row class="pl-[80px]">
-                <v-col md="6" class="text-left">
-                   Travel Handler
-                </v-col>
-                <v-col md="6" class="text-left">
-                   {{ request.requester.travelHandler.empName }}
-                </v-col>
-             </v-row>
+         
          
             </v-card>
     

@@ -244,6 +244,20 @@
               </v-col>
             </v-row>
 
+            <v-row>
+              <v-col md="3">
+                  <v-autocomplete label="User Roles" multiple chips  clearable :items="roleValues" v-model="user.roles">
+                    <template v-slot:chip="{ props, item }">
+                <v-chip
+                  v-bind="props"
+                   label
+                  :text="item.raw.name"
+                ></v-chip>
+              </template>
+                  </v-autocomplete>
+              </v-col>
+            </v-row>
+
     
           </v-container >
 
@@ -323,9 +337,15 @@ import {useRouter, useRoute} from 'vue-router';
 import Editor from '../../components/editor.vue'
 import { useUserStore } from '../../stores/users';
 import { storeToRefs } from 'pinia';
+import { useRoleStore } from '../../stores/roles';
 
 
 var {getAllUsers, updateUser, getUser, addFlyer, insertFlyer, removeFlyer, setText} = useUserStore()
+
+var {getRoles} = useRoleStore()
+getRoles()
+var {roles, roleValues} = storeToRefs(useRoleStore())
+
 
 
 

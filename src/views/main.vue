@@ -31,8 +31,8 @@
         <v-list density="compact" nav class="text-left" v-if="user">
           <v-list-item  v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-wallet-travel" title="Trips" value="Trips" @click="router.push('/travel/trips')"></v-list-item>
           <!-- <v-list-item   prepend-icon="mdi-briefcase-edit" title="Custom Trips" value="Custom Trips" @click="router.push('/travel/custom-trips')"></v-list-item> -->
-          <v-list-item   prepend-icon="mdi-airplane" title="New Request (Normal)" value="myfiles" @click="router.push('/travel/newRequest')"> </v-list-item>
-          <v-list-item  v-if="user.userType=='admin' || user.userType == 'manager'" prepend-icon="mdi-airplane-alert" title="New Request (Custom)" value="myfiles 2" @click="router.push('/travel/newRequestUpper')"> </v-list-item>
+          <v-list-item  v-if="user.userType == 'admin' || user.userType == 'manager'"  prepend-icon="mdi-airplane" title="New Request (Normal)" value="myfiles" @click="router.push('/travel/newRequest')"> </v-list-item>
+          <v-list-item   prepend-icon="mdi-airplane-alert" title="New Request (Custom)" value="myfiles 2" @click="router.push('/travel/newRequestUpper')"> </v-list-item>
 
 
           <v-list-item  v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-bed" title="Hotels" value="hotels" @click="router.push('/travel/hotelsForBrand')">   </v-list-item>
@@ -41,8 +41,8 @@
           <v-list-item v-if="user.userType == 'admin'"  prepend-icon="mdi-cash-plus" title="Budgets" value="budgets" @click="router.push('/travel/budget')">   </v-list-item>
           <v-list-item v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-account-multiple" title="Users" value="users" @click="router.push('/travel/users')">   </v-list-item>
           <!-- <v-list-item v-if="user.userType == 'admin'"  prepend-icon="mdi-poll" title="Analytics" value="analytics" @click="router.push('/travel/analytics')">   </v-list-item> -->
-          <v-list-item v-if="user.userType == 'admin'" prepend-icon="mdi-google-analytics" @click=""> Analytics </v-list-item>
-          
+          <v-list-item v-if="user.userType == 'admin'" prepend-icon="mdi-google-analytics"  value="analytics" @click=""> Analytics </v-list-item>
+          <v-list-item v-if="user.userType == 'admin'" prepend-icon="mdi-account-badge-outline"  value="roles" @click="router.push('/travel/roles')"> Roles </v-list-item>
         
 
           <v-menu
@@ -131,6 +131,53 @@
         </v-card-actions>
       </v-card>
     </v-menu>
+<!-- roles  -->
+     
+<!-- expense reports -->
+<v-menu
+      v-model="expenses"
+      :close-on-content-click="false"
+      location="end"
+    >
+      <template v-slot:activator="{ props }">
+        <v-list-item
+          color="indigo"
+          v-bind="props"
+          prepend-icon="mdi-file"
+          value="expense Reports"
+        >
+          Expense Reports
+      </v-list-item>
+      </template>
+
+      <v-card min-width="300" style="z-index: 99999999999999;">
+        <v-list>
+          <v-list-item  v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-file-multiple" title="All Expense Reports" value="All Expense Reports" @click="router.push('/travel/allExpenseReports')">   </v-list-item>
+          <v-list-item  prepend-icon="mdi-account-multiple" title="My Expense Reports" value="My Expense Reports" @click="router.push('/travel/myExpenseReports')">   </v-list-item>
+          <v-list-item  prepend-icon="mdi-account-multiple" title="Expense Reports For Me" value="Expense Reports For Me" @click="router.push('/travel/expenseReportsForMe')">   </v-list-item>
+          <v-list-item   prepend-icon="mdi-file-check" title="Expense Reports Approved By Me" value="Expense Reports Approved By Me" @click="router.push('/travel/expenseReportsApprovedByMe')">   </v-list-item>
+        
+        </v-list>
+
+        <v-divider></v-divider>
+
+       
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            variant="text"
+            @click="menu = false"
+          >
+            Cancel
+          </v-btn>
+       
+        </v-card-actions>
+      </v-card>
+    </v-menu>
+
+
         </v-list>
       </v-navigation-drawer>
 
@@ -143,7 +190,8 @@
         </template>
           <v-app-bar-title class="font-weight-bold" >Travel Management App</v-app-bar-title>
         
-      
+
+       <CodeSearch/>
 
        <notifications @click="showNotifications" v-if="route.path.split('/')[2] != 'quotation'"  class="mr-[20px]"/>
 
@@ -196,23 +244,23 @@ import notifications from "../components/notifications.vue";
 import {useNotificationStore} from "../stores/notification.js"
 import {storeToRefs} from "pinia"
 import {useAuthStore} from "../stores/auth.js"
-import {ref} from "vue"
+import CodeSearch from "../components/CodeSearch.vue";
+import { ref } from "vue";
 
 
 
 var route = useRoute()
 var router = useRouter()
 
+
 var {user} = storeToRefs(useAuthStore())
 var {logout} = useAuthStore()
 var {showNotifications} = storeToRefs(useNotificationStore())
 
-
+var expenses = ref(false)
 
 var menu = ref(false)
 var moneyReceipt = ref(false)
-
-
 
 
 

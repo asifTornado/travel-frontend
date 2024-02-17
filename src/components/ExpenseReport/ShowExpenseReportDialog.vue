@@ -16,13 +16,13 @@
 
             <v-row>
                 <v-col md="4">
-                    <v-text-field  label="Employee Name"  v-model="expenseReport.employeeName"></v-text-field>
+                    <v-text-field  label="Employee Name" readonly variant="solo" v-model="expenseReport.employeeName"></v-text-field>
                 </v-col>
                 <v-col md="4">
-                    <v-text-field  label="Employee Id" v-model="expenseReport.employeeId"></v-text-field>
+                    <v-text-field  label="Employee Id" readonly variant="solo" v-model="expenseReport.employeeId"></v-text-field>
                 </v-col>
                 <v-col md="4">
-                    <v-text-field  class="text-h5" label="Department" v-model="expenseReport.department"></v-text-field>
+                    <v-text-field  class="text-h5" readonly variant="solo" label="Department" v-model="expenseReport.department"></v-text-field>
                 </v-col>
             </v-row>
 
@@ -33,10 +33,10 @@
                     </span>
                 </v-col>
                 <v-col md="4">
-                   <v-text-field label="Start Date" type="date" v-model="expenseReport.startDate"></v-text-field>
+                   <v-text-field readonly variant="solo" label="Start Date" type="date" v-model="expenseReport.startDate"></v-text-field>
                 </v-col>
                 <v-col md="4">
-                    <v-text-field label="End Date" type="date" v-model="expenseReport.endDate"></v-text-field>
+                    <v-text-field readonly variant="solo" label="End Date" type="date" v-model="expenseReport.endDate"></v-text-field>
                 </v-col>
             </v-row>
 
@@ -57,33 +57,39 @@
                 <v-col md="2" class="text-center font-weight-bold">
                     Notes
                 </v-col>
+                <v-col md="2" class="text-center font-weight-bold">
+                    Voucher
+                </v-col>
             </v-row>
 
             <v-row v-for="(expense, expenseCounter) in expenseReport.expenses" :key="expenseCounter" align="center" justify="center">
                 <v-col md="2" class="text-center font-weight-bold">
-                    <v-text-field type="date" v-model="expenseReport.expenses[expenseCounter].date">
+                    <v-text-field readonly variant="solo" type="date" v-model="expenseReport.expenses[expenseCounter].date">
 
                     </v-text-field>
                 </v-col>
                 <v-col md="2"  class="text-center font-weight-bold">
-                     <v-text-field type="text" v-model="expenseReport.expenses[expenseCounter].expenseType">
+                     <v-text-field readonly variant="solo" type="text" v-model="expenseReport.expenses[expenseCounter].expenseType">
                         
                     </v-text-field>
                 </v-col>
                 <v-col md="2" class="text-center font-weight-bold">
-                    <v-textarea rows="1" auto-grow v-model="expenseReport.expenses[expenseCounter].description">
+                    <v-textarea readonly variant="solo" rows="1" auto-grow v-model="expenseReport.expenses[expenseCounter].description">
                         
                     </v-textarea>
                 </v-col>
                 <v-col md="2" class="text-center font-weight-bold">
-                    <v-text-field v-model="expenseReport.expenses[expenseCounter].amount">
+                    <v-text-field readonly variant="solo" v-model="expenseReport.expenses[expenseCounter].amount">
                         
                     </v-text-field>
                 </v-col>
                 <v-col md="2" class="text-center font-weight-bold">
-                    <v-textarea rows="1" class="text-h6 changed-text"  auto-grow v-model="expenseReport.expenses[expenseCounter].notes">
+                    <v-textarea readonly variant="solo" rows="1" class="text-h6 changed-text"  auto-grow v-model="expenseReport.expenses[expenseCounter].notes">
                         
                     </v-textarea>
+                </v-col>
+                <v-col md="2" class="text-center font-weight-bold">
+                    <v-btn class="bg-grey-darken-1"  @click="showVoucher(expenseCounter, 'show')">View </v-btn>
                 </v-col>
              
             </v-row>
@@ -117,7 +123,7 @@ import { storeToRefs } from 'pinia';
 
 var {showExpenseReportDialog, request, expenseReport} = storeToRefs(useRequestsStore());
 var {user} = storeToRefs(useAuthStore())
-var {getExpenseReport} = useRequestsStore();
+var {getExpenseReport, showVoucher} = useRequestsStore();
 
 
 

@@ -243,6 +243,49 @@ const routes = [
   component: () => import('../views/moneyReceipts/moneyReceipt.vue')
 },
 
+//expense reports
+
+
+{
+  path: 'allExpenseReports',
+  name: 'allExpenseReports',
+  component: () => import('../views/expenseReports/allExpenseReports.vue')
+},
+
+{
+  path: 'myExpenseReports',
+  name: 'myExpenseReports',
+  component: () => import('../views/expenseReports/myExpenseReports.vue')
+},
+
+{
+  path: 'expenseReportsApprovedByMe',
+  name: 'expenseReportsApprovedByMe',
+  component: () => import('../views/expenseReports/expenseReportsApprovedByMe.vue')
+},
+
+{
+  path: 'expenseReportsForMe',
+  name: 'expenseReportsForMe',
+  component: () => import('../views/expenseReports/expenseReportsForMe.vue')
+},
+
+
+{
+  path: 'expenseReport/:id',
+  name: 'expenseReport',
+  component: () => import('../views/expenseReports/expenseReport.vue')
+},
+
+
+
+{
+  path: 'roles',
+  name: 'roles',
+  component: () => import('../views/roles.vue')
+},
+
+
 
 
 

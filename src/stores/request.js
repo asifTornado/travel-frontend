@@ -58,7 +58,7 @@ export const useRequestsStore = defineStore("requests", () => {
     var sendExpenseReportDialog = ref(false);
     var {users} = storeToRefs(useUserStore())
     var expenseReport = ref({})
-    var expenses = ref([{date:"", expenseType:"", description:"", amount:"", notes:""}])
+    var expenses = ref([{date:"", expenseType:"", description:"", amount:"", notes:"", invoice:"", voucherGiven:false}])
     var showSendReportProceedDialog = ref(false);
     var customRequests = ref([])
     var customFilteredRequests = ref([])
@@ -167,7 +167,7 @@ export const useRequestsStore = defineStore("requests", () => {
 
 
    function addExpense(counter){
-    var newExpense = {date:"", expenseType:"", description:"", amount:"", notes:""}
+    var newExpense = {date:"", expenseType:"", description:"", amount:"", notes:"", invoice:"", voucherGiven:false}
 
      expenses.value.splice(counter + 1, 0, newExpense)
 
@@ -935,8 +935,8 @@ var uploadHotelFile = (event, what, quotation) => {
    newReport.endDate = request.value.endDate;
 
    data.append("expenseReport", JSON.stringify(newReport))
-   data.append("request", JSON.stringify(request.value));
-   data.append("email", emailRecipient.value)
+   data.append("requestId", request.value._id);
+   
 
    axios.post(globalUrl.value + "sendExpenseReport", data).then((result)=>{
        
@@ -1041,6 +1041,34 @@ var getUnapprovedRequests = () => {
 }
 
     
+var uploadVoucher = (event, counter) => {
+  var data = new FormData();
+  debugger
+  data.append("file", event.target.files[0])
+  
+
+  axios.post(globalUrl.value + "uploadVoucher", data).then((result)=>{
+        expenses.value[counter].voucherGiven = true
+        expenses.value[counter].invoice = result.data
+  }).catch((error)=> console.log(error))
+}
+
+var showVoucher = (counter, type="send") => {
+  debugger
+  var filePath;
+
+  if(type == "send"){
+    filePath = expenses.value[counter].invoice
+  }else{
+    filePath = expenseReport.value.expenses[counter].invoice
+  }
+ 
+
+  var path = globalUrl.value + "uploads/" + filePath
+  window.open(path, '_blank')
+ 
+  
+}
 
     return {
         customQuoteContent, overlay, dialog, quotation, unbookDialogue, customQuoteGiver, emailRecipient, emailDialogue,
@@ -1050,6 +1078,7 @@ var getUnapprovedRequests = () => {
         whom, ticketConfirmDialog, showExpenseReportDialog, sendExpenseReportDialog, expenseReport, expenses,
         showSendReportProceedDialog, report, customRequests, customFilteredRequests, supervisorRequestApprovalDialog,
         moreInformationDialog,
+        uploadVoucher, showVoucher,
         uploadHotelFile, openSupervisorRequestApprovalDialog, supervisorRequestApprove, 
         getUnapprovedRequests, showUnapprovedRequest,
         openShowExpenseReportDialog, getCustomRequest, getCustomRequests, showCustomRequest,
