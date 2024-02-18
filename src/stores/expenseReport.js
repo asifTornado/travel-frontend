@@ -32,6 +32,8 @@ var {users} = storeToRefs(useUserStore())
 var router = useRouter();
 var route = useRoute();
 var {user, token} = storeToRefs(useAuthStore());
+var disburseAmount = ref("")
+var disburseDialog = ref(false)
 
 var fuse = ref(null)
 var options = ref({
@@ -352,7 +354,32 @@ var uploadVoucher = (event, counter) => {
   }).catch((error)=> console.log(error))
 }
 
+var disburse = () => {
+  toast.info("Disbursing Payment, please wait...")
+  var data = new FormData();
+  data.append("amount", disburseAmount.value);
+  data.append("expenseReport", JSON.stringify(expenseReport.value));
 
+  axios.post(globalUrl.value + "disburse", data).then((result)=>{
+    toast.clear()
+    toast.success("Payment cleared")
+    expenseReport.value = result.data
+  }).catch((error)=>toast.warning(error))
+
+}
+
+var openDisburseDialog = (event) => {
+  debugger
+  disburseAmount.value = event.target.value
+  disburseDialog.value = true;
+
+}
+
+
+var cancelDisburse = () => {
+  disburseDialog.value = false;
+  disburseAmount.value = '';
+}
 
 
 return {
@@ -364,6 +391,11 @@ return {
     next, 
     expenseReportForwardDialog,
     selectedUserEmail,
+    disburseDialog,
+    disburseAmount,
+    cancelDisburse,
+    disburse,
+    openDisburseDialog,
     uploadVoucher,
     showVoucher,
     addExpense,

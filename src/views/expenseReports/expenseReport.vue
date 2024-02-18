@@ -254,7 +254,19 @@
                     <v-text-field readonly label="End Date" variant="solo" type="date" v-model="expenseReport.endDate"></v-text-field>
                 </v-col>
             </v-row>
+              
 
+            <v-row class="border border-solid border-black bg-blue-darken-1 ">
+                <v-col md="4" class="text-center mt-5">
+                    <span class="font-weight-bold text-h6 ">
+                        Amount Disbursed
+                    </span>
+                </v-col>
+                <v-col md="4">
+                   <v-text-field @change="openDisburseDialog($event)" v-bind:readonly="expenseReport.expenseDisbursed == true ? true : false" label="Amount Disbursed" v-bind:variant="expenseReport.expenseDisbursed == true ? 'solo' : 'outlined' "  v-model="expenseReport.amountDisbursed"></v-text-field>
+                </v-col>
+            
+            </v-row>
 
             <v-row class="bg-white ">
                 <v-col md="2" class="text-center font-weight-bold">
@@ -388,9 +400,13 @@
         </div>
     
         <ExpenseReportForwardDialog/>
+
+        <DisburseDialog/>
     </template>
     
-    
+   
+
+
     <script setup>
     
     
@@ -401,6 +417,7 @@
         import { storeToRefs } from 'pinia';
         import { useRequestsStore } from '../../stores/request';
        import ExpenseReportForwardDialog from '../../components/ExpenseReportForwardDialog.vue';
+       import DisburseDialog from '../../components/DisburseDialog.vue';
     
         
         var {user, token} = storeToRefs(useAuthStore())
@@ -416,7 +433,8 @@
     addExpense,
     deleteExpense,
     showVoucher,
-    uploadVoucher
+    uploadVoucher,
+    openDisburseDialog
 } = useExpenseReportStore();
         
 

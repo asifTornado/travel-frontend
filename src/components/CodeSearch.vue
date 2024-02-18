@@ -82,7 +82,8 @@ var router = useRouter()
 
 var open = () =>{
   debugger
-  var url = maps.value[code.value]
+  var codeProcessed = code.value.toUpperCase()
+  var url = maps.value[codeProcessed]
   router.push(url)
 }
 
