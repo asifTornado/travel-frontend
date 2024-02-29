@@ -102,6 +102,13 @@ const routes = [
         name: 'showRequest',
         component: () => import('../views/request.vue')
       },
+
+      {
+        path: 'tripInformation/:id',
+        name: 'tripInformation',
+        component: () => import('../views/request.vue')
+      },
+
       {
         path: 'agents',
         name: 'agents',
@@ -208,6 +215,38 @@ const routes = [
         path: 'email/:id/:token',
         name: 'emailRequest',
         component: () => import('../views/request.vue')
+      },
+
+
+      
+      {
+        path: 'allTicketQuotations',
+        name: 'allTicketQuotations',
+        component: () => import('../views/ticketQuotations/allTicketQuotations.vue')
+      },
+
+
+      {
+        path: 'ticketQuotationsForMe',
+        name: 'ticketQuotationsForMe',
+        component: () => import('../views/ticketQuotations/ticketQuotationsForMe.vue')
+      },
+
+
+      
+      {
+        path: 'ticketQuotationsApprovedByMe',
+        name: 'ticketQuotationsApprovedByMe',
+        component: () => import('../views/ticketQuotations/ticketQuotationsApprovedByMe.vue')
+      },
+
+
+
+      
+      {
+        path: 'ticketQuotations/:id',
+        name: 'ticketQuotations',
+        component: () => import('../views/ticketQuotations/ticketQuotations.vue')
       },
 
 // money receipts start from here

@@ -147,6 +147,9 @@
 
 
   var remove = (counter) => {
+    if(counter < 1){
+        return
+    }
     requestBudget.value.breakdown.splice(counter, 1)
   }
 

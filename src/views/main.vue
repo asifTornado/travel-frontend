@@ -12,7 +12,7 @@
     <v-layout class="">
       <v-navigation-drawer   
       :width="300"
-        theme="light" class=" d-print-none bg-blue-darken-2" v-if="route.path.split('/')[2] != 'quotation' && route.path.split('/')[2] != 'confirm'"
+        theme="light" class=" d-print-none bg-blue-darken-2" v-if="route.path.split('/')[2] != 'quotation' && route.path.split('/')[2] != 'confirm' && route.name != 'tripInformation'"
         expand-on-hover
         rail
         
@@ -31,18 +31,60 @@
         <v-list density="compact" nav class="text-left" v-if="user">
           <v-list-item  v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-wallet-travel" title="Trips" value="Trips" @click="router.push('/travel/trips')"></v-list-item>
           <!-- <v-list-item   prepend-icon="mdi-briefcase-edit" title="Custom Trips" value="Custom Trips" @click="router.push('/travel/custom-trips')"></v-list-item> -->
+
+          <v-menu
+      v-model="newRequest"
+      :close-on-content-click="false"
+      location="end"
+    >
+      <template v-slot:activator="{ props }">
+        <v-list-item
+          color="indigo"
+          v-bind="props"
+          prepend-icon="mdi-airplane"
+          value="New Request"
+        >
+          New Request
+      </v-list-item>
+      </template>
+
+      <v-card min-width="300" style="z-index: 99999999999999;">
+        <v-list>
           <v-list-item  v-if="user.userType == 'admin' || user.userType == 'manager'"  prepend-icon="mdi-airplane" title="New Request (Normal)" value="myfiles" @click="router.push('/travel/newRequest')"> </v-list-item>
           <v-list-item   prepend-icon="mdi-airplane-alert" title="New Request (Custom)" value="myfiles 2" @click="router.push('/travel/newRequestUpper')"> </v-list-item>
+        
+        </v-list>
+
+        <v-divider></v-divider>
+
+       
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            variant="text"
+            @click="newRequest = false"
+          >
+            Cancel
+          </v-btn>
+       
+        </v-card-actions>
+      </v-card>
+    </v-menu>
+
+
+
 
 
           <v-list-item  v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-bed" title="Hotels" value="hotels" @click="router.push('/travel/hotelsForBrand')">   </v-list-item>
 
           <!-- <v-list-item v-if="user.userType == 'admin'"  prepend-icon="mdi-angular" title="Agents" value="shared" @click="router.push('/travel/agents')">   </v-list-item> -->
-          <v-list-item v-if="user.userType == 'admin'"  prepend-icon="mdi-cash-plus" title="Budgets" value="budgets" @click="router.push('/travel/budget')">   </v-list-item>
-          <v-list-item v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-account-multiple" title="Users" value="users" @click="router.push('/travel/users')">   </v-list-item>
+
+         
           <!-- <v-list-item v-if="user.userType == 'admin'"  prepend-icon="mdi-poll" title="Analytics" value="analytics" @click="router.push('/travel/analytics')">   </v-list-item> -->
           <v-list-item v-if="user.userType == 'admin'" prepend-icon="mdi-google-analytics"  value="analytics" @click=""> Analytics </v-list-item>
-          <v-list-item v-if="user.userType == 'admin'" prepend-icon="mdi-account-badge-outline"  value="roles" @click="router.push('/travel/roles')"> Roles </v-list-item>
+
         
 
           <v-menu
@@ -123,7 +165,7 @@
 
           <v-btn
             variant="text"
-            @click="menu = false"
+            @click="moneyReceipt = false"
           >
             Cancel
           </v-btn>
@@ -168,7 +210,99 @@
 
           <v-btn
             variant="text"
-            @click="menu = false"
+            @click="expenses = false"
+          >
+            Cancel
+          </v-btn>
+       
+        </v-card-actions>
+      </v-card>
+    </v-menu>
+
+
+
+
+    <v-menu
+      v-model="setup"
+      :close-on-content-click="false"
+      location="end"
+    >
+      <template v-slot:activator="{ props }">
+        <v-list-item
+          color="indigo"
+          v-bind="props"
+          prepend-icon="mdi-cogs"
+          value="Setup"
+        >
+          Setup
+      </v-list-item>
+      </template>
+
+      <v-card min-width="300" style="z-index: 99999999999999;">
+        <v-list>
+          <v-list-item v-if="user.userType == 'admin'"  prepend-icon="mdi-cash-plus" title="Budgets" value="budgets" @click="router.push('/travel/budget')">   </v-list-item>
+        <v-list-item v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-account-multiple" title="Users" value="users" @click="router.push('/travel/users')">   </v-list-item>
+          <v-list-item v-if="user.userType == 'admin'" prepend-icon="mdi-account-badge-outline" title="Roles"  value="roles" @click="router.push('/travel/roles')"> </v-list-item>
+        
+        </v-list>
+
+        <v-divider></v-divider>
+
+       
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            variant="text"
+            @click="setup = false"
+          >
+            Cancel
+          </v-btn>
+       
+        </v-card-actions>
+      </v-card>
+    </v-menu>
+
+
+
+
+
+    
+    <v-menu
+      v-model="tickets"
+      :close-on-content-click="false"
+      location="end"
+    >
+      <template v-slot:activator="{ props }">
+        <v-list-item
+          color="indigo"
+          v-bind="props"
+          prepend-icon="mdi-ticket-outline"
+          value="tickets"
+        >
+         Air-Ticket Quotations
+      </v-list-item>
+      </template>
+
+      <v-card min-width="300" style="z-index: 99999999999999;">
+        <v-list>
+          <v-list-item   prepend-icon="mdi-ticket-account" title="Ticket Quotations For Me" value="budgets" @click="router.push('/travel/ticketQuotationsForMe')">   </v-list-item>
+          <v-list-item   prepend-icon="mdi-ticket" title="Ticket Quotations Approved By Me" value="users" @click="router.push('/travel/ticketQuotationsApprovedByMe')">   </v-list-item>
+          <v-list-item   prepend-icon="mdi-ticket-confirmation" title="All Ticket Quotations"  value="roles" @click="router.push('/travel/allTicketQuotations')"> </v-list-item>
+        
+        </v-list>
+
+        <v-divider></v-divider>
+
+       
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            variant="text"
+            @click="tickets = false"
           >
             Cancel
           </v-btn>
@@ -183,7 +317,7 @@
 
 
       <v-main style=" width:100vw;  padding: 0%;"  class="bg-blue-lighten-5 pa-5">
-        <v-app-bar class="d-print-none " :elevation="2" style="z-index: 1;" > 
+        <v-app-bar class="d-print-none " :elevation="2" style="z-index: 1;"  v-if="route.name != 'tripInformation'"> 
           
           <template v-slot:prepend>
             <img src="../assets/logo.png" style="width:70px; height:40px" alt="">
@@ -258,7 +392,10 @@ var {logout} = useAuthStore()
 var {showNotifications} = storeToRefs(useNotificationStore())
 
 var expenses = ref(false)
+var newRequest = ref(false)
 
+var setup = ref(false)
+var tickets = ref(false)
 var menu = ref(false)
 var moneyReceipt = ref(false)
 

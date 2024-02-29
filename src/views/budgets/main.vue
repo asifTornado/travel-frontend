@@ -78,9 +78,9 @@ Delete
 
 
 <div class="flex flex-row justify-end w-full items-end fixed bottom-5 pr-[70px]">
-  <div class=" bg-emerald-500 bottom-10 right-3 p-2 mr-[20px]  border-2 border-solid border-black font-bold text-white hover:cursor-pointer hover:bg-emerald-600" @click="uploadExcel">
+  <!-- <div class=" bg-emerald-500 bottom-10 right-3 p-2 mr-[20px]  border-2 border-solid border-black font-bold text-white hover:cursor-pointer hover:bg-emerald-600" @click="uploadExcel">
 Upload Excel
-</div>
+</div> -->
 
 <input ref="fileInput" type="file" style="display: none" @change="handleFileChange" />
 

@@ -1,5 +1,5 @@
 <template>
-<div class="w-screen px-[20px] mt-10" >
+<div class="w-screen px-[20px] mt-2" >
 
    
     <div class="sticky   bg-blue-lighten-5 h-12 w-full flex flex-row justify-center"  v-if="request && request.currentHandler && user">
@@ -489,9 +489,9 @@
    <v-btn @click="openShowExpenseReportDialog()" prepend-icon="mdi-file-chart-outline"  color="blue-darken-4 d-print-none" class="shadow-md shadow-black ">Show Expense Report</v-btn>
 </div>
 
-<div class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" >
+<!-- <div class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" >
    <v-btn @click="print()" prepend-icon="mdi-printer" class="text-white shadow-md shadow-black " color="orange d-print-none" >Print</v-btn>
-</div>
+</div> -->
 
 <div v-if="request && request.hotelConfirmed == true && request.moneyReceiptSubmitted == false" class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" >
    <v-btn @click="moneyReceiptDialog = true" prepend-icon="mdi-cash" class="text-white shadow-md shadow-black d-print-none bg-indigo-darken-2" color=" " >Apply For Advance Payment</v-btn>

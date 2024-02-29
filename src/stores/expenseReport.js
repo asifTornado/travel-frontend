@@ -1,6 +1,6 @@
 import { defineStore, storeToRefs } from 'pinia'
 import { useGlobalStore } from './global';
-import {ref, computed, watch} from "vue"
+import {ref, computed, watch, toDisplayString} from "vue"
 import {useToast} from 'vue-toast-notification';
 import { useUserStore } from './users';
 import { useAuthStore } from './auth';
@@ -71,12 +71,15 @@ var expenseReports = ref([])
 var filteredExpenseReports = ref([])
 
 var submitExpenseReport = () =>{
+  toast.info("Submitting Expense Report.Please wait.....")
     var data = new FormData();
     data.append("request", JSON.stringify(request.value))
     data.append("expenseReport", JSON.stringify(expenseReport.value))
 
     axios.post(globalUrl.value + "submitExpenseReport", data).then((result)=>{
         expenseReportDialog.value = false
+        toast.clear()
+        toast.success("Expense Report Submitted")
     }).catch((error)=> toast.warning(error))
 }
 
@@ -194,6 +197,7 @@ var showExpenseReport = (expenseReport)=> {
 
 
 var expenseReportSupervisorApprove = () => {
+    toast.info("Approving Please Wait....")
     var data = new FormData();
     debugger
     data.append("user", JSON.stringify(user.value))
@@ -201,22 +205,28 @@ var expenseReportSupervisorApprove = () => {
 
     axios.post(globalUrl.value + "expenseReportSupervisorApprove", data).then((result)=>{
         expenseReport.value = result.data
+        toast.clear()
+        toast.success("Supervisor Approval Given")
     }).catch((error)=>console.log(error))
 }
 
 
 var expenseReportSupervisorReject = () => {
+   toast.info("Rejecting Please Wait....")
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
     data.append("id", expenseReport.value._id)
 
     axios.post(globalUrl.value + "expenseReportSupervisorReject", data).then((result)=>{
         expenseReport.value = result.data
+        toast.clear()
+        toast.success("Report Rejected")
     }).catch((error)=>console.log(error))
 }
 
 
 var expenseReportForward = () => {
+    toast.info("Forwarding Please Wait")
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
     data.append("id", expenseReport.value._id)
@@ -227,11 +237,14 @@ var expenseReportForward = () => {
         expenseReport.value = result.data
         expenseReportDialog.value = false;
         expenseReportForwardDialog.value = false;
+        toast.clear()
+        toast.success("Report Forwarded")
     }).catch((error)=>console.log(error))
 }
 
 
 var expenseReportBackWard = () => {
+    toast.info("Rejecting Please Wait..")
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
     data.append("id", expenseReport.value._id)
@@ -239,32 +252,41 @@ var expenseReportBackWard = () => {
 
     axios.post(globalUrl.value + "expenseReportBackWard", data).then((result)=>{
         expenseReport.value = result.data
+        toast.clear()
+        toast.info("Report Rejected")
     }).catch((error)=>console.log(error))
 }
 
 
 var travelManagerSubmitExpenseReport = () => { 
+    toast.info("Submitting Please Wait....")
     var data = new FormData();
     data.append("expenseReport", JSON.stringify(expenseReport.value));
     axios.post(globalUrl.value + "travelManagerSubmitExpenseReport", data).then((result)=>{
         expenseReport.value = result.data;
+        toast.clear()
+          toast.success("Submitted Successfully")
     }).catch((error)=> toast.warning(error))
 }
 
 
 
 var travelManagerRejectExpenseReport = () =>{
+    toast.info("Rejecting Please Wait")
     var data = new FormData();
     debugger
     data.append("id", JSON.stringify(expenseReport.value._id));
     data.append("requestId", expenseReport.value.requestId);
     axios.post(globalUrl.value + "travelManagerRejectExpenseReport", data).then((result)=>{
         expenseReport.value = result.data
+        toast.clear()
+        toast.success("Rejected Successfully")
     }).catch((error)=> toast.warning(error))
 }
 
 
 var expenseReportProcessingComplete = () => {
+    toast.info("Completing Please Wait...")
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
     data.append("id", expenseReport.value._id)
@@ -272,6 +294,8 @@ var expenseReportProcessingComplete = () => {
 
     axios.post(globalUrl.value + "expenseReportProcessingComplete", data).then((result)=>{
         expenseReport.value = result.data
+        toast.clear()
+        toast.success("Completed Successfully")
     }).catch((error)=>console.log(error))
 }
 
@@ -343,6 +367,7 @@ var showVoucher = (counter) => {
 
     
 var uploadVoucher = (event, counter) => {
+  toast.info("Uploading Voucher Please Wait...")
   var data = new FormData();
   debugger
   data.append("file", event.target.files[0])
@@ -351,6 +376,8 @@ var uploadVoucher = (event, counter) => {
   axios.post(globalUrl.value + "uploadVoucher", data).then((result)=>{
         expenseReport.value.expenses[counter].voucherGiven = true
         expenseReport.value.expenses[counter].invoice = result.data
+        toast.clear()
+        toast.success("Voucher Uploaded")
   }).catch((error)=> console.log(error))
 }
 
@@ -362,7 +389,7 @@ var disburse = () => {
 
   axios.post(globalUrl.value + "disburse", data).then((result)=>{
     toast.clear()
-    toast.success("Payment cleared")
+    toast.success("Payment Disbursed")
     expenseReport.value = result.data
   }).catch((error)=>toast.warning(error))
 
@@ -392,7 +419,7 @@ return {
     expenseReportForwardDialog,
     selectedUserEmail,
     disburseDialog,
-    disburseAmount,
+
     cancelDisburse,
     disburse,
     openDisburseDialog,

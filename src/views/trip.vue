@@ -195,12 +195,16 @@
 
 
 
-<v-container v-if="trip" class=" bg-yellow-lighten-2  mt-[80px] shadow-md shadow-black my-[20px] pa-10">
-<v-row class="shadow-sm shadow-black">
-<v-col md="12" class="font-bold text-black text-xl bg-white elevation-5">
+
+<v-container v-if="trip" class=" bg-yellow-lighten-2  bg-white mt-[80px] shadow-md shadow-black my-[20px] pa-10">
+<v-row class="shadow-sm shadow-black bg-white">
+<v-col md="12" class="font-bold text-black text-xl ">
 Ticket Quotations
+<v-row v-if="trip.seekingAccountsApprovalForTickets == false" class="bg-white" justify="end" align="end">
+  <v-btn  @click="sendToAccounts()" color="success" class="mb-2 mr-2" size="small">Send To Accounts</v-btn>
+</v-row> 
+</v-col>  
  
-</v-col>    
 </v-row>
 
 <v-row class=" " align="center" justify="center">
@@ -210,7 +214,7 @@ Ticket Quotations
       <v-col md="5"    v-for="(quotation, quotationCounter) in trip.quotations" :key="quotationCounter" class="relative mr-5 mt-5   pa-10 bg-white   mb-10   shadow-md shadow-black"  >
   
       <v-row>
-              <v-col md="12" class="bg-blue-darken-1 font-bold text-xl text-white ">{{ quotation.quoteGiver }}</v-col>
+              <v-col md="12" class="bg-blue-darken-1 shadow-md shadow-black font-bold text-xl text-white ">{{ quotation.quoteGiver }}</v-col>
            </v-row>
 
       <v-row>
@@ -269,11 +273,11 @@ Ticket Quotations
                       color="deep-purple-accent-4"
                       counter
                       label="Upload Invoice"
-                      
+                      id="input"
                       
                       placeholder="Select your file"
                       prepend-icon="mdi-paperclip"
-                      variant="solo"
+                      variant="outlined"
                       density="compact"
                       chips
                       :show-size="1000"></v-file-input>
@@ -423,7 +427,64 @@ class="align-center justify-center w-full  border-2 border-solid border-black"
 
 </v-overlay>
 
+  
+<v-container v-if="trip && trip.ticketApprovals.length > 0">
+      <v-row>
+       <v-table>
+         <tbody>
+            <tr>
+               <th class="text-h5 bg-blue-darken-3">
+                  Processed By
+               </th>
+               <td>
+                  <v-chip label class="mr-2 mb-2" v-for="(accountUser, accountUserCounter) in trip.ticketApprovals" :key="accountUserCounter">
+               {{ accountUser.empName }} - {{accountUser.department}}
+           </v-chip>
+               </td>
 
+            </tr>
+         </tbody>
+       </v-table>
+
+
+       
+      </v-row>
+    </v-container>
+    
+      <!-- <v-col md="3"  justify="center"  class="bg-blue-darken-2 pt-9 text-h6 " >
+            Processed By
+         </v-col>
+         <v-col md="9">
+           <v-chip label class="mr-2 mb-2" v-for="(accountUser, accountUserCounter) in trip.ticketApprovals" :key="accountUserCounter">
+               {{ accountUser.empName }} - {{accountUser.department}}
+           </v-chip>
+         </v-col> -->
+
+
+<v-container class="mt-2" v-if="trip.ticketsMoneyDisbursed == true">
+
+   
+               
+               <v-table>
+                  <thead class="bg-blue-darken-2 ">
+                     <th class="pa-4 text-h6">Amount Disbursed</th>
+                     <th class="pa-4 text-h6">Account Number</th>
+                     <th class="pa-4 text-h6">Account Holder's Name</th>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>{{ trip.amountDisbursedTickets }}</td>
+                        <td>{{ trip.ticketsAccountNumber }}</td>
+                        <td>{{ trip.ticketsAccountHolderName }}</td>
+                     </tr>
+                  </tbody>
+               </v-table>
+ 
+         
+      
+
+
+</v-container>
 
 
 
@@ -437,7 +498,7 @@ class="align-center justify-center w-full  border-2 border-solid border-black"
 
 <v-container  class=" bg-green-lighten-1 mt-[40px] pa-10 shadow-md shadow-black" v-if=" trip">
 <v-row class="bg-white shadow-sm shadow-black">
-<v-col md="12" class="font-bold text-black text-xl elevation-10">
+<v-col md="12" class="font-bold text-black text-xl elevation-10 ">
 Hotel Quotations
  
 </v-col>    
@@ -448,7 +509,7 @@ Hotel Quotations
 <v-col  v-for="(quotation, quotationCounter) in trip.hotelQuotations" :key="quotationCounter" md="5"  :class="{'relative  mb-10 mr-5 mt-5  bg-white  hover:bg-emerald-300 shadow-md shadow-black pa-10':user.userType == 'admin' }"  >
     
   <v-row>
-          <v-col md="12" class="bg-blue-darken-2 font-bold text-xl text-white ">{{ quotation.quoteGiver }}</v-col>
+          <v-col md="12" class="bg-blue-darken-2 font-bold text-xl text-white shadow-md shadow-black ">{{ quotation.quoteGiver }}</v-col>
        </v-row>
        <v-row>
          <v-col md="12" class="">
@@ -511,7 +572,7 @@ Hotel Quotations
     
     placeholder="Select your file"
     prepend-icon="mdi-paperclip"
-    variant="solo"
+    variant="outlined"
     density="compact"
     chips
     :show-size="1000"
@@ -683,9 +744,9 @@ class="align-center justify-center w-full border-2 border-solid border-black"
 
 
 
-<div class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" >
+<!-- <div class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" >
 <v-btn @click="print()" prepend-icon="mdi-printer" class="text-white" color="orange d-print-none">Print</v-btn>
-</div>
+</div> -->
 
 
 
@@ -756,7 +817,14 @@ import MoreInformationDialog from '../components/MoreInformationDialog.vue';
 import ShareDialogue from '../components/ShareDialogue.vue';
 import ShowExpenseReportDialog from '../components/ExpenseReport/ShowExpenseReportDialog.vue';
 
+var file = ref(null)
 
+
+var triggerInput = () =>{
+   debugger
+   var element = document.querySelector("#input")
+   element.click()
+}
 var toast = useToast();
 var {user} = storeToRefs(useAuthStore())
 
@@ -787,8 +855,9 @@ var {getTrip, ticketQuotationAll, TAddCustomQuote,
    openEmailDialogCustom,
    complete,
    checkAllBeingProcessed,
-   addOrRemoveTraveler
- 
+   addOrRemoveTraveler,
+   sendToAccounts,
+   
 } = useTripStore()
 
 var {globalUrl} = storeToRefs(useGlobalStore())

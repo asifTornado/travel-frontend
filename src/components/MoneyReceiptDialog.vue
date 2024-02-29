@@ -8,25 +8,30 @@
     >
     <v-card>
       <v-card-text>
-     <v-container>
-        <v-row align="center" no-gutters justify="center">Money Requisition</v-row>
-        <v-row no-gutters >
-            <v-col md="4">
+     <v-container> 
+        <v-row  class="text-h4" no-gutters >Money Requisition</v-row>
+        <v-row no-gutters  >
+            <!-- <v-col md="4">
          
                 <v-text-field
                     name="name"
                     label="No:"
                     v-model="moneyReceipt.no"
                     class="inline-block"
+                    variant="underlined"
+                    density="compact"
                 ></v-text-field>
-            </v-col>
-            <v-col md="4" offset="4">
+            </v-col> -->
+            <v-col md="4" offset="8">
          
          <v-text-field
-             name="name"
-             label="Date"
+            name="name"
+            label="Date"
             v-model="moneyReceipt.date"
-             class="inline-block"
+            class="inline-block"
+            variant="underlined"
+            density="compact"
+            type="date"
          ></v-text-field>
      </v-col>
         </v-row>
@@ -34,29 +39,33 @@
 
 
 
-        <v-row no-gutters >
+        <v-row no-gutters align="center" justify="center" >
             <v-col md="4">
          
                 <v-text-field
                     name="name"
                     label="UNIT"
                      v-model="moneyReceipt.unit"
-                    class="inline-block"
+                    class=""
+                    variant="underlined"
+                    density="compact"
                 ></v-text-field>
             </v-col>
-            <v-col md="4" >
+            <v-col md="4" offset="4" >
          
          <v-text-field
              name="name"
              label="Advance Money In Hand"
              v-model="moneyReceipt.advanceMoneyInHand"
              class="inline-block"
+             variant="underlined"
+                    density="compact"
          ></v-text-field>
      </v-col>
         </v-row>
 
 
-        <v-row no-gutters   align="center">
+        <v-row no-gutters   align="center" justify="center">
             <v-col md="1" justify="center" items="center" align="center">
                     <span class="text-h5">I</span>
             </v-col>
@@ -67,6 +76,8 @@
                    
                     v-model="moneyReceipt.i"
                     class="inline-block"
+                    variant="underlined"
+                    density="compact"
                 ></v-text-field>
             </v-col>
 
@@ -80,6 +91,8 @@
                    
                     v-model="moneyReceipt.designation"
                     class="inline-block"
+                    variant="underlined"
+                    density="compact"
                 ></v-text-field>
             </v-col>
           
@@ -99,6 +112,8 @@
                    
                     v-model="moneyReceipt.requiredTK"
                     class="inline-block"
+                    variant="underlined"
+                    density="compact"
                 ></v-text-field>
             </v-col>
 
@@ -112,6 +127,8 @@
                    
                     v-model="moneyReceipt.taka"
                     class="inline-block"
+                    variant="underlined"
+                    density="compact"
                 ></v-text-field>
             </v-col>
           
@@ -131,6 +148,9 @@
                    
                     v-model="moneyReceipt.asAdvanceAgainst"
                     class="inline-block"
+                    variant="underlined"
+                    density="compact"
+                    rows="1"
                 ></v-textarea>
             </v-col>
 
@@ -150,11 +170,13 @@
                     name="name"
                    
                     v-model="moneyReceipt.serialNo"
+                    variant="underlined"
+                    density="compact"
                     class="inline-block"
                 ></v-text-field>
             </v-col>
             <v-col md=2>
-                <span class="text-body-1">to-day</span>
+                <span class="text-body-1 ml-2">to-day</span>
             </v-col>
 
         

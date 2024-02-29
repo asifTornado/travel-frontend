@@ -8,8 +8,10 @@
                     Travel Expense Report
                 </v-col>
                 <v-col>
-                    <v-chip class="bg-red-darken-1 hover:cursor-pointer" @click="showExpenseReportDialog = false" >
-                      Close
+                    <v-chip label class="bg-red-darken-1 hover:cursor-pointer" @click="showExpenseReportDialog = false" >
+                      <v-icon>
+                        mdi-close
+                      </v-icon>
                     </v-chip>
                 </v-col>
             </v-row>

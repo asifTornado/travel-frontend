@@ -34,33 +34,24 @@ export const useNotificationStore = defineStore("notification", () => {
 
                
                if(notification.type == "unapproved"){
-                router.push("/travel/unapproved-request/" + notification.ticketId)
+
+                router.push("/travel/unapproved-request/" + notification.sourceId)
+
                }else if(notification.type == "moneyReceipt"){
-                router.push("/travel/moneyReceipt/" + notification.ticketId)
+
+                router.push("/travel/moneyReceipt/" + notification.sourceId)
+
                }else if(notification.type == "expenseReport"){
-                router.push("/travel/expenseReport/" + notification.ticketId)
+
+                router.push("/travel/expenseReport/" + notification.sourceId)
+
                }else{
-                router.push("/travel/showRequest/" + notification.ticketId)
+
+                router.push("/travel/showRequest/" + notification.sourceId)
+
                }
                     
-                  // console.log("entering routing")
-                  // if(notification.type == 'chat'){
-                  //   console.log("entered route if 1")
-                  //    router.push("/travel/showRequest/" +notification.ticketId + "?chat=true")
-                  // }else{
-                  //   console.log("entered route if 2")
-                  //   router.push("/travel/showRequest/" +notification.ticketId)
-                  // }
-      
-                       
-                  
-      
-        
-            
-                
-                
-                
-                
+                     
       }
 
 

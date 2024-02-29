@@ -197,9 +197,9 @@
     
     
     <div class="flex flex-row justify-end w-full items-end fixed bottom-2 pr-[20px]">
-      <div class=" bg-emerald-500 bottom-10 border-2 border-solid border-black right-3 p-2 mr-[20px]  font-bold text-white hover:cursor-pointer hover:bg-emerald-600" @click="uploadExcel">
+      <!-- <div class=" bg-emerald-500 bottom-10 border-2 border-solid border-black right-3 p-2 mr-[20px]  font-bold text-white hover:cursor-pointer hover:bg-emerald-600" @click="uploadExcel">
     Upload Excel
-    </div>
+    </div> -->
     
     <input ref="fileInput" type="file" style="display: none" @change="handleFileChange" />
     

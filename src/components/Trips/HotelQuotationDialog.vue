@@ -15,7 +15,7 @@ class="align-center justify-center w-full pa-10"
 
 
 
-<div class="w-[90vw] h-[95vh] bg-blue-lighten-5 p-[10px] flex ml-15 flex-col  elevation-10">
+<div class="w-[90vw] bg-grey-lighten-4 h-[95vh]  p-[10px] flex ml-15 flex-col  elevation-10">
     
     
     
@@ -32,7 +32,7 @@ class="align-center justify-center w-full pa-10"
                     id="name"
                     type="text"
                     v-model="brand"
-                    variant="solo"
+                    variant="outlined"
                     
                     >
                 </v-text-field>
@@ -44,7 +44,7 @@ class="align-center justify-center w-full pa-10"
                     id="destination"
                     type="text"
                     v-model="location"
-                    variant="solo"
+                    variant="outlined"
                     >
                 </v-text-field>
               </v-col>
@@ -124,7 +124,7 @@ class="align-center justify-center w-full pa-10"
                    label="Actual Rate"
                    id="actual_rate"
                    v-model="hotelsForBrands[hotelForBrandCounter].actual_rate"
-                   variant="solo"
+                   variant="outlined"
                    density="compact"
                    class="mt-3"
                 
@@ -138,7 +138,7 @@ class="align-center justify-center w-full pa-10"
                     label="Number of Rooms"
                     id="numberOfRooms"
                     v-model="hotelsForBrands[hotelForBrandCounter].numberOfRooms"
-                    variant="solo"
+                    variant="outlined"
                    density="compact"
                    class="mt-3"
                     >

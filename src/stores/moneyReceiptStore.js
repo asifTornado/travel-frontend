@@ -32,6 +32,7 @@ var {users} = storeToRefs(useUserStore())
 var router = useRouter();
 var route = useRoute();
 var {user, token} = storeToRefs(useAuthStore());
+var disburseDialog = ref(false);
 
 var fuse = ref(null)
 var options = ref({
@@ -79,12 +80,29 @@ var moneyReceipts = ref([])
 var filteredMoneyReceipts = ref([])
 
 var submitReceipt = () =>{
+    toast.info("Submitting Receipt. Please Wait....")
     var data = new FormData();
     data.append("request", JSON.stringify(request.value))
     data.append("moneyReceipt", JSON.stringify(moneyReceipt.value))
 
     axios.post(globalUrl.value + "submitMoneyReceipt", data).then((result)=>{
         moneyReceiptDialog.value = false
+        toast.clear()
+        toast.success("Receipt Submitted")
+    }).catch((error)=> toast.warning(error))
+}
+
+
+var moneyReceiptResend = () =>{
+    toast.info("Resubmitting Receipt. Please Wait....")
+    var data = new FormData();
+    data.append("request", JSON.stringify(request.value))
+    data.append("moneyReceipt", JSON.stringify(moneyReceipt.value))
+
+    axios.post(globalUrl.value + "moneyReceiptResend", data).then((result)=>{
+        
+        toast.clear()
+        toast.success("Receipt Resubmitted")
     }).catch((error)=> toast.warning(error))
 }
 
@@ -198,28 +216,35 @@ var showMoneyReceipt = (moneyReceipt)=> {
 
 
 var moneyReceiptSupervisorApprove = () => {
+    toast.info("Approving Money Receipt. Please Wait....")
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
     data.append("id", moneyReceipt.value._id)
 
     axios.post(globalUrl.value + "moneyReceiptSupervisorApprove", data).then((result)=>{
         moneyReceipt.value = result.data
+        toast.clear()
+        toast.success("Money Receipt Approved")
     }).catch((error)=>console.log(error))
 }
 
 
 var moneyReceiptSupervisorReject = () => {
+    toast.info("Rejecting Money Receipt. Please Wait...")
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
     data.append("id", moneyReceipt.value._id)
 
     axios.post(globalUrl.value + "moneyReceiptSupervisorReject", data).then((result)=>{
         moneyReceipt.value = result.data
+        toast.clear()
+        toast.success("Money Receipt Rejected")
     }).catch((error)=>console.log(error))
 }
 
 
 var moneyReceiptForward = () => {
+    toast.info("Forwarding Money Receipt. Please Wait...")
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
     data.append("id", moneyReceipt.value._id)
@@ -228,11 +253,16 @@ var moneyReceiptForward = () => {
 
     axios.post(globalUrl.value + "moneyReceiptForward", data).then((result)=>{
         moneyReceipt.value = result.data
+        moneyReceiptForwardDialog.value = false
+        toast.clear()
+        toast.success("Money Receipt Forwarded")
+        
     }).catch((error)=>console.log(error))
 }
 
 
 var moneyReceiptBackWard = () => {
+    toast.info("Rejecting Money Receipt. Please Wait...")
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
     data.append("id", moneyReceipt.value._id)
@@ -240,11 +270,16 @@ var moneyReceiptBackWard = () => {
 
     axios.post(globalUrl.value + "moneyReceiptBackWard", data).then((result)=>{
         moneyReceipt.value = result.data
+        moneyReceiptForwardDialog.value = false
+        toast.clear()
+        toast.success("Money Receipt Rejected")
+
     }).catch((error)=>console.log(error))
 }
 
 
 var moneyReceiptProcessingComplete = () => {
+    toast.info("Completing Money Receipt Process. Please Wait...")
     var data = new FormData();
     data.append("user", JSON.stringify(user.value))
     data.append("id", moneyReceipt.value._id)
@@ -252,6 +287,9 @@ var moneyReceiptProcessingComplete = () => {
 
     axios.post(globalUrl.value + "moneyReceiptProcessingComplete", data).then((result)=>{
         moneyReceipt.value = result.data
+        moneyReceiptForwardDialog.value = false
+        toast.clear()
+        toast.success("Money Receipt Process Completed")
     }).catch((error)=>console.log(error))
 }
 
@@ -264,6 +302,14 @@ var openMoneyReceiptForwardDialog = () =>{
 
 }
 
+
+var checkIfEditable = () => {
+    if(moneyReceipt.value.rejected == true && moneyReceipt.value.submitted == false && moneyReceipt.value.request.requesterId == moneyReceipt.value.currentHandlerId){
+        return false
+    }else{
+        return true
+    }
+}
 
 
 
@@ -280,6 +326,9 @@ return {
  next, 
  moneyReceiptForwardDialog,
  selectedUserEmail,
+ disburseDialog,
+ moneyReceiptResend,
+ checkIfEditable,
  openMoneyReceiptForwardDialog,
  moneyReceiptSupervisorApprove,
  moneyReceiptSupervisorReject,

@@ -14,6 +14,7 @@ import axios from 'axios';
 
 import {useRouter, useRoute} from 'vue-router'
 import { useAuthStore } from './auth';
+import { globalEventBus } from 'vue-toastification';
 
 
 
@@ -114,6 +115,7 @@ var openEmailDialogAccounts = (request2) => {
 
 var emailRequestCustom = () => {
     toast.info("Mailing please wait....")
+    debugger
     var data = new FormData();
     data.append("recipient", emailRecipient.value)
     data.append("user", JSON.stringify(user.value))
@@ -124,9 +126,15 @@ var emailRequestCustom = () => {
     data.append("token", token.value)
 
     axios.post(globalUrl.value + "emailRequest", data).then((result)=>{
+        trip.value.requests = trip.value.requests.map((r) => {
+            if(r._id == result.data._id){
+                return result.data
+            }else{
+                return r
+            }
+        })
         toast.clear();
         toast.success("Mailed Successfully")
-        location.reload()
     }).catch((error)=> toast.warning(error))
 }
 
@@ -145,9 +153,15 @@ var emailRequest = () => {
     data.append("token", token.value)
 
     axios.post(globalUrl.value + "emailRequest", data).then((result)=>{
+        trip.value.requests = trip.value.requests.map((r)=>{
+            if(r._id == result.data._id){
+                return result.data
+            }else{
+                return r
+            }
+        })
         toast.clear()
         toast.success("Mailed Successfully")
-        location.reload()
     }).catch((error)=> toast.warning(error))
 
 
@@ -477,6 +491,8 @@ var TAddHotelQuote = () => {
 
          customHotelOverlay.value = false;
          proceedHotelQuotationDialog.value = false;
+
+         hotelQuoteSelection.value = []
         
     }).catch((error)=>console.log(error))
 }
@@ -653,10 +669,11 @@ var getTrip = () => {
 }
 
 
-var showTrip = (id) => {
-   router.push("/travel/trip/" + id)
-}
 
+
+var showTrip = (id) => {
+    router.push("/travel/trip/" + id)
+ }
 
 var TAddCustomQuote = (what) => {
     toast.info("Adding custom quote please wait")
@@ -684,6 +701,9 @@ var TAddCustomQuote = (what) => {
         }
 
         overlay.value = false;
+        customHotelOverlay.value = false;
+        ticketQuotationSelection.value = []
+        hotelQuoteSelection.value = []
         toast.info("Success")
        
         
@@ -995,6 +1015,20 @@ var  openHotelUnBookDialog = (quotation2) => {
 }
 
 
+var sendToAccounts = () => {
+    toast.info("Sending To Accounts Please Wait....")
+    var data = new FormData();
+    data.append("budget", JSON.stringify(trip.value))
+
+    axios.post(globalUrl.value + "sendToAccounts", data).then((result)=>{
+        if(result.data == true){
+            toast.clear()
+            toast.success("Sent To Accounts")
+            trip.value.seekingAccountsApprovalForTickets = true
+        }
+    }).catch((error)=> toast.warning(error))
+}
+
 return {
     getAllTrips,
     getTrip,
@@ -1041,6 +1075,7 @@ return {
     addOrRemoveTraveler,
     generateQuoteString,
     generateCustomQuoteString,
+    sendToAccounts,
     selectedHotels,
     request,
     emailRecipient,
