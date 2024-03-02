@@ -77,7 +77,7 @@
 
 
 
-          <v-list-item  v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-bed" title="Hotels" value="hotels" @click="router.push('/travel/hotelsForBrand')">   </v-list-item>
+        
 
           <!-- <v-list-item v-if="user.userType == 'admin'"  prepend-icon="mdi-angular" title="Agents" value="shared" @click="router.push('/travel/agents')">   </v-list-item> -->
 
@@ -226,6 +226,7 @@
       v-model="setup"
       :close-on-content-click="false"
       location="end"
+      v-if="user.userType == 'admin'"
     >
       <template v-slot:activator="{ props }">
         <v-list-item
@@ -243,7 +244,7 @@
           <v-list-item v-if="user.userType == 'admin'"  prepend-icon="mdi-cash-plus" title="Budgets" value="budgets" @click="router.push('/travel/budget')">   </v-list-item>
         <v-list-item v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-account-multiple" title="Users" value="users" @click="router.push('/travel/users')">   </v-list-item>
           <v-list-item v-if="user.userType == 'admin'" prepend-icon="mdi-account-badge-outline" title="Roles"  value="roles" @click="router.push('/travel/roles')"> </v-list-item>
-        
+          <v-list-item  v-if="user.userType=='admin' || user.userType == 'manager'"  prepend-icon="mdi-bed" title="Hotels" value="hotels" @click="router.push('/travel/hotelsForBrand')">   </v-list-item>
         </v-list>
 
         <v-divider></v-divider>

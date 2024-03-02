@@ -1,5 +1,5 @@
 <template>
-<div class="w-[100vw] py-[20px] mt-10">
+<div class="w-[100vw] py-[20px] mt-10" v-if="user.userType == 'admin' || user.userType == 'manager'">
 
    
 
@@ -506,7 +506,7 @@ Hotel Quotations
 
 <v-row justify="center">
 
-<v-col  v-for="(quotation, quotationCounter) in trip.hotelQuotations" :key="quotationCounter" md="5"  :class="{'relative  mb-10 mr-5 mt-5  bg-white  hover:bg-emerald-300 shadow-md shadow-black pa-10':user.userType == 'admin' }"  >
+<v-col  v-for="(quotation, quotationCounter) in trip.hotelQuotations" :key="quotationCounter" md="5"  class="relative  mb-10 mr-5 mt-5  bg-white  hover:bg-emerald-300 shadow-md shadow-black pa-10"  >
     
   <v-row>
           <v-col md="12" class="bg-blue-darken-2 font-bold text-xl text-white shadow-md shadow-black ">{{ quotation.quoteGiver }}</v-col>

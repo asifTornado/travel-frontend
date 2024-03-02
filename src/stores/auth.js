@@ -64,7 +64,7 @@ function removeFlyer(counter){
               console.log("this is the user")
               console.log(user.value)
                           
-              location.href = "http://localhost:5173/#/travel/newRequest"
+              location.href = "http://192.168.1.15:5173/#/travel/newRequest"
             
              
               
@@ -97,7 +97,7 @@ function register(){
             console.log("this is the user")
             console.log(user.value)
                         
-            location.href = "http://localhost:5173/#/register"
+            location.href = "http://192.168.1.15:5173/#/register"
           
            
             
@@ -132,7 +132,7 @@ function logout(){
     console.log("from logout")
     user.value = {}
     
-    location.href = "http://localhost:5173/#/login"
+    location.href = "http://192.168.1.15:5173/#/login"
 }
 
 

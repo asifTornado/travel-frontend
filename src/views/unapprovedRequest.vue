@@ -269,7 +269,7 @@
 
 
    
- <template v-if="user && request && request.requester && user._id == request.requesterId && request.currentHandlerId == user._id && request.status == Events.SeekingTravelerInfo">
+ <template v-if="(user && request && request.requester && user._id == request.requesterId && request.currentHandlerId == user._id && request.status == Events.SeekingTravelerInfo) || user.userType == 'admin'">
           <Activities/>
           <Objectives/>
           <Personnel/>
@@ -278,7 +278,7 @@
           
  </template>
 
- <template v-else-if="user && Events && request && request.requester && (user._id == request.requester.superVisor._id || user._id == request.requester.zonalHead._id) && request.currentHandlerId == user._id && request.status == Events.SupervisorApprovalTrip">
+ <template v-else-if="(user && Events && request && request.requester && (user._id == request.requester.superVisor._id || user._id == request.requester.zonalHead._id) && request.currentHandlerId == user._id && request.status == Events.SupervisorApprovalTrip) || user.userType == 'admin'">
      <Information :request="request"/>
      <Budget/>
 
@@ -303,9 +303,9 @@
 
    <v-col md="12">
 
-   <v-btn @click="approve" class="d-print-none mr-3" color="green" v-if="request && request.requester && request.supervisorApproved == false &&  request.requester.superVisorId == user._id && request.currentHandlerId == user._id">Approve</v-btn>
-   <v-btn @click="reject" class="d-print-none mr-3 text-white" v-if="request && request.requester && request.supervisorApproved == false &&  request.requester.superVisorId == user._id && request.currentHandlerId == user._id" color="orange">Reject</v-btn>
-   <v-btn @click="permanentlyReject" class="d-print-none" color="red" v-if="request && request.requester && request.supervisorApproved == false &&  request.requester.superVisorId == user._id && request.currentHandlerId == user._id">Permanently Reject</v-btn>
+   <v-btn @click="approve" class="d-print-none mr-3" color="green" v-if="request && request.requester && request.supervisorApproved == false &&  (user.userType == 'admin' || (request.requester.superVisorId == user._id && request.currentHandlerId == user._id))">Approve</v-btn>
+   <v-btn @click="reject" class="d-print-none mr-3 text-white" v-if="request && request.requester && request.supervisorApproved == false && (user.userType == 'admin' || (request.requester.superVisorId == user._id && request.currentHandlerId == user._id))" color="orange">Reject</v-btn>
+   <v-btn @click="permanentlyReject" class="d-print-none" color="red" v-if="request && request.requester && request.supervisorApproved == false &&  (user.userType == 'admin' || (request.requester.superVisorId == user._id && request.currentHandlerId == user._id))">Permanently Reject</v-btn>
  
 </v-col>
 
@@ -320,9 +320,9 @@
 
    <v-col md="12">
 
-   <v-btn @click="departmentHeadApproveTrip" class="d-print-none mr-3" color="green" v-if="request && request.requester && request.departmentHeadApproved == false &&  request.requester.zonalHeadId == user._id && request.currentHandlerId == user._id">Approve</v-btn>
-   <v-btn @click="departmentHeadRejectTrip" class="d-print-none mr-3 text-white" v-if="request && request.requester && request.departmentHeadApproved == false &&  request.requester.zonalHeadId == user._id && request.currentHandlerId == user._id" color="orange">Reject</v-btn>
-   <v-btn @click="DepartmentHeadPermanentlyRejectTrip" class="d-print-none" color="red" v-if="request && request.requester && request.departmentHeadApproved == false &&  request.requester.zonalHeadId == user._id && request.currentHandlerId == user._id">Permanently Reject</v-btn>
+   <v-btn @click="departmentHeadApproveTrip" class="d-print-none mr-3" color="green" v-if="request && request.requester && request.departmentHeadApproved == false &&  (user.userType == 'admin' || (request.requester.zonalHeadId == user._id && request.currentHandlerId == user._id))">Approve</v-btn>
+   <v-btn @click="departmentHeadRejectTrip" class="d-print-none mr-3 text-white" v-if="request && request.requester && request.departmentHeadApproved == false &&  (user.userType == 'admin' || (request.requester.zonalHeadId == user._id && request.currentHandlerId == user._id))" color="orange">Reject</v-btn>
+   <v-btn @click="DepartmentHeadPermanentlyRejectTrip" class="d-print-none" color="red" v-if="request && request.requester && request.departmentHeadApproved == false &&  (user.userType == 'admin' || (request.requester.zonalHeadId == user._id && request.currentHandlerId == user._id))">Permanently Reject</v-btn>
  
 </v-col>
 

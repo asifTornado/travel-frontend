@@ -244,13 +244,13 @@
 
     <div v-if="moneyReceipt" class="mb-10">
         <v-containr>
-            <v-row justify="center" align="center" v-if="moneyReceipt.currentHandlerId == user._id && moneyReceipt.supervisorApproved == false && moneyReceipt.processed == false && moneyReceipt.rejected == true">
+            <v-row justify="center" align="center" v-if="(user.userType == 'admin' || (moneyReceipt.currentHandlerId == user._id)) && moneyReceipt.supervisorApproved == false && moneyReceipt.processed == false && moneyReceipt.rejected == true">
                 <v-btn class="mr-2 bg-blue-darken-2"  size="large" @click="moneyReceiptResend">
                     Resend
                 </v-btn>
             
             </v-row>
-            <v-row justify="center" align="center" v-if="moneyReceipt.currentHandlerId == user._id && moneyReceipt.supervisorApproved == false && moneyReceipt.processed == false && moneyReceipt.rejected == false">
+            <v-row justify="center" align="center" v-if="(user.userType == 'admin' || (moneyReceipt.currentHandlerId == user._id)) && moneyReceipt.supervisorApproved == false && moneyReceipt.processed == false && moneyReceipt.rejected == false">
                 <v-btn class="mr-2 bg-blue-darken-2"  size="large" @click="moneyReceiptSupervisorApprove">
                      Approve
                 </v-btn>
@@ -258,7 +258,7 @@
                     Reject
                 </v-btn>
             </v-row>
-            <v-row justify="center" align="center" v-if="moneyReceipt.currentHandlerId == user._id && moneyReceipt.supervisorApproved == true && moneyReceipt.processed == false">
+            <v-row justify="center" align="center" v-if="(user.userType == 'admin' || (moneyReceipt.currentHandlerId == user._id)) && moneyReceipt.supervisorApproved == true && moneyReceipt.processed == false">
                 <v-btn class="mr-2 bg-purple-darken-2" v-if="moneyReceipt.disbursed == false"  size="large" @click="disburseDialog = true">
                      Disburse Money
                 </v-btn>

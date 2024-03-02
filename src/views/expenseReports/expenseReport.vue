@@ -426,7 +426,7 @@
         <v-container class="bg-blue-lighten-5">
 
             <v-row justify="center" align="center"
-                v-if="expenseReport.currentHandlerId == user._id && expenseReport.supervisorApproved == false && expenseReport.processed == false && expenseReport.travelManagerSubmitted == false && expenseReport.rejected == true">
+                v-if="(user.userType == 'admin' || expenseReport.currentHandlerId == user._id) && expenseReport.supervisorApproved == false && expenseReport.processed == false && expenseReport.travelManagerSubmitted == false && expenseReport.rejected == true">
                 <v-btn class="mr-2 bg-blue-darken-2" size="large" @click="resendExpenseReport">
                     Send Report
                 </v-btn>
@@ -435,7 +435,7 @@
 
 
             <v-row justify="center" align="center"
-                v-if="expenseReport.currentHandlerId == user._id && expenseReport.supervisorApproved == false && expenseReport.processed == false && expenseReport.travelManagerSubmitted == false && expenseReport.rejected == false">
+                v-if="(user.userType == 'admin' || expenseReport.currentHandlerId == user._id) && expenseReport.supervisorApproved == false && expenseReport.processed == false && expenseReport.travelManagerSubmitted == false && expenseReport.rejected == false">
                 <v-btn class="mr-2 bg-blue-darken-2" size="large" @click="travelManagerSubmitExpenseReport">
                     Submit
                 </v-btn>
@@ -444,7 +444,7 @@
                 </v-btn>
             </v-row>
             <v-row justify="center" align="center"
-                v-if="expenseReport.currentHandlerId == user._id && expenseReport.supervisorApproved == false && expenseReport.processed == false && expenseReport.travelManagerSubmitted == true">
+                v-if="(user.userType == 'admin' || expenseReport.currentHandlerId == user._id) && expenseReport.supervisorApproved == false && expenseReport.processed == false && expenseReport.travelManagerSubmitted == true">
                 <v-btn class="mr-2 bg-blue-darken-2" size="large" @click="expenseReportSupervisorApprove">
                     Approve
                 </v-btn>
@@ -453,7 +453,7 @@
                 </v-btn>
             </v-row>
             <v-row justify="center" align="center"
-                v-if="expenseReport.currentHandlerId == user._id && expenseReport.supervisorApproved == true && expenseReport.processed == false">
+                v-if="(user.userType == 'admin' || expenseReport.currentHandlerId == user._id) && expenseReport.supervisorApproved == true && expenseReport.processed == false">
                 
                 <v-btn v-if="expenseReport.disbursed == false" class="mr-2 bg-purple-darken-2" size="large" @click="disburseDialog = true">
                     Disburse
