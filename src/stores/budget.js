@@ -4,6 +4,7 @@ import {ref, computed, watch} from "vue"
 import {useToast} from 'vue-toast-notification';
 import { useUserStore } from './users';
 import Fuse from "fuse.js"
+import { useAuthStore } from './auth';
 
 
 
@@ -53,7 +54,7 @@ var exist = ref([
     }
   ])
 
-
+var {token} = storeToRefs(useAuthStore());
 function changeTotal(){
     
     debugger
@@ -191,6 +192,8 @@ function resetBudget(){
 
 
 var getBudgets = () => {
+  var data = new FormData();
+    data.append("token", token.value)
     axios.post(globalUrl.value + "getBudgets").then((result)=>{
         budgets.value = result.data
         filteredBudgets.value = result.data
@@ -217,6 +220,7 @@ function addBudget(){
     debugger
 
     data.append("budget", JSON.stringify(budget.value))
+    data.append("token", token.value)
 
     axios.post(globalUrl.value + "insertBudget", data).then((result)=>{
         toast.clear()
@@ -238,6 +242,7 @@ var deleteBudget = (id) => {
     var data = new FormData()
     debugger
     data.append("id", id)
+    data.append("token", token.value)
     axios.post(globalUrl.value + "deleteBudget", data).then((result)=>{
         debugger
       budgets.value = budgets.value.filter((budget)=> budget._id != id);
@@ -268,6 +273,7 @@ var updateBudget =async () => {
 
     debugger
     data.append("budget", JSON.stringify(budget.value))
+    data.append("token", token.value)
     axios.post(globalUrl.value + "updateBudget", data).then((result)=>{
           toast.clear()
           toast.success("Budget Updated Successfully")
@@ -280,6 +286,7 @@ var initiate = (budget) => {
     overlay.value = true
     var data = new FormData()
     data.append("budget", JSON.stringify(budget))
+    data.append("token", token.value)
 
     console.log(budget)
     axios.post(globalUrl.value + "initiate", data).then((result)=>{

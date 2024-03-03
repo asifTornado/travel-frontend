@@ -102,6 +102,8 @@ export const useRequestsStore = defineStore("requests", () => {
     
       data.append("approval", approval.value)
       data.append("message", message.value)
+
+      data.append("token", token.value)
    
       axios.post(globalUrl.value + "supervisorApproveTrip", data).then((result)=>{
          if(result.data == true){
@@ -117,6 +119,7 @@ export const useRequestsStore = defineStore("requests", () => {
    
     var data = new FormData();
     data.append("id", user.value._id)
+    data.append("token", token.value)
 
 
  
@@ -136,6 +139,7 @@ export const useRequestsStore = defineStore("requests", () => {
     var id = route.params.id;
     var data = new FormData();
     data.append("id", id)
+    data.append("token", token.value)
 
     axios.post(globalUrl.value + "getCustomRequest", data).then((result)=>{
         console.log("this is the result")
@@ -191,6 +195,7 @@ export const useRequestsStore = defineStore("requests", () => {
       data.append("recipient", emailRecipient.value);
       data.append("user", JSON.stringify(user.value));
       data.append("whom", whomFromEmailDialog);
+      data.append("token", token.value)
 
       axios.post(globalUrl.value + "emailRequest", data).then((result)=>{
    
@@ -207,6 +212,7 @@ export const useRequestsStore = defineStore("requests", () => {
        
        var data = new FormData()
        data.append("id", user.value._id)
+       data.append("token", token.value)
 
     
           axios.post(globalUrl.value + "getMyRequests", data).then((result)=>{
@@ -231,6 +237,7 @@ export const useRequestsStore = defineStore("requests", () => {
     console.log(user.value._id)
     var data = new FormData();
     data.append("id", user.value._id)
+    data.append("token", token.value)
 
 
  
@@ -253,6 +260,7 @@ export const useRequestsStore = defineStore("requests", () => {
     var data = new FormData()
  
     data.append("user", JSON.stringify(user.value))
+    data.append("token", token.value)
     console.log("from get requests for me")
     
     axios.post(globalUrl.value + "getRequestsForMe", data).then((results)=>{
@@ -293,6 +301,7 @@ function getRequest(){
     var id = route.params.id;
     var data = new FormData();
     data.append("id", id)
+    data.append("token", token.value)
 
     axios.post(globalUrl.value + "getRequest", data).then((result)=>{
         console.log("this is the result")
@@ -323,6 +332,7 @@ function book(condition){
    
     data.append("user", JSON.stringify(user.value))
     data.append("quotation", JSON.stringify(quotation.value))
+    data.append("token", token.value)
 
     
     data.append("request", JSON.stringify(request.value))
@@ -426,6 +436,7 @@ function book(condition){
     data.append("what", what.value)
     data.append("approval", approval.value)
     data.append("message", message.value)
+    data.append("token", token.value)
 
 
     console.log("these are the data being sent")
@@ -456,6 +467,7 @@ function book(condition){
     data.append("what", what.value)
     data.append("approval", approval.value)
     data.append("message", message.value)
+    data.append("token", token.value)
     
  
     axios.post(globalUrl.value + "departmentHeadApprove", data).then((result)=>{
@@ -478,6 +490,7 @@ function book(condition){
     data.append("user", JSON.stringify(user.value))
     data.append("request", JSON.stringify(request.value))
     data.append("quotation", JSON.stringify(quotation.value))
+    data.append("token", token.value)
     axios.post(globalUrl.value + "confirm", data).then((result)=>{
            if(result.data){
              request.value = result.data
@@ -507,6 +520,7 @@ function book(condition){
     data.append("user", JSON.stringify(user.value))
     data.append("id", request.value._id)
     data.append("request", JSON.stringify(request))
+    data.append("token", token.value)
  
     axios.post(globalUrl.value + "processed", data).then((result)=>{
 
@@ -527,6 +541,7 @@ function book(condition){
        data.append("quoteGiver", customQuoteGiver.value)
        data.append("id", request.value._id)
        data.append("what", what)
+       data.append("token", token.value)
        
        data.append("user", JSON.stringify(user.value))
        axios.post(globalUrl.value + "addCustomQuote", data).then((result)=>{
@@ -549,6 +564,8 @@ function book(condition){
  function addCustomHotelQuote(hotelQuotation, what){
   toast.info("Adding custom quote please wait")
    var data = new FormData()
+
+   data.append("token", token.value)
 
    var quoteString = `
    <div class='flex flex-col justify-start items-center'>
@@ -598,6 +615,7 @@ function book(condition){
    data.append("quotation", JSON.stringify(quotation.value))
    data.append("id", request.value._id)
    data.append("user", JSON.stringify(user.value))
+   data.append("token", token.value)
 
 
    console.log("this is the request and the id")
@@ -628,6 +646,7 @@ function book(condition){
    data.append("request", JSON.stringify(request.value))
    data.append("quotation", JSON.stringify(quotation.value))
    data.append("user", JSON.stringify(user.value))
+   data.append("token", token.value)
    axios.post(globalUrl.value + "revoke", data).then((result)=>{
  
           if(result.data){
@@ -662,6 +681,7 @@ function book(condition){
    data.append("request", JSON.stringify(request.value))
    data.append("best", condition)
    data.append("user", JSON.stringify(user.value))
+   data.append("token", token.value)
 
  
 
@@ -693,6 +713,7 @@ function book(condition){
   data.append("request", JSON.stringify(request.value))
   data.append("best", condition)
   data.append("user", JSON.stringify(user.value))
+  data.append("token", token.value)
 
 
 
@@ -722,6 +743,7 @@ function book(condition){
    data.append("quotation", JSON.stringify(quotation.value))
    data.append("id", request.value._id)
    data.append("user", JSON.stringify(user.value))
+   data.append("token", token.value)
 
 
    console.log("this is the request and the id")
@@ -761,6 +783,8 @@ function book(condition){
    data.append("id", request.value._id)
    data.append("quotation", JSON.stringify(quotation.value))
    data.append("user", JSON.stringify(user.value))
+   data.append("token", token.value)
+
    axios.post(globalUrl.value + "hotelconfirm", data).then((result)=>{
  
           if(result.data){
@@ -787,6 +811,8 @@ function book(condition){
    data.append("request", JSON.stringify(request.value))
    data.append("quotation", JSON.stringify(quotation.value))
    data.append("user", JSON.stringify(user.value))
+   data.append("token", token.value)
+
    axios.post(globalUrl.value + "hotelRevoke", data).then((result)=>{
  
           if(result.data){
@@ -809,6 +835,7 @@ function book(condition){
   data.append("quotation", JSON.stringify(quotation)) 
   data.append("file", event.target.files[0])
   data.append("userId", user.value._id)
+  data.append("token", token.value)
 
   axios.post(globalUrl.value + "TUploadTicketFile", data).then((result) => {
          request.value.quotations = trip.value.quotations.map((x)=>{ 
@@ -832,6 +859,7 @@ var uploadHotelFile = (event, what, quotation) => {
   data.append("quotation", JSON.stringify(quotation)) 
   data.append("file", event.target.files[0])
   data.append("userId", user.value._id)
+  data.append("token", token.value)
 
   axios.post(globalUrl.value + "TUploadHotelFile", data).then((result) => {
       request.value.hotelQuotations = trip.value.hotelQuotations.map((x)=>{
@@ -873,6 +901,7 @@ var uploadHotelFile = (event, what, quotation) => {
   data.append("userId", userId)
   data.append("requestId", requestId)
   data.append("user", JSON.stringify(user.value))
+  data.append("token", token.value)
 
   axios.post(globalUrl + "getEmailRequest", data).then((result) =>{
     user.value = result.data.user
@@ -890,6 +919,7 @@ var uploadHotelFile = (event, what, quotation) => {
   data.append("sharer", JSON.stringify(user.value))
   data.append("recipient", JSON.stringify(shareRecipient2))
   data.append("request", JSON.stringify(request.value))
+  data.append("token", token.value)
 
   axios.post(globalUrl.value + "share", data).then((result)=>{
     toast.clear()
@@ -936,6 +966,7 @@ var uploadHotelFile = (event, what, quotation) => {
 
    data.append("expenseReport", JSON.stringify(newReport))
    data.append("requestId", request.value._id);
+   data.append("token", token.value)
    
 
    axios.post(globalUrl.value + "sendExpenseReport", data).then((result)=>{
@@ -957,6 +988,7 @@ var uploadHotelFile = (event, what, quotation) => {
 
   var data = new FormData()
   data.append("id", request.value._id);
+  data.append("token", token.value)
 
   axios.post(globalUrl.value + "getExpenseReport", data).then((result)=>{
     expenseReport.value = result.data
@@ -988,6 +1020,7 @@ var uploadFile = (event, what, quotation) => {
   data.append("quotation", JSON.stringify(quotation)) 
   data.append("file", event.target.files[0])
   data.append("userId", user.value._id)
+  data.append("token", token.value)
 
   axios.post(globalUrl.value + "TUploadTicketFile", data).then((result) => {
          request.value.quotations = request.value.quotations.map((x)=>{ 
@@ -1011,6 +1044,7 @@ var uploadHotelFile = (event, what, quotation) => {
   data.append("quotation", JSON.stringify(quotation)) 
   data.append("file", event.target.files[0])
   data.append("userId", user.value._id)
+  data.append("token", token.value)
 
   axios.post(globalUrl.value + "TUploadHotelFile", data).then((result) => {
       request.value.hotelQuotations = request.value.hotelQuotations.map((x)=>{
@@ -1031,6 +1065,7 @@ var uploadHotelFile = (event, what, quotation) => {
 var getUnapprovedRequests = () => {
   var data = new FormData();
   data.append("id", user.value._id)
+  data.append("token", token.value)
   axios.post(globalUrl.value + "getUnapprovedRequests", data).then((result)=>{
   
     requests.value = result.data;
@@ -1045,6 +1080,7 @@ var uploadVoucher = (event, counter) => {
   var data = new FormData();
   debugger
   data.append("file", event.target.files[0])
+  data.append("token", token.value)
   
 
   axios.post(globalUrl.value + "uploadVoucher", data).then((result)=>{

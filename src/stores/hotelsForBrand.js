@@ -79,7 +79,7 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
                        
         var data = new FormData();
 
-        data.append("token", token)
+        data.append("token", token.value)
 
         axios.post(globalUrl.value + "getHotelsForBrandsAll", data).then((result)=>{
             console.log("these are the hotels For brands")
@@ -124,6 +124,7 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
         var data = new FormData()
         data.append("brand", brand.value)
         data.append("location", location.value)
+        data.append("token", token.value)
 
         axios.post(globalUrl.value + "searchHotelsForBrands", data).then((result)=>{
             hotelsForBrands.value = result.data.value
@@ -140,6 +141,7 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
         var data = new FormData()
         var id = route.params.id
         data.append("id", id)
+        data.append("token", token.value)
 
         axios.post(globalUrl.value + "getHotelsForBrand", data).then((result)=>{
             console.log("this is the result")
@@ -163,7 +165,7 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
     
             console.log('called update hotels for brand')
     
-            data.append("token", token)
+            data.append("token", token.value)
             data.append("hotelsForBrand", JSON.stringify(hotelsForBrand.value))
     
             debugger
@@ -197,6 +199,7 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
         console.log("from inside delete hotels for brand")
         var data = new FormData()
         data.append("id", id)
+        data.append("token", token.value)
 
         axios.post(globalUrl.value + "deleteHotelsForBrand", data).then((result)=>{
              hotelsForBrands.value = hotelsForBrands.value.filter((x)=> x._id != id)
@@ -342,7 +345,8 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
 
     function deleteHotelBackEnd(hotel){
         var data = new FormData()
-        data.append("hotel", JSON.stringify(hotel))
+        data.append("hotel", JSON.stringify(hotel))\
+        data.append("token", token.value)
 
         axios.post(globalUrl.value + "deleteHotel", data).then((result)=>{
             console.log("this is the result")

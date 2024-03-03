@@ -39,6 +39,8 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
  
 
     var getAllTicketQuotations = () => {
+        var data = new FormData();
+        data.append("token", token.value)
         axios.post(globalUrl.value + "getAllTicketQuotations").then((result)=>{
             ticketQuotations.value = result.data;
             filteredTicketQuotations.value = result.data;
@@ -48,6 +50,7 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
 
     var getTicketQuotationsApprovedByMe = () => {
         var data = new FormData()
+        data.append("token", token.value)
         data.append("user", JSON.stringify(user.value))
         axios.post(globalUrl.value + "getTicketQuotationsApprovedByMe", data).then((result)=>{
             ticketQuotations.value = result.data;
@@ -60,6 +63,7 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
 
         var data = new FormData()
         data.append("user", JSON.stringify(user.value))
+        data.append("token", token.value)
         axios.post(globalUrl.value + "getTicketQuotationsForMe", data).then((result)=>{
             ticketQuotations.value = result.data;
             filteredTicketQuotations.value = result.data
@@ -73,6 +77,7 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
         var data = new FormData();
         data.append("user", JSON.stringify(user.value))
         data.append("id", trip.value._id)
+        data.append("token", token.value)
         var next = users.value.filter((x)=> x.mailAddress == selectedUserEmail.value)[0]
         data.append("next", next._id)
     
@@ -92,6 +97,7 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
         var data = new FormData();
         data.append("user", JSON.stringify(user.value))
         data.append("id", trip.value._id)
+        data.append("token", token.value)
     
     
         axios.post(globalUrl.value + "ticketQuotationBackward", data).then((result)=>{
@@ -109,6 +115,7 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
         var data = new FormData();
         data.append("user", JSON.stringify(user.value))
         data.append("id", trip.value._id)
+        data.append("token", token.value)
     
     
         axios.post(globalUrl.value + "ticketQuotationsProcessingComplete", data).then((result)=>{

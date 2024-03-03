@@ -92,7 +92,9 @@ export const useUserStore = defineStore("users", () => {
     
    function getUserEmails(){
     console.log("user emails called");
-     axios.get(globalUrl.value + "getUserEmails").then((result)=>{
+    var data = new FormData()
+    data.append("token", token.value)
+     axios.get(globalUrl.value + "getUserEmails", data).then((result)=>{
         userEmails.value = result.data
      }).catch((error)=> console.log(error));
    }
@@ -101,8 +103,11 @@ export const useUserStore = defineStore("users", () => {
 
     console.log("this is the globalUrl")
     console.log(globalUrl.value)
+
+    var data = new FormData()
+    data.append("token", token.value)
     
-             axios.get(globalUrl.value + "getUsers").then((result)=>{
+             axios.get(globalUrl.value + "getUsers", data).then((result)=>{
                  
                  users.value = result.data
                  filteredUsers.value = result.data
@@ -116,6 +121,7 @@ export const useUserStore = defineStore("users", () => {
     var data = new FormData();
     debugger
     data.append("id", AuthUser.value._id)
+    data.append("token", token.value)
     axios.post(globalUrl.value + "getUsersForSupervisor", data).then((result)=>{
         debugger
         users.value = result.data
@@ -150,6 +156,7 @@ export const useUserStore = defineStore("users", () => {
     
         var data = new FormData()
         data.append("user", JSON.stringify(user.value))
+        data.append("token", token.value)
         axios.post(globalUrl.value + "insertUser", data).then((result)=>{
             toast.clear()
             router.push("/travel/users")
@@ -165,6 +172,7 @@ export const useUserStore = defineStore("users", () => {
         console.log("this is the _id being sent")
         console.log(_id)
         data.append("id", _id)
+        data.append("token", token.value)
         axios.post(globalUrl.value + "deleteUser", data).then((result)=>{
           users.value = users.value.filter((user)=> user._id != _id);
         }).catch((error) => console.log(error))
@@ -209,6 +217,7 @@ function getUser(){
     var _id = route.params.id
     var data = new FormData()
     data.append("id", _id)
+    data.append("token", token.value)
 
     axios.post(globalUrl.value + "getUser", data).then((result)=>{
         console.log("this is the user")
@@ -275,6 +284,7 @@ var updateUser = async () => {
     console.log(user.value.zonalHead)
     
     data.append("user", JSON.stringify(user.value))
+    data.append("token", token.value)
     axios.post(globalUrl.value + "updateUserNormal", data).then((result)=>{
         toast.clear()
         toast.success("User Updated Successfully")

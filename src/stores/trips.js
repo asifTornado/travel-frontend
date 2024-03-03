@@ -1019,6 +1019,7 @@ var sendToAccounts = () => {
     toast.info("Sending To Accounts Please Wait....")
     var data = new FormData();
     data.append("budget", JSON.stringify(trip.value))
+    data.append("token", token.value)
 
     axios.post(globalUrl.value + "sendToAccounts", data).then((result)=>{
         if(result.data == true){
