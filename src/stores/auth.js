@@ -15,7 +15,7 @@ export const useAuthStore = defineStore("auth", ()=>{
  var token = ref('')
  var email = ref('')
  var password = ref('')
- var {globalUrl} = storeToRefs(useGlobalStore())
+ var {globalUrl, frontUrl} = storeToRefs(useGlobalStore())
  var router = useRouter()
  var toast = useToast()
  var {users} = storeToRefs(useUserStore())
@@ -64,7 +64,7 @@ function removeFlyer(counter){
               console.log("this is the user")
               console.log(user.value)
                           
-              location.href = "http://192.168.1.15:5173/#/travel/newRequest"
+              location.href = frontUrl.value + "travel/newRequest"
             
              
               
@@ -97,7 +97,7 @@ function register(){
             console.log("this is the user")
             console.log(user.value)
                         
-            location.href = "http://192.168.1.15:5173/#/register"
+            location.href = frontUrl.value + "register"
           
            
             
@@ -132,7 +132,7 @@ function logout(){
     console.log("from logout")
     user.value = {}
     
-    location.href = "http://192.168.1.15:5173/#/login"
+    location.href = frontUrl.value + "login"
 }
 
 
