@@ -45,6 +45,9 @@ export const useNotificationStore = defineStore("notification", () => {
 
                 router.push("/travel/expenseReport/" + notification.sourceId)
 
+               }else if(notification.type == "ticketQuotations"){
+                 router.push("/travel/ticketQuotations/" + notification.sourceId)
+
                }else{
 
                 router.push("/travel/showRequest/" + notification.sourceId)
