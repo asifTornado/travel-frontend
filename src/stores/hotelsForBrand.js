@@ -343,9 +343,9 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
     }
 
 
-    function deleteHotelBackEnd(hotel){
+    function deleteHotelBackEnd(hotel2){
         var data = new FormData()
-        data.append("hotel", JSON.stringify(hotel))\
+        data.append("hotel", JSON.stringify(hotel2))
         data.append("token", token.value)
 
         axios.post(globalUrl.value + "deleteHotel", data).then((result)=>{

@@ -20,6 +20,7 @@ export const useRequestsStore = defineStore("requests", () => {
     var myRequests = ref([])
     var request = ref()
     var requestsProcessedByMe = ref([])
+    debugger
     var {user, token} = storeToRefs(useAuthStore())
     var {globalUrl} = storeToRefs(useGlobalStore())
     var error = ref(null)

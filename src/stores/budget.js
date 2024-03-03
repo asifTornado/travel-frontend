@@ -317,6 +317,7 @@ function searchBudget(){
     
       var data = new FormData()
       data.append("search", JSON.stringify(newSearch))
+      data.append("token", token.value)
     
       console.log("these are the data being sent")
       console.log(newSearch)

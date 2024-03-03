@@ -18,7 +18,8 @@ import html2pdf from 'html2pdf.js';
 export const useRoleStore = defineStore("roles", () => {
       
     var {globalUrl} = storeToRefs(useGlobalStore())
-    var {user, token} = storeToRefs(useAuthStore())
+    debugger
+    var authStore = useAuthStore()
 
     var roles = ref([])
 
@@ -35,10 +36,15 @@ export const useRoleStore = defineStore("roles", () => {
     })
 
 
-    var getRoles = () => {
 
+
+
+    var getRoles = () => {
+        
+        debugger
         var data = new FormData()
-        data.append("token", token.value)
+        data.append("token", authStore.token)
+        data.append("user", authStore.user)
              axios.post(globalUrl.value + "getRoles", data).then((result)=>{
                 roles.value = result.data
              }).catch((error)=>{
@@ -46,6 +52,11 @@ export const useRoleStore = defineStore("roles", () => {
              })
     }
 
+
+
+
+
+    
     var addRole = () => {
         addRoleCheck.value = true
     }
@@ -55,7 +66,7 @@ export const useRoleStore = defineStore("roles", () => {
         debugger
         var data = new FormData()
         data.append("role", JSON.stringify(role.value))
-        data.append("token", token.value)
+        data.append("token", authStore.token)
         axios.post(globalUrl.value + "insertRole", data).then((result)=>{
             roles.value.push(result.data)
             addRoleCheck.value = false
@@ -66,7 +77,7 @@ export const useRoleStore = defineStore("roles", () => {
 
         var data = new FormData()
         data.append("role", JSON.stringify(role2))
-        data.append("token", token.value)
+        data.append("token", authStore.token)
         axios.post(globalUrl.value + "removeRole", data).then((result)=>{
             roles.value = roles.value.filter((x)=> x._id != role2._id)
         }).catch((error)=> console.log(error))
@@ -78,7 +89,7 @@ export const useRoleStore = defineStore("roles", () => {
 
         var data = new FormData()
         data.append("role", JSON.stringify(role2))
-        data.append("token", token.value)
+        data.append("token", authStore.token)
         axios.post(globalUrl.value + "updateRole", data).then((result)=>{
             roles.value = roles.value.map((x)=>{
                 if(x._id == result.data._id){

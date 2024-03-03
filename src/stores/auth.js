@@ -5,12 +5,17 @@ import {ref} from "vue";
 import {useRouter} from "vue-router"
 import { useToast } from 'vue-toast-notification';
 
+
 import axios from 'axios';
 import { useUserStore } from './users';
 
 
 
 export const useAuthStore = defineStore("auth", ()=>{
+
+ 
+ 
+
  var user = ref({})
  var token = ref('')
  var email = ref('')
@@ -19,6 +24,9 @@ export const useAuthStore = defineStore("auth", ()=>{
  var router = useRouter()
  var toast = useToast()
  var {users} = storeToRefs(useUserStore())
+
+
+
 
 
  function addFlyer(){
@@ -59,10 +67,14 @@ function removeFlyer(counter){
                toast.clear()
                toast.success("Success")
               console.log(result.data)
+              debugger
               user.value = result.data.result
               token.value = result.data.token
               console.log("this is the user")
               console.log(user.value)
+
+              debugger
+
                           
               location.href = frontUrl.value + "travel/newRequest"
             
@@ -169,6 +181,10 @@ function test(){
 }
 
 
+
+
+
+
  return {
   user, 
   token,
@@ -185,7 +201,8 @@ function test(){
   authenticateToken,
  }
 
-}, {
+}, 
+{
   persist:true
 })
 
