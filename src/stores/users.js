@@ -283,7 +283,7 @@ var updateUser = async () => {
     console.log("this is the supervisor value and the zonal head value")
     console.log(user.value.superVisor)
     console.log(user.value.zonalHead)
-    
+    debugger
     data.append("user", JSON.stringify(user.value))
     data.append("token", authStore.token)
     axios.post(globalUrl.value + "updateUserNormal", data).then((result)=>{

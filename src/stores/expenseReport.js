@@ -31,7 +31,7 @@ var {users} = storeToRefs(useUserStore())
 
 var router = useRouter();
 var route = useRoute();
-var {user, token} = storeToRefs(useAuthStore());
+var authStore = useAuthStore()
 var disburseAmount = ref("")
 var disburseDialog = ref(false)
 
@@ -75,7 +75,7 @@ var submitExpenseReport = () =>{
     var data = new FormData();
     data.append("request", JSON.stringify(request.value))
     data.append("expenseReport", JSON.stringify(expenseReport.value))
-    data.append("token", token.value)
+    data.append("token", authStore.token)
     
 
     axios.post(globalUrl.value + "submitExpenseReport", data).then((result)=>{
@@ -90,8 +90,8 @@ var submitExpenseReport = () =>{
 var getMyExpenseReports = () => {
        
     var data = new FormData()
-    data.append("user", JSON.stringify(user.value))
-    data.append("token", token.value)
+    data.append("user", JSON.stringify(authStore.user))
+    data.append("token", authStore.token)
 
  
        axios.post(globalUrl.value + "getMyExpenseReports", data).then((result)=>{
@@ -111,10 +111,10 @@ var getAllExpenseReports = () => {
        
     var data = new FormData()
     
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
  
-       axios.post(globalUrl.value + "getAllExpenseReports").then((result)=>{
+       axios.post(globalUrl.value + "getAllExpenseReports", data).then((result)=>{
          
          expenseReports.value = result.data
          filteredExpenseReports.value = result.data;
@@ -130,8 +130,8 @@ var getAllExpenseReports = () => {
 var getExpenseReportsForMe = () => {
        
     var data = new FormData()
-    data.append("user", JSON.stringify(user.value))
-    data.append("token", token.value)
+    data.append("user", JSON.stringify(authStore.user))
+    data.append("token", authStore.token)
  
        axios.post(globalUrl.value + "getExpenseReportsForMe", data).then((result)=>{
          
@@ -149,8 +149,8 @@ var getExpenseReportsForMe = () => {
 var getExpenseReportsApprovedByMe = () => {
        
     var data = new FormData()
-    data.append("user", JSON.stringify(user.value))
-    data.append("token", token.value)
+    data.append("user", JSON.stringify(authStore.user))
+    data.append("token", authStore.token)
  
        axios.post(globalUrl.value + "getExpenseReportsApprovedByMe", data).then((result)=>{
          
@@ -173,7 +173,7 @@ var getExpenseReport = () => {
     var id = route.params.id;
     var data = new FormData()
     data.append("id", id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
  
        axios.post(globalUrl.value + "getExpenseReportSolo", data).then((result)=>{
          
@@ -203,9 +203,9 @@ var expenseReportSupervisorApprove = () => {
     toast.info("Approving Please Wait....")
     var data = new FormData();
     debugger
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
     data.append("id", expenseReport.value._id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "expenseReportSupervisorApprove", data).then((result)=>{
         expenseReport.value = result.data
@@ -218,9 +218,9 @@ var expenseReportSupervisorApprove = () => {
 var expenseReportSupervisorReject = () => {
    toast.info("Rejecting Please Wait....")
     var data = new FormData();
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
     data.append("id", expenseReport.value._id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "expenseReportSupervisorReject", data).then((result)=>{
         expenseReport.value = result.data
@@ -233,9 +233,9 @@ var expenseReportSupervisorReject = () => {
 var expenseReportForward = () => {
     toast.info("Forwarding Please Wait")
     var data = new FormData();
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
     data.append("id", expenseReport.value._id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
     next.value = users.value.filter((x)=> x.mailAddress == selectedUserEmail.value)[0]
     data.append("next", next.value._id)
 
@@ -252,9 +252,9 @@ var expenseReportForward = () => {
 var expenseReportBackWard = () => {
     toast.info("Rejecting Please Wait..")
     var data = new FormData();
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
     data.append("id", expenseReport.value._id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
 
     axios.post(globalUrl.value + "expenseReportBackWard", data).then((result)=>{
@@ -269,7 +269,7 @@ var travelManagerSubmitExpenseReport = () => {
     toast.info("Submitting Please Wait....")
     var data = new FormData();
     data.append("expenseReport", JSON.stringify(expenseReport.value));
-    data.append("token", token.value)
+    data.append("token", authStore.token)
     axios.post(globalUrl.value + "travelManagerSubmitExpenseReport", data).then((result)=>{
         expenseReport.value = result.data;
         toast.clear()
@@ -284,7 +284,7 @@ var travelManagerRejectExpenseReport = () =>{
     var data = new FormData();
     debugger
     data.append("id", JSON.stringify(expenseReport.value._id));
-    data.append("token", token.value)
+    data.append("token", authStore.token)
     data.append("requestId", expenseReport.value.requestId);
     axios.post(globalUrl.value + "travelManagerRejectExpenseReport", data).then((result)=>{
         expenseReport.value = result.data
@@ -297,9 +297,9 @@ var travelManagerRejectExpenseReport = () =>{
 var expenseReportProcessingComplete = () => {
     toast.info("Completing Please Wait...")
     var data = new FormData();
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
     data.append("id", expenseReport.value._id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
 
     axios.post(globalUrl.value + "expenseReportProcessingComplete", data).then((result)=>{
@@ -330,7 +330,7 @@ var resendExpenseReport = ()=>{
  
     data.append("expenseReport", JSON.stringify(expenseReport.value))
     data.append("requestId", expenseReport.value.requestId);
-    data.append("token", token.value)
+    data.append("token", authStore.token)
     
  
     axios.post(globalUrl.value + "resendExpenseReport", data).then((result)=>{
@@ -397,7 +397,7 @@ var disburse = () => {
   var data = new FormData();
   data.append("amount", disburseAmount.value);
   data.append("expenseReport", JSON.stringify(expenseReport.value));
-  data.append("token", token.value)
+  data.append("token", authStore.token)
 
   axios.post(globalUrl.value + "disburse", data).then((result)=>{
     toast.clear()

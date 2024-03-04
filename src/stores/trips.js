@@ -646,7 +646,9 @@ var TTicketConfirm = () => {
 
 
 var getAllTrips = () => {
-    axios.post(globalUrl.value + "getAllTrips").then((result) =>{
+    var data = new FormData();
+    data.append("token", token.value)
+    axios.post(globalUrl.value + "getAllTrips", data).then((result) =>{
         
         trips.value = result.data
         filteredTrips.value = result.data
