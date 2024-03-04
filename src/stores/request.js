@@ -1065,7 +1065,7 @@ var uploadHotelFile = (event, what, quotation) => {
 
 var getUnapprovedRequests = () => {
   var data = new FormData();
-  data.append("id", user.value._id)
+  data.append("user", JSON.stringify(user.value))
   data.append("token", token.value)
   axios.post(globalUrl.value + "getUnapprovedRequests", data).then((result)=>{
   

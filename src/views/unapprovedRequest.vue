@@ -269,7 +269,7 @@
 
 
    
- <template v-if="(user && request && request.requester && user._id == request.requesterId && request.currentHandlerId == user._id && request.status == Events.SeekingTravelerInfo) || user.userType == 'admin'">
+ <template v-if="(user && request && request.requester && ((user._id == request.requesterId && request.currentHandlerId == user._id) || user.userType == 'admin') && request.status == Events.SeekingTravelerInfo) ">
           <Activities/>
           <Objectives/>
           <Personnel/>
@@ -278,7 +278,7 @@
           
  </template>
 
- <template v-else-if="(user && Events && request && request.requester && (user._id == request.requester.superVisor._id || user._id == request.requester.zonalHead._id) && request.currentHandlerId == user._id && request.status == Events.SupervisorApprovalTrip) || user.userType == 'admin'">
+ <template v-else-if="(user && Events && request && request.requester && (((user._id == request.requester.superVisor._id || user._id == request.requester.zonalHead._id ) && request.currentHandlerId == user._id) || user.userType == 'admin') && request.status == Events.SupervisorApprovalTrip) ">
      <Information :request="request"/>
      <Budget/>
 
@@ -291,7 +291,7 @@
     
     
         
-<div class="flex flex-row w-[100vw]  justify-center items-center bg-blue-lighten-5 mt-4" v-if="request && Events && request.requester && request.supervisorApproved == false &&  request.requesterId == user._id && request.currentHandlerId == user._id && request.status == Events.SeekingTravelerInfo">
+<div class="flex flex-row w-[100vw]  justify-center items-center bg-blue-lighten-5 mt-4" v-if="request && Events && request.requester && request.supervisorApproved == false &&  ((request.requesterId == user._id && request.currentHandlerId == user._id) || user.userType == 'admin') && request.status == Events.SeekingTravelerInfo">
    <v-btn @click="giveInfo" class="d-print-none" color="blue">Submit</v-btn>
 </div>
 

@@ -26,8 +26,8 @@ var {globalUrl} = storeToRefs(useGlobalStore())
 var {getUserByName} = useUserStore();
 var router = useRouter();
 var route = useRoute();
-var {user, token} = storeToRefs(useAuthStore());
 
+var authStore = useAuthStore()
 
 var form = ref(null)
 
@@ -177,8 +177,8 @@ var submit = async () => {
   var requester2 = getUserByName(requester.value)
   var data = new FormData();
   data.append("request", JSON.stringify(request))
-  data.append("user", JSON.stringify(user.value))
-  data.append("token", token.value)
+  data.append("user", JSON.stringify(authStore.user))
+  data.append("token", authStore.token)
   
   console.log("these are the data being sent")
   console.log(data)
@@ -220,7 +220,7 @@ var getRequestForApproval = () => {
 
   var data = new FormData();
   data.append("id", id)
-  data.append("token", token.value)
+  data.append("token", authStore.token)
   axios.post(globalUrl.value + "getRequestForApproval", data).then((result)=>{
     debugger
     request.value = result.data
@@ -248,7 +248,7 @@ var giveInfo = () => {
   request.value.personnel = personnel.value;
   request.value.requestBudget = requestBudget.value;
   data.append("request", JSON.stringify(request.value))
-  data.append("token", token.value)
+  data.append("token", authStore.token)
   axios.post(globalUrl.value + "giveInfo", data).then((result)=>{
     request.value = result.data
     toast.clear();
@@ -261,7 +261,7 @@ var permanentlyReject = () => {
   toast.info("Rejecting Permanently Please Wait...")
   var data = new FormData();
   data.append("request", JSON.stringify(request.value))
-  data.append("token", token.value)
+  data.append("token", authStore.token)
   axios.post(globalUrl.value + "permanentlyReject", data).then((result)=>{
     request.value = result.data
     toast.clear()
@@ -274,7 +274,7 @@ var reject = () => {
   toast.info("Rejecting Please Wait...")
   var data = new FormData();
   data.append("request", JSON.stringify(request.value))
-  data.append("token", token.value)
+  data.append("token", authStore.token)
   axios.post(globalUrl.value + "reject", data).then((result)=>{
     request.value = result.data
     toast.clear()
@@ -337,7 +337,7 @@ var approve = () => {
   request.value.personnel = personnel.value;
   request.value.requestBudget = requestBudget.value;
   data.append("request", JSON.stringify(request.value))
-  data.append("token", token.value)
+  data.append("token", authStore.token)
   axios.post(globalUrl.value + "approve", data).then((result)=>{
     request.value = result.data
     toast.clear()
@@ -351,7 +351,7 @@ var DepartmentHeadPermanentlyRejectTrip = () => {
   toast.info("Rejecting Permanently Please Wait...")
   var data = new FormData();
   data.append("request", JSON.stringify(request.value))
-  data.append("token", token.value)
+  data.append("token", authStore.token)
   axios.post(globalUrl.value + "departmentHeadPermanentlyRejectTrip", data).then((result)=>{
     request.value = result.data
     toast.clear()
@@ -366,7 +366,7 @@ var departmentHeadRejectTrip = () => {
   var data = new FormData();
   debugger
   data.append("request", JSON.stringify(request.value))
-  data.append("token", token.value)
+  data.append("token", authStore.token)
   axios.post(globalUrl.value + "departmentHeadRejectTrip", data).then((result)=>{
     request.value = result.data
     toast.clear()
@@ -394,7 +394,7 @@ var departmentHeadApproveTrip = () => {
 
   
   data.append("request", JSON.stringify(request.value))
-  data.append("token", token.value)
+  data.append("token", authStore.token)
   axios.post(globalUrl.value + "departmentHeadApproveTrip", data).then((result)=>{
     request.value = result.data
     toast.clear()
