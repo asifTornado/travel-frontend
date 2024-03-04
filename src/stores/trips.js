@@ -21,7 +21,8 @@ import { globalEventBus } from 'vue-toastification';
 export const useTripStore = defineStore("trip", ()=>{
 var trips = ref([])
 debugger
-var {user, token} = storeToRefs(useAuthStore())
+var authStore = useAuthStore()
+
 var best = ref();
 var ticketRevokeDialog = ref(false)
 var ticketBookDialog = ref(false)
@@ -118,12 +119,12 @@ var emailRequestCustom = () => {
     debugger
     var data = new FormData();
     data.append("recipient", emailRecipient.value)
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
     data.append("request", JSON.stringify(request.value))
-    data.append("userId", user.value._id)
+    data.append("userId", authStore.user._id)
     data.append("whom", "custom")
     data.append("type", type.value)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "emailRequest", data).then((result)=>{
         trip.value.requests = trip.value.requests.map((r) => {
@@ -145,12 +146,12 @@ var emailRequest = () => {
 
     var data = new FormData();
     data.append("recipient", emailRecipient.value)
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
     data.append("request", JSON.stringify(request.value))
-    data.append("userId", user.value._id)
+    data.append("userId", authStore.user._id)
     data.append("whom", "accounts")
     data.append("type", type.value)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "emailRequest", data).then((result)=>{
         trip.value.requests = trip.value.requests.map((r)=>{
@@ -179,10 +180,10 @@ var openEmailDialogCustom = (request2) => {
 
 var complete = (request2) => {
    var data = new FormData();
-   data.append("token", token.value)
+   data.append("token", authStore.token)
    data.append("request", JSON.stringify(request2))
-   data.append("userId", user.value._id)
-   data.append("token", token.value)
+   data.append("userId", authStore.user._id)
+   data.append("token", authStore.token)
 
    axios.post(globalUrl.value + "processed", data).then((result)=>{
        location.reload()
@@ -209,11 +210,11 @@ var uploadFile = (event, what, quotation) => {
     debugger
     toast.info("Uploading File Please Wait")
     var data = new FormData();
-    data.append("token", token.value)
+    data.append("token", authStore.token)
     data.append("what", what)
     data.append("quotation", JSON.stringify(quotation)) 
     data.append("file", event.target.files[0])
-    data.append("userId", user.value._id)
+    data.append("userId", authStore.user._id)
  
 
     axios.post(globalUrl.value + "TUploadTicketFile", data).then((result) => {
@@ -238,11 +239,11 @@ var uploadFile = (event, what, quotation) => {
 var uploadHotelFile = (event, what, quotation) => {
     toast.info("Uploading File Please Wait")
     var data = new FormData();
-    data.append("token", token.value)
+    data.append("token", authStore.token)
     data.append("what", what)
     data.append("quotation", JSON.stringify(quotation)) 
     data.append("file", event.target.files[0])
-    data.append("userId", user.value._id)
+    data.append("userId", authStore.user._id)
    
 
     axios.post(globalUrl.value + "TUploadHotelFile", data).then((result) => {
@@ -271,11 +272,11 @@ var THotelConfirm = () => {
   
     
     var data = new FormData();
-    data.append("token", token.value)
-    data.append("userId", user.value._id)
+    data.append("token", authStore.token)
+    data.append("userId", authStore.user._id)
     
 
-  //   data.append("user", JSON.stringify(user.value))
+  //   data.append("user", JSON.stringify(authStore.user))
 
     data.append("quotation", JSON.stringify(quotation.value))
     axios.post(globalUrl.value + "THotelConfirm", data).then((result)=>{
@@ -314,11 +315,11 @@ var THotelRevoke = () => {
   
     
     var data = new FormData();
-    data.append("userId", user.value._id)
-    data.append("token", token.value)
+    data.append("userId", authStore.user._id)
+    data.append("token", authStore.token)
  
 
-  //   data.append("user", JSON.stringify(user.value))
+  //   data.append("user", JSON.stringify(authStore.user))
 
     data.append("quotation", JSON.stringify(quotation.value))
     axios.post(globalUrl.value + "THotelRevoke", data).then((result)=>{
@@ -467,17 +468,17 @@ var generateQuoteString = () => {
 var TAddHotelQuote = () => {
     toast.info("Adding custom quote please wait")
     var data = new FormData()
-    data.append("token", token.value)
-    data.append("userId", user.value._id)
+    data.append("token", authStore.token)
+    data.append("userId", authStore.user._id)
     data.append("travelerCosts", JSON.stringify(travelerCosts.value))
     var quoteString = generateQuoteString();
     data.append("quoteString", quoteString)
-    data.append("quoteGiver", user.value.empName)
+    data.append("quoteGiver", authStore.user.empName)
     data.append("tripId", trip.value._id)
     data.append("requestIds", JSON.stringify(ticketQuotationSelection.value))
 
     
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
 
 
     axios.post(globalUrl.value + "TAddHotelQuote", data).then((result)=>{
@@ -521,8 +522,8 @@ var THotelUnBook = () => {
    var data = new FormData()
 
    data.append("quotation", JSON.stringify(quotation.value))
-   data.append("userId", user.value._id)
-   data.append("token", token.value)
+   data.append("userId", authStore.user._id)
+   data.append("token", authStore.token)
   
 
    
@@ -564,8 +565,8 @@ var TTicketRevoke = () => {
     var data = new FormData();
   
     data.append("quotation", JSON.stringify(quotation.value))
-    data.append("userId", user.value._id)
-    data.append("token", token.value)
+    data.append("userId", authStore.user._id)
+    data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "TTicketRevoke", data).then((result)=>{
   
@@ -612,10 +613,10 @@ var TTicketConfirm = () => {
   
       
       var data = new FormData();
-      data.append("userId", user.value._id)
-      data.append("token", token.value)
+      data.append("userId", authStore.user._id)
+      data.append("token", authStore.token)
   
-    //   data.append("user", JSON.stringify(user.value))
+    //   data.append("user", JSON.stringify(authStore.user))
   
       data.append("quotation", JSON.stringify(quotation.value))
       axios.post(globalUrl.value + "TTicketConfirm", data).then((result)=>{
@@ -647,7 +648,7 @@ var TTicketConfirm = () => {
 
 var getAllTrips = () => {
     var data = new FormData();
-    data.append("token", token.value)
+    data.append("token", authStore.token)
     axios.post(globalUrl.value + "getAllTrips", data).then((result) =>{
         
         trips.value = result.data
@@ -663,7 +664,7 @@ var getAllTrips = () => {
 var getTrip = () => {
     var data = new FormData();
     data.append("id", route.params.id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
     axios.post(globalUrl.value + "getTrip", data).then((result)=>{
         trip.value = result.data
     }).catch((error)=> console.log(error))
@@ -680,13 +681,13 @@ var showTrip = (id) => {
 var TAddCustomQuote = (what) => {
     toast.info("Adding custom quote please wait")
     var data = new FormData()
-    data.append("token", token.value)
+    data.append("token", authStore.token)
     var newQuotation = generateCustomQuoteString()
     data.append("quotation", newQuotation)
     data.append("quoteGiver", quoteGiver.value)
     data.append("tripId", trip.value._id)
     data.append("requestIds", JSON.stringify(ticketQuotationSelection.value))
-    data.append("userId", user.value._id)
+    data.append("userId", authStore.user._id)
     data.append("travelerCosts", JSON.stringify(travelerCosts.value))
     
     data.append("what", what)
@@ -856,8 +857,8 @@ var TTicketBook = (condition) => {
 
      data.append("quotation", JSON.stringify(quotation.value)) 
      data.append("condition", condition)
-     data.append("userId", user.value._id)
-     data.append("token", token.value)
+     data.append("userId", authStore.user._id)
+     data.append("token", authStore.token)
    
 
 
@@ -893,8 +894,8 @@ var THotelBook = (condition) => {
 
   data.append("quotation", JSON.stringify(quotation.value)) 
   data.append("condition", condition)
-  data.append("userId", user.value._id)
-  data.append("token", token.value)
+  data.append("userId", authStore.user._id)
+  data.append("token", authStore.token)
 
 
 
@@ -939,8 +940,8 @@ var unBook = () => {
 
    data.append("quotation", JSON.stringify(quotation.value))
    data.append("requests", JSON.stringify(trip.value.requests))
-   data.append("userId", user.value._id)
-   data.append("token", token.value)
+   data.append("userId", authStore.user._id)
+   data.append("token", authStore.token)
 
    
    axios.post(globalUrl.value + "TUnBook", data).then((result)=>{
@@ -1021,7 +1022,7 @@ var sendToAccounts = () => {
     toast.info("Sending To Accounts Please Wait....")
     var data = new FormData();
     data.append("budget", JSON.stringify(trip.value))
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "sendToAccounts", data).then((result)=>{
         if(result.data == true){

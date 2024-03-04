@@ -106,7 +106,8 @@ export const useUserStore = defineStore("users", () => {
     console.log(globalUrl.value)
 
     var data = new FormData()
-    // data.append("token", authStore.token)
+    
+ 
     
              axios.get(globalUrl.value + "getUsers", data).then((result)=>{
                  
@@ -277,12 +278,6 @@ var updateUser = async () => {
     user.value.zonalHead = zonalHead
     user.value.travelHandler = travelHandler
 
-    console.log("these are the preferences")
-    console.log(user.value.preferences)
-
-    console.log("this is the supervisor value and the zonal head value")
-    console.log(user.value.superVisor)
-    console.log(user.value.zonalHead)
     debugger
     data.append("user", JSON.stringify(user.value))
     data.append("token", authStore.token)

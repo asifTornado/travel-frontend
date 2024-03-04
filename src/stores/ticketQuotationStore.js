@@ -21,7 +21,7 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
     var {globalUrl} = storeToRefs(useGlobalStore())
     var ticketQuotations = ref([])
     var filteredTicketQuotations = ref([])
-    var {user, token} = storeToRefs(useAuthStore())
+    var authStore = useAuthStore()
     var router = useRouter();
     var {users} = storeToRefs(useUserStore())
     var {getAllUsers} = useUserStore()
@@ -40,8 +40,8 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
 
     var getAllTicketQuotations = () => {
         var data = new FormData();
-        data.append("token", token.value)
-        axios.post(globalUrl.value + "getAllTicketQuotations").then((result)=>{
+        data.append("token", authStore.token)
+        axios.post(globalUrl.value + "getAllTicketQuotations", data).then((result)=>{
             ticketQuotations.value = result.data;
             filteredTicketQuotations.value = result.data;
         }).catch((error)=> console.log(error))
@@ -50,8 +50,8 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
 
     var getTicketQuotationsApprovedByMe = () => {
         var data = new FormData()
-        data.append("token", token.value)
-        data.append("user", JSON.stringify(user.value))
+        data.append("token", authStore.token)
+        data.append("user", JSON.stringify(authStore.user))
         axios.post(globalUrl.value + "getTicketQuotationsApprovedByMe", data).then((result)=>{
             ticketQuotations.value = result.data;
             filteredTicketQuotations.value = result.data
@@ -62,8 +62,8 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
     var getTicketQuotationsForMe = () => {
 
         var data = new FormData()
-        data.append("user", JSON.stringify(user.value))
-        data.append("token", token.value)
+        data.append("user", JSON.stringify(authStore.user))
+        data.append("token", authStore.token)
         axios.post(globalUrl.value + "getTicketQuotationsForMe", data).then((result)=>{
             ticketQuotations.value = result.data;
             filteredTicketQuotations.value = result.data
@@ -75,9 +75,9 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
     var ticketQuotationsForward = () => {
         toast.info("Forwarding Ticket Quotations Please Wait...")
         var data = new FormData();
-        data.append("user", JSON.stringify(user.value))
+        data.append("user", JSON.stringify(authStore.user))
         data.append("id", trip.value._id)
-        data.append("token", token.value)
+        data.append("token", authStore.token)
         var next = users.value.filter((x)=> x.mailAddress == selectedUserEmail.value)[0]
         data.append("next", next._id)
     
@@ -95,9 +95,9 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
     var ticketQuotationsBackward = () => {
         toast.info("Rejecting Ticket Quotations. Please Wait...")
         var data = new FormData();
-        data.append("user", JSON.stringify(user.value))
+        data.append("user", JSON.stringify(authStore.user))
         data.append("id", trip.value._id)
-        data.append("token", token.value)
+        data.append("token", authStore.token)
     
     
         axios.post(globalUrl.value + "ticketQuotationBackward", data).then((result)=>{
@@ -113,9 +113,9 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
     var ticketQuotationsProcessingComplete = () => {
         toast.info("Completing Ticket Quotations Payment Process. Please Wait...")
         var data = new FormData();
-        data.append("user", JSON.stringify(user.value))
+        data.append("user", JSON.stringify(authStore.user))
         data.append("id", trip.value._id)
-        data.append("token", token.value)
+        data.append("token", authStore.token)
     
     
         axios.post(globalUrl.value + "ticketQuotationsProcessingComplete", data).then((result)=>{

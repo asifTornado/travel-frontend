@@ -31,7 +31,7 @@ var {users} = storeToRefs(useUserStore())
 
 var router = useRouter();
 var route = useRoute();
-var {user, token} = storeToRefs(useAuthStore());
+var authStore = useAuthStore()
 var disburseDialog = ref(false);
 
 var fuse = ref(null)
@@ -84,7 +84,7 @@ var submitReceipt = () =>{
     var data = new FormData();
     data.append("request", JSON.stringify(request.value))
     data.append("moneyReceipt", JSON.stringify(moneyReceipt.value))
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "submitMoneyReceipt", data).then((result)=>{
         moneyReceiptDialog.value = false
@@ -99,7 +99,7 @@ var moneyReceiptResend = () =>{
     var data = new FormData();
     data.append("request", JSON.stringify(request.value))
     data.append("moneyReceipt", JSON.stringify(moneyReceipt.value))
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "moneyReceiptResend", data).then((result)=>{
         
@@ -113,8 +113,8 @@ var moneyReceiptResend = () =>{
 var getMyMoneyReceipts = () => {
        
     var data = new FormData()
-    data.append("user", JSON.stringify(user.value))
-    data.append("token", token.value)
+    data.append("user", JSON.stringify(authStore.user))
+    data.append("token", authStore.token)
 
  
        axios.post(globalUrl.value + "getMyMoneyReceipts", data).then((result)=>{
@@ -133,12 +133,12 @@ var getMyMoneyReceipts = () => {
 var getAllMoneyReceipts = () => {
        
     var data = new FormData()
-    data.append("token", token.value)
+    data.append("token", authStore.token)
     
     
 
  
-       axios.post(globalUrl.value + "getAllMoneyReceipts").then((result)=>{
+       axios.post(globalUrl.value + "getAllMoneyReceipts", data).then((result)=>{
          
          moneyReceipts.value = result.data
          filteredMoneyReceipts.value = result.data;
@@ -154,8 +154,8 @@ var getAllMoneyReceipts = () => {
 var getMoneyReceiptsForMe = () => {
        
     var data = new FormData()
-    data.append("user", JSON.stringify(user.value))
-    data.append("token", token.value)
+    data.append("user", JSON.stringify(authStore.user))
+    data.append("token", authStore.token)
 
  
        axios.post(globalUrl.value + "getMoneyReceiptsForMe", data).then((result)=>{
@@ -174,8 +174,8 @@ var getMoneyReceiptsForMe = () => {
 var getMoneyReceiptsProcessedByMe = () => {
        
     var data = new FormData()
-    data.append("user", JSON.stringify(user.value))
-    data.append("token", token.value)
+    data.append("user", JSON.stringify(authStore.user))
+    data.append("token", authStore.token)
 
  
        axios.post(globalUrl.value + "getMoneyReceiptsProcessedByMe", data).then((result)=>{
@@ -195,7 +195,7 @@ var getMoneyReceipt = () => {
     var id = route.params.id;
     var data = new FormData()
     data.append("id", id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
  
        axios.post(globalUrl.value + "getMoneyReceipt", data).then((result)=>{
@@ -225,9 +225,9 @@ var showMoneyReceipt = (moneyReceipt)=> {
 var moneyReceiptSupervisorApprove = () => {
     toast.info("Approving Money Receipt. Please Wait....")
     var data = new FormData();
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
     data.append("id", moneyReceipt.value._id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "moneyReceiptSupervisorApprove", data).then((result)=>{
         moneyReceipt.value = result.data
@@ -240,9 +240,9 @@ var moneyReceiptSupervisorApprove = () => {
 var moneyReceiptSupervisorReject = () => {
     toast.info("Rejecting Money Receipt. Please Wait...")
     var data = new FormData();
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
     data.append("id", moneyReceipt.value._id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "moneyReceiptSupervisorReject", data).then((result)=>{
         moneyReceipt.value = result.data
@@ -255,11 +255,11 @@ var moneyReceiptSupervisorReject = () => {
 var moneyReceiptForward = () => {
     toast.info("Forwarding Money Receipt. Please Wait...")
     var data = new FormData();
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
     data.append("id", moneyReceipt.value._id)
     next.value = users.value.filter((x)=> x.mailAddress == selectedUserEmail.value)[0]
     data.append("next", next.value._id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "moneyReceiptForward", data).then((result)=>{
         moneyReceipt.value = result.data
@@ -274,9 +274,9 @@ var moneyReceiptForward = () => {
 var moneyReceiptBackWard = () => {
     toast.info("Rejecting Money Receipt. Please Wait...")
     var data = new FormData();
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
     data.append("id", moneyReceipt.value._id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
 
     axios.post(globalUrl.value + "moneyReceiptBackWard", data).then((result)=>{
@@ -292,9 +292,9 @@ var moneyReceiptBackWard = () => {
 var moneyReceiptProcessingComplete = () => {
     toast.info("Completing Money Receipt Process. Please Wait...")
     var data = new FormData();
-    data.append("user", JSON.stringify(user.value))
+    data.append("user", JSON.stringify(authStore.user))
     data.append("id", moneyReceipt.value._id)
-    data.append("token", token.value)
+    data.append("token", authStore.token)
 
 
     axios.post(globalUrl.value + "moneyReceiptProcessingComplete", data).then((result)=>{
