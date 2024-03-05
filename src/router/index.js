@@ -249,6 +249,12 @@ const routes = [
         component: () => import('../views/ticketQuotations/ticketQuotations.vue')
       },
 
+      {
+        path: 'email/ticketQuotations/:id/:token',
+        name: 'emailTicketQuotations',
+        component: () => import('../views/ticketQuotations/ticketQuotations.vue')
+      },
+
 // money receipts start from here
 
 {
@@ -282,6 +288,12 @@ const routes = [
   component: () => import('../views/moneyReceipts/moneyReceipt.vue')
 },
 
+{
+  path: 'email/moneyReceipt/:id/:token',
+  name: 'emailMoneyReceipt',
+  component: () => import('../views/moneyReceipts/moneyReceipt.vue')
+},
+
 //expense reports
 
 
@@ -311,10 +323,18 @@ const routes = [
 
 
 {
+  path: 'email/expenseReport/:id/:token',
+  name: 'emailExpenseReport',
+  component: () => import('../views/expenseReports/expenseReport.vue')
+},
+
+
+{
   path: 'expenseReport/:id',
   name: 'expenseReport',
   component: () => import('../views/expenseReports/expenseReport.vue')
 },
+
 
 
 
@@ -368,7 +388,7 @@ router.beforeEach(async (to, from, next) => {
       
       next()
     }
-  }else if(to.name == 'emailUnapprovedRequest' || to.name == 'emailRequest'){
+  }else if(to.name == 'emailUnapprovedRequest' || to.name == 'emailRequest' || to.name == "emailMoneyReceipt" || to.name == "emailExpenseReport" || to.name == "emailTicketQuotations"){
      var token = to.params.token;
      var result = await authStore.authenticateToken(token);
      if(result == true){
