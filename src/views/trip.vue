@@ -744,9 +744,46 @@ class="align-center justify-center w-full border-2 border-solid border-black"
 
 
 
-<!-- <div class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" >
-<v-btn @click="print()" prepend-icon="mdi-printer" class="text-white" color="orange d-print-none">Print</v-btn>
-</div> -->
+<div class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" >
+
+<v-btn @click="tripStore.sendToAccountAndAudit" prepend-icon="mdi-printer" class="text-white" color="orange d-print-none">Send To Account and Audit</v-btn>
+
+</div> 
+
+
+<div v-if="user && trip && trip.beingProcessedAccounts == true && trip.currentAccountsHandlerId == user._id" class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" >
+
+  
+
+                <v-btn class="mr-2 bg-blue-darken-2" size="large" @click="tripStore.openAccountsTripForwardDialog">
+                    Forward
+                </v-btn>
+                <v-btn size="large" class="bg-grey-darken-1 mr-2" @click="tripStore.accountsTripBackWard">
+                    Reject
+                </v-btn>
+                <v-btn size="large" class="bg-green-darken-1" @click="tripStore.accountsTripComplete">
+                    Complete Processing
+                </v-btn>
+
+</div> 
+
+
+<div v-if="user && trip && trip.beingProcessedAudit == true && trip.currentAuditHandlerId == user._id" class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" >
+
+
+   <v-btn class="mr-2 bg-blue-darken-2" size="large" @click="tripStore.openAuditTripForwardDialog">
+                    Forward
+                </v-btn>
+                <v-btn size="large" class="bg-grey-darken-1 mr-2" @click="tripStore.auditTripBackWard">
+                    Reject
+                </v-btn>
+                <v-btn size="large" class="bg-green-darken-1" @click="tripStore.auditTripComplete">
+                    Complete Processing
+                </v-btn>
+
+
+
+</div> 
 
 
 
@@ -782,6 +819,11 @@ class="align-center justify-center w-full border-2 border-solid border-black"
 <MoreInformationDialog />
 
 <ShowExpenseReportDialog/>
+
+<AuditTripForwardDialog/>
+
+<AccountsTripForwardDialog/>
+
 </template>
 
 
@@ -799,6 +841,8 @@ import { useLogStore } from '../stores/log';
 import {useToast} from "vue-toast-notification";
 import Quill from 'quill';
 import axios from "axios"
+import AuditTripForwardDialog from '../components/AuditTripForwardDialog.vue';
+import AccountsTripForwardDialog from '../components/AccountsTripForwardDialog.vue';
 import GiveCustomQuote from "../components/Trips/GiveCustomQuote.vue"
 import { useRequestsStore } from '../stores/request';
 import BookDialog from '../components/Trips/bookDialog.vue';
@@ -857,7 +901,7 @@ var {getTrip, ticketQuotationAll, TAddCustomQuote,
    checkAllBeingProcessed,
    addOrRemoveTraveler,
    sendToAccounts,
-   
+   sendToAccountAndAudit,
 } = useTripStore()
 
 var {globalUrl} = storeToRefs(useGlobalStore())

@@ -49,6 +49,12 @@ const routes = [
       },
 
       {
+        path:'email/trip/:id/:token',
+        name:'emailTrip',
+        component: () => import('../views/trip.vue')
+     },
+
+      {
         path:'analytics',
         name:'analytics',
         component: () => import('../views/analytics.vue')
@@ -388,7 +394,7 @@ router.beforeEach(async (to, from, next) => {
       
       next()
     }
-  }else if(to.name == 'emailUnapprovedRequest' || to.name == 'emailRequest' || to.name == "emailMoneyReceipt" || to.name == "emailExpenseReport" || to.name == "emailTicketQuotations"){
+  }else if(to.name == 'emailUnapprovedRequest' || to.name == 'emailRequest' || to.name == "emailMoneyReceipt" || to.name == "emailExpenseReport" || to.name == "emailTicketQuotations" || to.name == "emailTrip"){
      var token = to.params.token;
      var result = await authStore.authenticateToken(token);
      if(result == true){

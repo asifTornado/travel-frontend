@@ -22,7 +22,7 @@ export const useTripStore = defineStore("trip", ()=>{
 var trips = ref([])
 debugger
 var authStore = useAuthStore()
-
+var userStore = useUserStore()
 var best = ref();
 var ticketRevokeDialog = ref(false)
 var ticketBookDialog = ref(false)
@@ -60,7 +60,155 @@ var request = ref();
 var type = ref("");
 var travelerCosts = ref([]);
 var selectedHotels = ref([]);
+var accountsTripForwardDialog = ref(false);
+var auditTripForwardDialog = ref(false);
+var selectedUserEmail = ref("")
+var next = ref();
 
+
+
+var openAccountsTripForwardDialog = () =>{
+    debugger
+    userStore.getAllUsers()
+    accountsTripForwardDialog.value = true
+
+
+}
+
+
+var openAuditTripForwardDialog = () =>{
+    debugger
+    userStore.getAllUsers()
+    auditTripForwardDialog.value = true
+
+
+}
+
+
+
+var auditTripForward = () => {
+    toast.info("forwarding please wait")
+   var data = new FormData();
+   data.append("tripId", trip.value.Id);
+   next.value = userStore.users.filter((x)=> x.mailAddress == selectedUserEmail.value)[0]
+   data.append("nextId", next.value.Id);
+   data.append("user", JSON.stringify(authStore.user))
+   data.append("token", authStore.token)
+
+
+   axios.post(globalUrl.value + "auditTripForward", data).then((result)=>{
+    toast.clear()
+    toast.success("Trip Forwarded")
+   }).catch((error)=>{
+    toast.clear()
+    toast.warning(error)
+   })
+
+
+}
+
+
+var auditTripBackWard = () => {
+    toast.info("Sending Back Please Wait")
+    var data = new FormData();
+    data.append("tripId", trip.value.Id);
+    next.value = userStore.users.filter((x)=> x.mailAddress == selectedUserEmail.value)[0]
+    data.append("nextId", next.value.Id);
+    data.append("user", JSON.stringify(authStore.user))
+    data.append("token", authStore.token)
+ 
+ 
+    axios.post(globalUrl.value + "auditTripBackWard", data).then((result)=>{
+     toast.clear()
+     toast.success("Trip Sent Back")
+    }).catch((error)=>{
+     toast.clear()
+     toast.warning(error)
+    })
+
+}
+
+var auditTripComplete = () => {
+    toast.info("Completing Please Wait")
+    var data = new FormData();
+    data.append("tripId", trip.value.Id);
+    next.value = userStore.users.filter((x)=> x.mailAddress == selectedUserEmail.value)[0]
+    data.append("nextId", next.value.Id);
+    data.append("user", JSON.stringify(authStore.user))
+    data.append("token", authStore.token)
+ 
+ 
+    axios.post(globalUrl.value + "auditTripComplete", data).then((result)=>{
+     toast.clear()
+     toast.success("Trip Processing Complete")
+    }).catch((error)=>{
+     toast.clear()
+     toast.warning(error)
+    })
+}
+
+
+var accountsTripForward = () => {
+    toast.info("forwarding please wait")
+    var data = new FormData();
+    data.append("tripId", trip.value.Id);
+    next.value = userStore.users.filter((x)=> x.mailAddress == selectedUserEmail.value)[0]
+    data.append("nextId", next.value.Id);
+    data.append("user", JSON.stringify(authStore.user))
+    data.append("token", authStore.token)
+ 
+ 
+    axios.post(globalUrl.value + "accountsTripForward", data).then((result)=>{
+     toast.clear()
+     toast.success("Trip Forwarded")
+    }).catch((error)=>{
+     toast.clear()
+     toast.warning(error)
+    })
+
+
+
+}
+
+var accountsTripBackWard = () => {
+    toast.info("Sending Back Please Wait")
+    var data = new FormData();
+    data.append("tripId", trip.value.Id);
+    next.value = userStore.users.filter((x)=> x.mailAddress == selectedUserEmail.value)[0]
+    data.append("nextId", next.value.Id);
+    data.append("user", JSON.stringify(authStore.user))
+    data.append("token", authStore.token)
+ 
+ 
+    axios.post(globalUrl.value + "accountsTripBackWard", data).then((result)=>{
+     toast.clear()
+     toast.success("Trip Sent Back")
+    }).catch((error)=>{
+     toast.clear()
+     toast.warning(error)
+    })
+
+}
+
+var accountsTripComplete = () => {
+    toast.info("Completing Please Wait")
+    var data = new FormData();
+    data.append("tripId", trip.value.Id);
+    next.value = userStore.users.filter((x)=> x.mailAddress == selectedUserEmail.value)[0]
+    data.append("nextId", next.value.Id);
+    data.append("user", JSON.stringify(authStore.user))
+    data.append("token", authStore.token)
+ 
+ 
+    axios.post(globalUrl.value + "accountsTripComplete", data).then((result)=>{
+     toast.clear()
+     toast.success("Trip Processing Complete")
+    }).catch((error)=>{
+     toast.clear()
+     toast.warning(error)
+    })
+   
+}
 
 
 
@@ -1033,6 +1181,24 @@ var sendToAccounts = () => {
     }).catch((error)=> toast.warning(error))
 }
 
+
+var sendToAccountAndAudit = () => {
+   toast.info("Sending To Accounts and Audit Please Wait...")
+   var data = new FormData();
+   data.append("token", authStore.token)
+   data.append("trip", JSON.stringify(trip.value))
+
+   axios.post(globalUrl.value + "TEmailRequestsAccounts", data).then((result)=>{
+        trip.value.beingProcessed = true;
+        toast.clear();
+        toast.success("Sent To Accounts And Audit")
+   }).catch((error)=>{
+        toast.clear()
+        toast.warning(error)
+   })
+
+}
+
 return {
     getAllTrips,
     getTrip,
@@ -1069,6 +1235,10 @@ return {
     checkBookedElseWhere,
     checkAllConfirmation,
     complete,
+    auditTripBackWard,
+    auditTripComplete,
+    accountsTripBackWard,
+    accountsTripComplete,
     openEmailDialogAccounts,
     openEmailDialogCustom,
     emailRequest,
@@ -1076,10 +1246,18 @@ return {
     emailRequestCustom,
     addTraveler,
     removeTraveler,
+    auditTripForward,
+    accountsTripForward,
+    openAccountsTripForwardDialog,
+    openAuditTripForwardDialog,
+    auditTripForwardDialog,
+    accountsTripForwardDialog,
+    selectedUserEmail,
     addOrRemoveTraveler,
     generateQuoteString,
     generateCustomQuoteString,
     sendToAccounts,
+    sendToAccountAndAudit,
     selectedHotels,
     request,
     emailRecipient,
@@ -1096,6 +1274,7 @@ return {
     ticketRevokeDialog,
     ticketConfirmDialog,
     best,
+    next,
     bookSelection,
     quoteGiver,
     ticketQuotationSelection,
