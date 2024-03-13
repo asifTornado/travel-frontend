@@ -15,9 +15,11 @@ import 'suneditor/dist/css/suneditor.min.css'
 import plugins from 'suneditor/src/plugins'
 import {ref, onMounted, onBeforeUnmount, defineProps} from 'vue'
 import { useRequestsStore } from '../stores/request'
+import { useGlobalStore } from '../stores/global'
 
 const emits = defineEmits(['textChanged']);
 
+var globalStore = useGlobalStore()
 
 var requestStore = useRequestsStore()
 
@@ -42,14 +44,16 @@ onMounted(() => {
         '/', // Line break
         ['outdent', 'indent'],
         ['align', 'horizontalRule', 'list', 'lineHeight'],
-        ['table', 'link', 'image', 'video', 'audio' /** ,'math' */], // You must add the 'katex' library at options to use the 'math' plugin.
+        ['table', 'link',   /** ,'math' */], // You must add the 'katex' library at options to use the 'math' plugin.
         /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
         ['fullScreen', 'showBlocks', 'codeView'],
         ['preview', 'print'],
         ['save', 'template'],
         /** ['dir', 'dir_ltr', 'dir_rtl'] */ // "dir": Toggle text direction, "dir_ltr": Right to Left, "dir_rtl": Left to Right
     ],
-    value:contentValue.value
+    value:contentValue.value,
+    imageUploadSizeLimit:10000000,
+    // imageUploadUrl: globalStore.globalUrl + "profile/upload"
 
 //     callBackSave: function (contents, isChanged) {
 // alert(contents);
@@ -73,3 +77,9 @@ if(suneditorholder){
 
 </script>
 
+<style scoped>
+
+.sun-editor .se-wrapper .se-wrapper-code {  
+  overflow: auto !important;
+}
+</style>

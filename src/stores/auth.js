@@ -76,7 +76,7 @@ function removeFlyer(counter){
               debugger
 
                           
-              location.href = frontUrl.value + "travel/newRequest"
+              location.href = "#/travel/newRequest"
             
              
               
@@ -144,7 +144,7 @@ function logout(){
     console.log("from logout")
     user.value = {}
     
-    location.href = frontUrl.value + "login"
+    location.href = "#/login"
 }
 
 

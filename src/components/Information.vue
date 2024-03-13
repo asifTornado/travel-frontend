@@ -10,6 +10,17 @@
             </v-col>
         </v-row>
 
+        <v-row>
+          <v-col md="12">
+            <v-img
+  width="50vw"
+  aspect-ratio="16/9"
+  cover
+  :src="globalStore.globalUrl + 'uploads/' + user.preferenceImage"
+></v-img>
+          </v-col>
+        </v-row>
+
         <v-row class="    font-weight-bold text-black">
           <v-col md="12">
                <div v-html="user.preferences">
@@ -228,7 +239,9 @@ import {defineProps} from "vue"
 import { useCustomStore } from '../stores/custom';
 import { useAuthStore } from "../stores/auth";
 import {storeToRefs} from 'pinia'
+import { useGlobalStore } from "../stores/global";
 
+var globalStore = useGlobalStore();
 var {request} = storeToRefs(useCustomStore())
 var {user} = storeToRefs(useAuthStore())
 

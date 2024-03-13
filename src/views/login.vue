@@ -24,6 +24,7 @@
   label="Select"
   :items="mappedUserEmails"
   v-model="email"
+  variant="outlined"
 ></v-autocomplete>
   
   

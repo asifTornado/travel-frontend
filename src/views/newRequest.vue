@@ -19,6 +19,7 @@
                 density="compact"
                 prepend-inner-icon="mdi-rename-outline"
                 variant="outlined"
+              
                
                 v-model="name">
             </v-text-field>

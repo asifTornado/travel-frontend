@@ -8,54 +8,54 @@
 <div class="flex flex-col  ">
     <div class=" bg-blue-lighten-1 text-white flex flex-row justify-center items-center  p-4 mb-10 shadow-md shadow-black">  <label class="text-white text-4xl font-bold">My Profile</label></div>
     
-        <div class='flex flex-col w-full   pa-1  bg-white shadow-md shadow-black ' v-if="user">
+        <div class='flex flex-col w-full   pa-1  bg-white shadow-md shadow-black ' v-if="authStore.user">
         
             
                 <div class=" mt-5 text-black  w-full flex flex-row">
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Name:</div>
                    
-                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ user.empName }}</div>
+                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ authStore.user.empName }}</div>
                 </div>
     
     
                 <div class=" mt-5 text-black  w-full flex flex-row ">
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Official Email:</div>
                    
-                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ user.mailAddress }}</div>
+                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ authStore.user.mailAddress }}</div>
                 </div>
     
     
                 <div class=" mt-5 text-black  w-full flex flex-row">
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Department:</div>
                    
-                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ user.department }}</div>
+                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ authStore.user.department }}</div>
                 </div>
     
                 <div class=" mt-5 text-black  w-full flex flex-row">
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Designation:</div>
                    
-                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ user.designation }}</div>
+                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ authStore.user.designation }}</div>
                 </div>
     
     
                 <div class=" mt-5 text-black  w-full flex flex-row">
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Section:</div>
                    
-                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'>{{ user.section }}</div>
+                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'>{{ authStore.user.section }}</div>
                 </div>
     
     
                 <div class=" mt-5 text-black  w-full flex flex-row">
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Unit:</div>
                    
-                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ user.unit }}</div>
+                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ authStore.user.unit }}</div>
                 </div>
 
 
                 <div class=" mt-5 text-black  w-full flex flex-row">
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Location:</div>
                    
-                     <select class='w-8/12 rounded-md h-9  p-1 border border-solid border-black' @change="toggleSave" v-model="user.location" >
+                     <select class='w-8/12 rounded-md h-9  p-1 border border-solid border-black'  v-model="authStore.user.location" >
                     <option v-for="(location, locationCounter) in locations" :value="location.name">{{ location.name }}</option>
                     </select>
                 </div>
@@ -66,7 +66,7 @@
                 <div class=" mt-5 text-black  w-full flex flex-row">
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Phone Number:</div>
                    
-                     <input class='w-8/12 rounded-md h-9  p-1 border border-solid border-black' @change="toggleSave" v-model="user.mobileNo" />
+                     <input class='w-8/12 rounded-md h-9  p-1 border border-solid border-black'  v-model="authStore.user.mobileNo" />
                 </div>
     
     
@@ -74,7 +74,7 @@
                 <div class=" mt-5 text-black  w-full flex flex-row">
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Extension Number:</div>
                    
-                    <input class='w-8/12 rounded-md h-9 border border-solid border-black p-1' @change="toggleSave" v-model="user.extension" />
+                    <input class='w-8/12 rounded-md h-9 border border-solid border-black p-1'  v-model="authStore.user.extension" />
                 </div>
 
 
@@ -82,13 +82,13 @@
                 <div class=" mt-5 text-black  w-full flex flex-row">
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Passport Number:</div>
                    
-                    <input class='w-8/12 rounded-md h-9 border border-solid border-black p-1' @change="toggleSave" v-model="user.passportNo" />
+                    <input class='w-8/12 rounded-md h-9 border border-solid border-black p-1'  v-model="authStore.user.passportNo" />
                 </div>
 
 
                 <div class=" mt-5 text-black  w-full flex flex-row">
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Has Frequent Flyer Number:</div>
-                   <select name="" id="" @change="addFlyer" v-model="user.hasFrequentFlyerNo" class='w-8/12 rounded-md h-9  p-1 border border-solid border-black'>
+                   <select name="" id="" @change="addFlyer" v-model="authStore.user.hasFrequentFlyerNo" class='w-8/12 rounded-md h-9  p-1 border border-solid border-black'>
                       <option value="Yes">
                              Yes
                       </option>
@@ -100,14 +100,14 @@
                 </div>
  
 
-                <div class=" mt-5 border border-solid border-black p-3 text-black  w-full flex flex-row justify-center items-center" v-for="(flyer, flyerCounter) in user.flyerNos">
+                <div class=" mt-5 border border-solid border-black p-3 text-black  w-full flex flex-row justify-center items-center" v-for="(flyer, flyerCounter) in authStore.user.flyerNos">
                     <div for="" class='w-1/6 text-end mr-10 flex flex-col justify-center font-bold'>Frequent Flyer Number:</div>
                    
-                    <input class='w-2/6 rounded-md h-9 border border-solid border-black p-1' @change="toggleSave" v-model="user.flyerNos[flyerCounter].number"  />
+                    <input class='w-2/6 rounded-md h-9 border border-solid border-black p-1'  v-model="authStore.user.flyerNos[flyerCounter].number"  />
 
                     <div for="" class='w-1/6 text-end mr-10 flex flex-col justify-center font-bold'>Airline:</div>
                    
-                   <input class='w-2/6 rounded-md h-9 border border-solid border-black p-1' @change="toggleSave" v-model="user.flyerNos[flyerCounter].airline"  />
+                   <input class='w-2/6 rounded-md h-9 border border-solid border-black p-1'  v-model="authStore.user.flyerNos[flyerCounter].airline"  />
                     <v-icon class="ml-2" @click="insertFlyerToggle">mdi-plus</v-icon>
                     <v-icon class="ml-2" @click="removeFlyerToggle">mdi-minus</v-icon>
                 </div>
@@ -116,7 +116,7 @@
                 <div class=" mt-5 text-black  w-full flex flex-row">
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-start font-bold'>User Type:</div>
                    
-                     <div class="flex flex-row justify-start rounded-md h-9  p-1"> {{user.userType == "leader" ? "Ticket Manager" : user.userType }}</div>
+                     <div class="flex flex-row justify-start rounded-md h-9  p-1"> {{authStore.user.userType == "leader" ? "Ticket Manager" : authStore.user.userType }}</div>
                 </div>
     
     
@@ -125,7 +125,7 @@
                     <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Password:</div>
                    
                  <div class="flex flex-row justify-start  items-center w-8/12 rounded-md h-9  p-1">
-                         <input v-model="user.password" type="password" class="border border-solid border-black" id="password" @change="toggleSave"/> <v-icon icon="mdi-eye" class="ml-2" @click="togglePassword()" id="eye"></v-icon>
+                         <input v-model="authStore.user.password" type="password" class="border border-solid border-black" id="password" /> <v-icon icon="mdi-eye" class="ml-2" @click="togglePassword()" id="eye"></v-icon>
                        
                  </div>
 
@@ -138,7 +138,21 @@
 
                 <div class="w-full flex flex-col mt-10 items-center  ">
                                   <div class="w-full flex flex-row font-bold  mt-4 mb-2 justify-center items-center text-h4">Travel Preferences</div>
-                                  <Editor @textChanged="preferencesChanged" :content="user.preferences"/>
+
+                                  <div class="image-uploader">
+                                    <label for="">Image Upload:</label>
+                                    <input @change="handleImageUpload" type="file"/>
+                                  </div>
+
+                                  <div class="image-viewer">
+                                    <v-img
+  width="50vw"
+  aspect-ratio="16/9"
+  cover
+  :src="globalStore.globalUrl + 'uploads/' + authStore.user.preferenceImage"
+></v-img>
+                                  </div>
+                                  <Editor @textChanged="preferencesChanged" :content="authStore.user.preferences"/>
  
 
                 </div>
@@ -186,7 +200,7 @@
               
             
         <div class="flex flex-row justify-center items-center  mb-10 mt-10">
-            <div class="bg-slate-200 h-auto w-auto text-gray-400 font-bold py-2 px-10 shadow shadow-black"  id="save" @click="makeChange">Save Changes</div>
+            <div class=" bg-slate-300 h-auto w-auto text-black hover:cursor-pointer font-bold py-2 px-10 shadow shadow-black"  id="save" @click="makeChange">Save Changes</div>
             <div class="bg-slate-300 h-auto w-auto text-black font-bold py-2 px-10 shadow shadow-black ml-5 hover:cursor-pointer" @click="cancel">Cancel</div>
         </div>
         
@@ -224,7 +238,7 @@
 
     
 
-    var {user} = storeToRefs(useAuthStore())
+    var authStore = useAuthStore()
 
   
     var files = ref([]);
@@ -233,23 +247,40 @@
     
     var edit = ref(false);
     var eye = ref("fa-solid fa-eye");
-    var save = ref(false);
+    var save = ref(true);
     var locations = ref([]);
     var toast = useToast();
 
+   var handleImageUpload = (event) => {
+    debugger
+    const file = event.target.files[0];
+    var data = new FormData();
+    data.append("file", file)
+    data.append("id", authStore.user._id)
 
+    axios.post(globalStore.globalUrl + "preferenceImageUpload", data).then((result)=>{
+
+        if(result.data == false){
+            toast.warning("Error Uploading Image")
+        }else{
+            authStore.user.preferenceImage = result.data
+        }
+
+    }).catch((error)=> toast.warning(error))
+
+   }
 
     var preferencesChanged = (value) => {
         console.log("from preferences changed")
         console.log(value)
-        user.value.preferences = value
-        toggleSave()
+        authStore.user.preferences = value
+        // toggleSave()
     }
     
       
 
     var availability = computed(()=>{
-           if(user.value.available == true){
+           if(authStore.user.available == true){
                     return "Available"
                 }else{
                     return "Not Available"
@@ -258,28 +289,28 @@
    
 
 
-function toggleSave(){
+// function toggleSave(){
 
-var vm = this;
+// var vm = this;
 
 
-var save2 = document.getElementById('save');
-if(save2 && save2 != null){
-save2.classList.remove("bg-gray-200")
-save2.classList.remove("text-gray-400")
-save2.classList.add("bg-slate-300")
-save2.classList.add("text-black")
-save2.classList.add("hover:cursor-pointer")
-save.value=true
+// var save2 = document.getElementById('save');
+// if(save2 && save2 != null){
+// save2.classList.remove("bg-gray-200")
+// save2.classList.remove("text-gray-400")
+// save2.classList.add("bg-slate-300")
+// save2.classList.add("text-black")
+// save2.classList.add("hover:cursor-pointer")
+// save.value=true
 
-}     
-};
+// }     
+// };
 
 
 
     function cancel(){
             
-            var userType = user.value.userType;
+            var userType = authStore.user.userType;
 
             switch(userType){
               case "admin":
@@ -322,13 +353,13 @@ save.value=true
 
 
    function insertFlyerToggle(){
-         toggleSave()
+        //  toggleSave()
          insertFlyer()
    }
 
 
    function removeFlyerToggle(){
-         toggleSave()
+        //  toggleSave()
          removeFlyer()
    }
 
@@ -337,7 +368,8 @@ save.value=true
    function  makeChange(){
            toast.info("Saving Changes..")
                     
-            var user2 =user.value;
+            var user2 = authStore.user;
+            var token = authStore.token;
             debugger
 
       
@@ -346,6 +378,7 @@ save.value=true
 
         
             data.append("user", JSON.stringify(user2))
+            data.append("token", token)
 
             axios.post(globalUrl.value + "updateUserNormal", data, {
 
@@ -366,4 +399,25 @@ save.value=true
    
     </script>
 
+<style scoped>
+.sun-editor .se-wrapper .se-wrapper-code {  
+    overflow: auto !important;
+  }
 
+  .image-uploader{
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+  }
+
+  .image-uploader label{
+    margin-right: 10px;
+    font-weight: bolder;
+    font-size: 15px;
+  }
+
+
+  .image-viewer{
+    margin-bottom: 20px;
+  }
+</style>

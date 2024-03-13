@@ -309,7 +309,7 @@
     
     
     
-    <v-container v-if="trip && trip.ticketApprovals.length > 0">
+    <v-container class="border-2 border-solid border-black" v-if="trip && trip.ticketApprovals.length > 0">
       <v-row>
        <v-table>
          <tbody>
@@ -342,7 +342,7 @@
          </v-col> -->
 
 
-<v-container class="mt-2" v-if="trip.ticketsMoneyDisbursed == true">
+<v-container class="mt-2 border-2 border-solid border-black" v-if="trip.ticketsMoneyDisbursed == true">
 
    
                

@@ -816,7 +816,7 @@ class="align-center justify-center w-full border-2 border-solid border-black"
 
 <EmailCustomDialog/>
 <Log v-if="trip" />
-<MoreInformationDialog />
+<MoreInformationDialog  v-if="moreInformationDialog == true"/>
 
 <ShowExpenseReportDialog/>
 
@@ -831,6 +831,7 @@ class="align-center justify-center w-full border-2 border-solid border-black"
 import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia';
 import {useTripStore} from '../stores/trips'
+import { defineAsyncComponent } from 'vue';
 
 import {useRoute, useRouter} from 'vue-router'
 import { useGlobalStore } from '../stores/global';
@@ -841,21 +842,52 @@ import { useLogStore } from '../stores/log';
 import {useToast} from "vue-toast-notification";
 import Quill from 'quill';
 import axios from "axios"
-import AuditTripForwardDialog from '../components/AuditTripForwardDialog.vue';
-import AccountsTripForwardDialog from '../components/AccountsTripForwardDialog.vue';
-import GiveCustomQuote from "../components/Trips/GiveCustomQuote.vue"
+const AuditTripForwardDialog = defineAsyncComponent(()=>import("../components/AccountsTripForwardDialog.vue"))
+// import AuditTripForwardDialog from '../components/AuditTripForwardDialog.vue';
+const AccountsTripForwardDialog = defineAsyncComponent(()=>import("../components/AccountsTripForwardDialog.vue"))
+// import AccountsTripForwardDialog from '../components/AccountsTripForwardDialog.vue';
+
+
+const GiveCustomQuote = defineAsyncComponent(()=>import("../components/Trips/GiveCustomQuote.vue"))
+// import GiveCustomQuote from "../components/Trips/GiveCustomQuote.vue"
+
+
 import { useRequestsStore } from '../stores/request';
-import BookDialog from '../components/Trips/bookDialog.vue';
-import TicketUnBookDialog from '../components/Trips/TicketUnBookDialog.vue';
-import TicketConfirmDialog from '../components/Trips/TicketConfirmDialog.vue';
-import TicketRevokeDialog from '../components/Trips/TicketRevokeDialog.vue';
-import HotelQuotationDialog from '../components/Trips/HotelQuotationDialog.vue';
-import HotelBookDialog from "../components/trips/HotelBookDialog.vue"
-import HotelUnBookDialog from '../components/Trips/HotelUnBookDialog.vue';
-import HotelConfirmDialog from '../components/Trips/HotelConfirmDialog.vue';
-import HotelRevokeDialog from '../components/Trips/HotelRevokeDialog.vue';
-import EmailAccountsDialog from '../components/Trips/EmailAccountsDialog.vue';
-import EmailCustomDialog from '../components/Trips/EmailCustomDialog.vue';
+
+const BookDialog = defineAsyncComponent(()=>import('../components/Trips/bookDialog.vue'))
+// import BookDialog from '../components/Trips/bookDialog.vue';
+
+const TicketUnBookDialog = defineAsyncComponent(()=>import('../components/Trips/TicketUnBookDialog.vue'))
+// import TicketUnBookDialog from '../components/Trips/TicketUnBookDialog.vue';
+
+const TicketConfirmDialog = defineAsyncComponent(()=>import('../components/Trips/TicketConfirmDialog.vue'))
+// import TicketConfirmDialog from '../components/Trips/TicketConfirmDialog.vue';
+
+const TicketRevokeDialog = defineAsyncComponent(()=>import("../components/Trips/TicketRevokeDialog.vue"))
+// import TicketRevokeDialog from '../components/Trips/TicketRevokeDialog.vue';
+
+const HotelQuotationDialog = defineAsyncComponent(()=>import("../components/Trips/HotelQuotationDialog.vue"))
+// import HotelQuotationDialog from '../components/Trips/HotelQuotationDialog.vue';
+
+const HotelBookDialog = defineAsyncComponent(()=>import("../components/trips/HotelBookDialog.vue"))
+// import HotelBookDialog from "../components/trips/HotelBookDialog.vue"
+
+const HotelUnBookDialog = defineAsyncComponent(()=>import("../components/Trips/HotelUnBookDialog.vue"))
+// import HotelUnBookDialog from '../components/Trips/HotelUnBookDialog.vue';
+
+const HotelConfirmDialog = defineAsyncComponent(()=>import("../components/Trips/HotelConfirmDialog.vue"))
+// import HotelConfirmDialog from '../components/Trips/HotelConfirmDialog.vue';
+
+const HotelRevokeDialog = defineAsyncComponent(()=>import("../components/Trips/HotelRevokeDialog.vue"))
+// import HotelRevokeDialog from '../components/Trips/HotelRevokeDialog.vue';
+
+const EmailAccountsDialog = defineAsyncComponent(()=>import("../components/Trips/EmailAccountsDialog.vue"))
+// import EmailAccountsDialog from '../components/Trips/EmailAccountsDialog.vue';
+
+const EmailCustomDialog = defineAsyncComponent(()=>import("../components/Trips/EmailCustomDialog.vue"))
+
+
+// import EmailCustomDialog from '../components/Trips/EmailCustomDialog.vue';
 import Log from '../components/Trips/Log.vue';
 import MoreInformationDialog from '../components/MoreInformationDialog.vue';
 import ShareDialogue from '../components/ShareDialogue.vue';
