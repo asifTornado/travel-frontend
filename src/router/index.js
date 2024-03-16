@@ -108,6 +108,11 @@ const routes = [
         name: 'showRequest',
         component: () => import('../views/request.vue')
       },
+      {
+        path: 'email/showRequest/:id/:token',
+        name: 'emailShowRequest',
+        component: () => import('../views/request.vue')
+      },
 
       {
         path: 'tripInformation/:id',
@@ -394,7 +399,7 @@ router.beforeEach(async (to, from, next) => {
       
       next()
     }
-  }else if(to.name == 'emailUnapprovedRequest' || to.name == 'emailRequest' || to.name == "emailMoneyReceipt" || to.name == "emailExpenseReport" || to.name == "emailTicketQuotations" || to.name == "emailTrip"){
+  }else if(to.name == 'emailUnapprovedRequest' || to.name == 'emailRequest' || to.name == "emailMoneyReceipt" || to.name == "emailExpenseReport" || to.name == "emailTicketQuotations" || to.name == "emailTrip" || to.name == "emailShowRequest"){
      var token = to.params.token;
      var result = await authStore.authenticateToken(token);
      if(result == true){
