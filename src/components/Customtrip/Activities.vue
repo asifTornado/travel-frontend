@@ -59,6 +59,9 @@
   
   
   var remove = (counter) => {
+    if(counter < 1 ){
+        return
+    }
     activities.value.splice(counter, 1)
   }
   

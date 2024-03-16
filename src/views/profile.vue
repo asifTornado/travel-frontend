@@ -218,7 +218,6 @@
     
     <script setup>
     import axios from 'axios';
-    import Toggle from '@vueform/toggle';
     import {ref, computed} from 'vue'
     import { useGlobalStore } from '../stores/global';
     import {useToast} from 'vue-toast-notification';
@@ -226,7 +225,6 @@
     import { useRequestsStore } from '../stores/request';
     import { useAuthStore } from '../stores/auth';
     import {storeToRefs} from 'pinia'
-    import { useUserStore } from '../stores/users';
     import {useRouter} from "vue-router"
 
    

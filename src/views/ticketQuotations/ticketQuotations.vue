@@ -414,21 +414,17 @@
     import { useTicketQuotationsStore } from '../../stores/ticketQuotationStore';
     import TicketQuotationsForwardDialog from '../../components/TicketQuotationsForwardDialog.vue';
     
-    import {useRoute, useRouter} from 'vue-router'
     import { useGlobalStore } from '../../stores/global';
     import {useCustomStore} from '../../stores/custom';
     import { useAuthStore } from '../../stores/auth';
     import { useLogStore } from '../../stores/log';
     
     import {useToast} from "vue-toast-notification";
-    import Quill from 'quill';
     import axios from "axios"
-    import GiveCustomQuote from "../../components/Trips/GiveCustomQuote.vue"
     import { useRequestsStore } from '../../stores/request';
  
     import Log from '../../components/Trips/Log.vue';
     import MoreInformationDialog from '../../components/MoreInformationDialog.vue';
-    import ShareDialogue from '../../components/ShareDialogue.vue';
     import ShowExpenseReportDialog from '../../components/ExpenseReport/ShowExpenseReportDialog.vue';
     import TicketsQuotationDisburseDialog from '../../components/TicketsQuotationDisburseDialog.vue';
     

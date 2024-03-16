@@ -1,32 +1,32 @@
 <template>
-<div class="w-screen px-[20px] mt-2" >
+<div class="w-screen px-[20px] mt-15" >
 
    
     <div class="sticky   bg-blue-lighten-5 h-12 w-full flex flex-row justify-center"  v-if="request && request.currentHandler && user">
 
       <div v-if="request.currentHandler.empName == request.requester.superVisor.empName && request.status == 'Seeking Supervisor\'s Approval'" >
-         <v-btn color="success" class="mr-[10px]" @click="openApprovalDialogue('superVisor', 'ticket', 'approved')">Approve</v-btn>
-         <v-btn color="warning" @click="openApprovalDialogue('superVisor', 'ticket', 'rejected')">Reject</v-btn>
+         <v-btn color="success" size="large" class="mr-[10px]" @click="openApprovalDialogue('superVisor', 'ticket', 'approved')">Approve</v-btn>
+         <v-btn color="warning" size="large" @click="openApprovalDialogue('superVisor', 'ticket', 'rejected')">Reject</v-btn>
       </div>
       
       <div v-else-if="request.currentHandler.empName == request.requester.superVisor.empName && request.status == 'Seeking Supervisor\'s Approval For Hotel'" >
-         <v-btn color="success" class="mr-[10px]" @click="openApprovalDialogue('superVisor', 'hotel', 'approved')">Approve</v-btn>
-         <v-btn color="warning" @click="openApprovalDialogue('superVisor', 'hotel', 'rejected')">Reject</v-btn>
+         <v-btn color="success" size="large" class="mr-[10px]" @click="openApprovalDialogue('superVisor', 'hotel', 'approved')">Approve</v-btn>
+         <v-btn color="warning" size="large" @click="openApprovalDialogue('superVisor', 'hotel', 'rejected')">Reject</v-btn>
       </div>
 
 
 
       <div v-else-if="request.currentHandlerId == request.requester.superVisorId && request.supervisorApproved == false" >
-         <v-btn color="success" class="mr-[10px]" @click="openSupervisorRequestApprovalDialog('approved')">Approve</v-btn>
-         <v-btn color="warning" @click="openSupervisorRequestApprovalDialog('rejected')">Reject</v-btn>
+         <v-btn color="success" size="large" class="mr-[10px]" @click="openSupervisorRequestApprovalDialog('approved')">Approve</v-btn>
+         <v-btn color="warning" size="large" @click="openSupervisorRequestApprovalDialog('rejected')">Reject</v-btn>
       </div>
      <div v-else-if="request.currentHandler.empName == request.requester.zonalHead.empName && request.status == 'Seeking Department Head\'s Approval'">
-         <v-btn color="success" class="mr-[10px]" @click="openApprovalDialogue('departmentHead', 'ticket', 'approved')">Approve</v-btn>
-         <v-btn color="warning" @click="openApprovalDialogue('departmentHead', 'ticket', 'rejected')">Reject</v-btn>
+         <v-btn color="success" size="large" class="mr-[10px]" @click="openApprovalDialogue('departmentHead', 'ticket', 'approved')">Approve</v-btn>
+         <v-btn color="warning" size="large" @click="openApprovalDialogue('departmentHead', 'ticket', 'rejected')">Reject</v-btn>
      </div>
      <div v-else-if="request.currentHandler.empName == request.requester.zonalHead.empName && request.status == 'Seeking MD\'s Approval'">
-         <v-btn color="success" class="mr-[10px]" @click="openApprovalDialogue('departmentHead', 'ticket', 'approved')">Approve</v-btn>
-         <v-btn color="warning" @click="openApprovalDialogue('departmentHead', 'ticket', 'rejected')">Reject</v-btn>
+         <v-btn color="success" size="large" class="mr-[10px]" @click="openApprovalDialogue('departmentHead', 'ticket', 'approved')">Approve</v-btn>
+         <v-btn color="warning" size="large" @click="openApprovalDialogue('departmentHead', 'ticket', 'rejected')">Reject</v-btn>
      </div>
      
    
@@ -570,7 +570,6 @@ import { useAuthStore } from '../stores/auth';
 import { useLogStore } from '../stores/log';
 import { storeToRefs } from 'pinia';
 import {useToast} from "vue-toast-notification";
-import Quill from 'quill';
 import axios from "axios"
 import Editor from '../components/editor.vue'
 import { useRequestsStore } from '../stores/request';

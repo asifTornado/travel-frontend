@@ -116,6 +116,12 @@
               >
              <v-textarea density="compact"      variant="outlined" box label="Purpose of travel*" v-model="purpose"></v-textarea>
               </v-col>
+              <v-col
+                cols="12"
+                md="4"
+              >
+             <v-textarea density="compact"      variant="outlined" box label="Brand*" v-model="brand"></v-textarea>
+              </v-col>
           </v-row>
           
       
@@ -130,7 +136,7 @@
     
     
           <v-divider></v-divider>
-            <v-container  class="elevation-5 mt-3 mb-4">
+            <!-- <v-container  class="elevation-5 mt-3 mb-4">
             <v-row><v-col cols="12" class="font-bold">Estimated Total Cost</v-col></v-row>
 
             <v-row  class="">
@@ -223,7 +229,7 @@
        </v-row>
     
    
-          </v-container>
+          </v-container> -->
 
 
           <v-btn size="large" color="indigo-darken-3" class="mb-4" @click="submit">Submit</v-btn>
@@ -291,6 +297,7 @@ var { locations,
     endDate,
     form, 
     exist,
+    brand,
     requester} = storeToRefs(useCustomStore())
     
     

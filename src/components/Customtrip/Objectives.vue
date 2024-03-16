@@ -41,6 +41,9 @@ var add = (counter) => {
 
 
 var remove = (counter) => {
+  if(counter < 1){
+    return
+  }
   objectives.value.splice(counter, 1)
 }
 

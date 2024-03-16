@@ -44,7 +44,7 @@
 
      <v-row class="pl-[80px]">
         <v-col md="6" class="text-left">
-           Destination
+           Destination:
         </v-col>
         <v-col md="6" class="text-left">
            {{ trip.destination }}
@@ -53,7 +53,7 @@
     
      <v-row class="pl-[80px]">
         <v-col md="6" class="text-left">
-           Purpose 
+           Purpose:
         </v-col>
         <v-col md="6" class="text-left">
            {{ trip.subject }}
@@ -61,7 +61,7 @@
      </v-row>
      <v-row class="pl-[80px]">
         <v-col md="6" class="text-left">
-           Start Date
+           Start Date:
         </v-col>
         <v-col md="6" class="text-left">
            {{ trip.departure_date }}
@@ -69,11 +69,86 @@
      </v-row>
      <v-row class="pl-[80px]">
         <v-col md="6" class="text-left">
-           End Date
+           End Date:
         </v-col>
         
         <v-col md="6" class="text-left">
            {{ trip.arrival_date }}
+        </v-col>
+     </v-row>
+     <v-row class="pl-[80px]">
+        <v-col md="6" class="text-left">
+           Total Number Of Travelers
+        </v-col>
+        
+        <v-col md="6" class="text-left">
+           {{ trip.numberOfTravelers }}
+        </v-col>
+     </v-row>
+
+     <v-row class="pl-[80px]">
+      <v-col md="6" class="text-left font-weight-bold text-h6">
+         Budget Information
+
+      </v-col>
+    </v-row>
+     <v-row class="pl-[80px]">
+        <v-col md="6" class="text-left">
+           Air Ticket Budget
+        </v-col>
+        
+        <v-col md="6" class="text-left">
+           {{ trip.airTicketBudget }}
+        </v-col>
+     </v-row>
+
+     <v-row class="pl-[80px]">
+        <v-col md="6" class="text-left">
+           Hotel Budget
+        </v-col>
+        
+        <v-col md="6" class="text-left">
+           {{ trip.hotelBudget }}
+        </v-col>
+     </v-row>
+
+     <v-row class="pl-[80px]">
+        <v-col md="6" class="text-left">
+            Total Booking Cost
+        </v-col>
+        
+        <v-col md="6" class="text-left">
+           {{ trip.hotelBudget }}
+        </v-col>
+     </v-row>
+
+     <v-row class="pl-[80px]">
+        <v-col md="6" class="text-left">
+           Transport Expense
+        </v-col>
+        
+        <v-col md="6" class="text-left">
+           {{ trip.transportExpense }}
+        </v-col>
+     </v-row>
+
+     <v-row class="pl-[80px]">
+        <v-col md="6" class="text-left">
+           Incidental Expense
+        </v-col>
+        
+        <v-col md="6" class="text-left">
+           {{ trip.incidentalExpense }}
+        </v-col>
+     </v-row>
+
+     <v-row class="pl-[80px]">
+        <v-col md="6" class="text-left">
+           Total Trip Budget
+        </v-col>
+        
+        <v-col md="6" class="text-left">
+           {{ trip.totalTripBudget }}
         </v-col>
      </v-row>
    
@@ -102,6 +177,7 @@
    <v-tabs
       v-model="tab"
       bg-color="blue-darken-1"
+      density="compact"
       
       
       v-if="trip"
@@ -149,14 +225,32 @@
            {{ request.requester.department }}
         </v-col>
      </v-row>
-  <v-row class="pl-[80px]">
-        <v-col md="6" class="text-left">
+  <v-row class="pl-[80px]  ">
+        <v-col md="6" class="text-left bg-green-lighten-1">
            Status
         </v-col>
-        <v-col md="6" class="text-left">
+        <v-col md="6" class="text-left bg-green-lighten-1">
            {{ request.status }}
         </v-col>
   </v-row>
+  <v-row class="pl-[80px]">
+        <v-col md="6" class="text-left">
+           Supervisor
+        </v-col>
+        <v-col md="6" class="text-left" v-if="request.requester.superVisor">
+           {{ request.requester.superVisor.empName }}
+        </v-col>
+     </v-row>
+
+     <v-row class="pl-[80px]">
+        <v-col md="6" class="text-left">
+           Department Head
+        </v-col>
+        <v-col md="6" class="text-left" v-if="request.requester.zonalHead">
+           {{ request.requester.zonalHead.empName }}
+        </v-col>
+     </v-row>
+  
    <v-row class="pl-[80px]">
         <v-col md="6" class="text-left">
            Current Handler
@@ -196,12 +290,12 @@
 
 
 
-<v-container v-if="trip" class=" bg-yellow-lighten-2  bg-white mt-[80px] shadow-md shadow-black my-[20px] pa-10">
+<v-container v-if="trip" class=" bg-yellow-lighten-2  bg-white  mt-[80px] shadow-md shadow-black my-[20px] pa-10">
 <v-row class="shadow-sm shadow-black bg-white">
 <v-col md="12" class="font-bold text-black text-xl ">
 Ticket Quotations
-<v-row v-if="trip.seekingAccountsApprovalForTickets == false" class="bg-white" justify="end" align="end">
-  <v-btn  @click="sendToAccounts()" color="success" class="mb-2 mr-2" size="small">Send To Accounts</v-btn>
+<v-row v-if="trip.seekingAccountsApprovalForTickets == false  && checkConfirmation('ticket') == true" class="bg-white" justify="end" align="end">
+  <div  @click="sendToAccounts()" color="success" class="mb-2 mr-2 pa-1 bg-blue-darken-3 hover:cursor-pointer" size="small">Send To Accounts</div>
 </v-row> 
 </v-col>  
  
@@ -214,7 +308,7 @@ Ticket Quotations
       <v-col md="5"    v-for="(quotation, quotationCounter) in trip.quotations" :key="quotationCounter" class="relative mr-5 mt-5   pa-10 bg-white   mb-10   shadow-md shadow-black"  >
   
       <v-row>
-              <v-col md="12" class="bg-blue-darken-1 shadow-md shadow-black font-bold text-xl text-white ">{{ quotation.quoteGiver }}</v-col>
+              <v-col md="12" class="bg-blue-darken-1 border-2  border-solid  font-bold text-xl text-white ">{{ quotation.quoteGiver }}</v-col>
            </v-row>
 
       <v-row>
@@ -222,11 +316,11 @@ Ticket Quotations
               <v-chip label class="text-caption font-weight-thin pa-2 mr-2 bg-blue-darken-2 border-2 border-solid border-black" v-for="(requestId, requestIdCounter) in quotation.requestIds" :key="requestIdCounter">{{ getUserName(requestId) }}</v-chip>
          </v-col>
       </v-row>
-           <v-row class="shadow-sm shadow-black p-4">
+           <v-row class="border-2 border-solid p-4">
         
               <v-col md="12" >
               
-                         <div v-html="quotation.quotationText"></div>
+                         <div style="" class="" v-html="quotation.quotationText" ></div>
                                                
               </v-col>
            
@@ -248,7 +342,7 @@ Ticket Quotations
                <div class="flex flex-row w-full justify-end ">
                   <div class="font-bold hover:cursor-pointer border-2 border-solid border-black bg-yellow-500 hover:bg-yellow-800 pa-2 text-white" v-if="!quotation.booked && checkBooked('ticket') == false"  @click="openBookDialog(quotation)">Book</div>
                   <div class="font-bold text-white mr-1 pa-1 bg-yellow-darken-2 border-2 border-solid border-black pa-1 hover:cursor-pointer" @click="openTicketUnBookDialog(quotation)"  v-if="quotation.booked && !quotation.confirmed">UnBook</div>
-                  <div class="font-bold text-white mr-1 bg-green-darken-1 border-2 border-solid border-black pa-1  hover:cursor-pointer" @click="openTicketConfirmDialog(quotation)"  v-if="quotation.booked && !quotation.confirmed && quotation.approved">Confirm</div>
+                  <div class="font-bold text-white mr-1 bg-green-darken-1 border-2 border-solid border-black pa-1  hover:cursor-pointer" @click="openTicketConfirmDialog(quotation)"  v-if="quotation.booked && quotation.confirmed == false && quotation.approved == true">Confirm</div>
                   <div class="font-bold text-white bg-red-darken-1 border-2 border-solid border-black pa-1 mr-1  hover:cursor-pointer" @click="openTicketRevokeDialog(quotation)"  v-if="quotation.booked && quotation.confirmed">Revoke</div>
                </div>
 
@@ -358,8 +452,16 @@ class="align-center justify-center w-full  border-2 border-solid border-black"
   id="id"
   density="compact"
   class="textField"
+  variant="outlined"
   v-model="quoteGiver"
-></v-text-field>
+>
+<template v-slot:label>
+
+<span class="text-h5">Quotation By</span>
+
+</template>
+
+</v-text-field>
 </div>
 
 <GiveCustomQuote/>
@@ -496,7 +598,7 @@ class="align-center justify-center w-full  border-2 border-solid border-black"
 
 
 
-<v-container  class=" bg-green-lighten-1 mt-[40px] pa-10 shadow-md shadow-black" v-if=" trip">
+<v-container  class=" bg-green-lighten-1 mt-[40px] pa-10 shadow-md shadow-black" v-if=" trip && checkConfirmation('ticket') == true">
 <v-row class="bg-white shadow-sm shadow-black">
 <v-col md="12" class="font-bold text-black text-xl elevation-10 ">
 Hotel Quotations
@@ -509,7 +611,7 @@ Hotel Quotations
 <v-col  v-for="(quotation, quotationCounter) in trip.hotelQuotations" :key="quotationCounter" md="5"  class="relative  mb-10 mr-5 mt-5  bg-white  hover:bg-emerald-300 shadow-md shadow-black pa-10"  >
     
   <v-row>
-          <v-col md="12" class="bg-blue-darken-2 font-bold text-xl text-white shadow-md shadow-black ">{{ quotation.quoteGiver }}</v-col>
+          <v-col md="12" class="bg-blue-darken-2 font-bold text-xl text-white border-2 border-solid ">{{ quotation.quoteGiver }}</v-col>
        </v-row>
        <v-row>
          <v-col md="12" class="">
@@ -518,7 +620,7 @@ Hotel Quotations
       </v-row>
        <v-row>
     
-          <v-col md="12" class="shadow-sm shadow-black p-4" >
+          <v-col md="12" class="border-2 border-solid p-4" >
          
                      <div v-html="quotation.quotationText"></div>
                                            
@@ -542,7 +644,7 @@ Hotel Quotations
                <div class="flex flex-row w-full justify-end ">
                   <div class="font-bold hover:cursor-pointer border-2 border-solid border-black bg-yellow-500 hover:bg-yellow-800 pa-2 text-white" v-if="!quotation.booked && checkBooked('hotel') == false"  @click="openHotelBookDialog(quotation)">Book</div>
                   <div class="font-bold text-white mr-1 pa-1 bg-yellow-darken-2 border-2 border-solid border-black pa-1 hover:cursor-pointer" @click="openHotelUnBookDialog(quotation)"  v-if="quotation.booked && !quotation.confirmed">UnBook</div>
-                  <div class="font-bold text-white mr-1 bg-green-darken-1 border-2 border-solid border-black pa-1  hover:cursor-pointer" @click="openHotelConfirmDialog(quotation)"  v-if="quotation.booked && quotation.confirmed == false">Confirm</div>
+                  <div class="font-bold text-white mr-1 bg-green-darken-1 border-2 border-solid border-black pa-1  hover:cursor-pointer" @click="openHotelConfirmDialog(quotation)"  v-if="quotation.booked && quotation.confirmed == false && quotation.approved == true">Confirm</div>
                   <div class="font-bold text-white bg-red-darken-1 border-2 border-solid border-black pa-1 mr-1  hover:cursor-pointer" @click="openHotelRevokeDialog(quotation)"  v-if="quotation.booked && quotation.confirmed">Revoke</div>
                </div>
 
@@ -657,8 +759,15 @@ class="align-center justify-center w-full border-2 border-solid border-black"
   id="id"
   density="compact"
   class=""
+  variant="outlined"
   v-model="quoteGiver"
-></v-text-field>
+>
+<template v-slot:label>
+<span class="text-h5">Quotation By</span>
+
+</template>
+
+</v-text-field>
 </div>
 
 <GiveCustomQuote/>
@@ -746,7 +855,7 @@ class="align-center justify-center w-full border-2 border-solid border-black"
 
 <div class="flex flex-row w-[100vw] mt-[30px] justify-center items-center" >
 
-<v-btn @click="tripStore.sendToAccountAndAudit" prepend-icon="mdi-printer" class="text-white" color="orange d-print-none">Send To Account and Audit</v-btn>
+<v-btn @click="tripStore.sendToAccountAndAudit" prepend-icon="mdi-mail" class="text-white" color="orange d-print-none">Send To Account and Audit</v-btn>
 
 </div> 
 
@@ -833,14 +942,13 @@ import { storeToRefs } from 'pinia';
 import {useTripStore} from '../stores/trips'
 import { defineAsyncComponent } from 'vue';
 
-import {useRoute, useRouter} from 'vue-router'
 import { useGlobalStore } from '../stores/global';
 import {useCustomStore} from '../stores/custom';
 import { useAuthStore } from '../stores/auth';
 import { useLogStore } from '../stores/log';
 
 import {useToast} from "vue-toast-notification";
-import Quill from 'quill';
+
 import axios from "axios"
 const AuditTripForwardDialog = defineAsyncComponent(()=>import("../components/AccountsTripForwardDialog.vue"))
 // import AuditTripForwardDialog from '../components/AuditTripForwardDialog.vue';

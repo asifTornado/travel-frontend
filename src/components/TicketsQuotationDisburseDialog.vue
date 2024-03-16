@@ -85,6 +85,7 @@ import { useTripStore } from '../stores/trips';
     var {ticketQuotations, disburseDialog} = storeToRefs(useTicketQuotationsStore())
     var {trip} = storeToRefs(useTripStore())
     var {user} = storeToRefs(useAuthStore())
+    var authStore = useAuthStore()
     
     
     
@@ -98,12 +99,15 @@ import { useTripStore } from '../stores/trips';
         var data = new FormData()
         data.append("ticketQuotations", JSON.stringify(trip.value))
         data.append("user", JSON.stringify(user.value))
+        data.append("token", authStore.token)
     
         axios.post(globalUrl.value + "ticketQuotationsMoneyDisburse", data).then((result) =>{
             ticketQuotations.value = result.data
+            disburseDialog.value = false
             toast.clear()    
             toast.success("Amount Disbursed Successfully")
-            disburseDialog.value = false
+
+          
         
         }).catch((error)=>{
             toast.clear()

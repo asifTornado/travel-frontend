@@ -126,11 +126,11 @@ const routes = [
         component: () => import('../views/requestsForMe.vue')
       },
 
-      {
-        path: 'quotation/:id/:agentId',
-        name: 'quotation',
-        component: () => import('../views/quotation.vue')
-      },
+      // {
+      //   path: 'quotation/:id/:agentId',
+      //   name: 'quotation',
+      //   component: () => import('../views/quotation.vue')
+      // },
 
 
       {

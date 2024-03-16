@@ -6,7 +6,7 @@
     persistent
     >
     <v-card>
-      <v-card-text>
+      <v-card-text class="text-h5">
        Are you sure you want to unbook this quotation?
       </v-card-text>
       <v-card-actions class="justify-end">

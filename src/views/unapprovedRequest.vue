@@ -192,7 +192,7 @@
                 <v-col md="6" class="text-left">
                    Supervisor
                 </v-col>
-                <v-col md="6" class="text-left">
+                <v-col md="6" class="text-left" v-if="request.requester.superVisor">
                    {{ request.requester.superVisor.empName }}
                 </v-col>
              </v-row>
@@ -200,7 +200,7 @@
                 <v-col md="6" class="text-left">
                    Zonal Head
                 </v-col>
-                <v-col md="6" class="text-left">
+                <v-col md="6" class="text-left" v-if="request.requester.zonalHead">
                    {{ request.requester.zonalHead.empName }}
                 </v-col>
              </v-row>
@@ -364,7 +364,6 @@
     import { useLogStore } from '../stores/log';
     import { storeToRefs } from 'pinia';
     import {useToast} from "vue-toast-notification";
-    import Quill from 'quill';
     import axios from "axios"
     import Editor from '../components/editor.vue'
     import { useRequestsStore } from '../stores/request';

@@ -192,8 +192,36 @@
                ></v-autocomplete>
       
                </v-col>
-               
+
+
                <v-col
+               cols="12"
+               md="3"
+               
+               >
+
+               <v-text-field 
+               name="Password"
+               label="Password"
+               id="Password"
+               type="text"
+               v-model="user.password"
+               :rules="exist"
+               ></v-text-field>
+
+             
+      
+               </v-col>
+               
+              
+               
+         
+            </v-row>
+
+        
+
+            <v-row>
+              <v-col
                cols="12"
                md="3"
                
@@ -202,49 +230,6 @@
                <v-select :items="['Yes', 'No']" label="Has Frequent Flyer Numbers" v-model="user.hasFrequentFlyerNo" @update:modelValue="addFlyer"></v-select>
       
                </v-col>
-               
-         
-            </v-row>
-
-            <v-row v-for="(flyer, flyerCounter) in user.flyerNos" class="flex flex-row justify-center items-center border border-solid  border-black">
-              <v-col md="3">
-                <v-text-field
-                name="airline"
-                :label="'Airline ' + (flyerCounter + 1) + '*'"
-                id="airline"
-                type="text"
-                v-model="user.flyerNos[flyerCounter].airline"
-                :rules="exist"
-                >
-
-                </v-text-field>
-
-              </v-col>
-              <v-col md="3">
-                        
-                <v-text-field  
-               name="frequest flyer number"
-               :label="'Frequent Flyer Number' + ' ' + (flyerCounter + 1) + '*'"
-               id="frequesnt flyer number"
-               type="text"
-               v-model="user.flyerNos[flyerCounter].number"
-               :rules="exist"
-               ></v-text-field>
-            
-              </v-col>
-
-              <v-col md="6" class="flex flex-row justify-start items-center mb-4" >
-                <v-btn  class="bg-blue-darken-4 mr-4" @click="insertFlyer(flyerCounter)">
-                <v-icon>mdi-plus</v-icon>
-                </v-btn>
-        
-                <v-btn class="bg-blue-lighten-2 text-white"  @click="removeFlyer(flyerCounter)">
-                <v-icon>mdi-minus</v-icon>
-                </v-btn>
-              </v-col>
-            </v-row>
-
-            <v-row>
               <v-col md="3">
                   <v-autocomplete label="User Roles" multiple chips  clearable :items="roleValues" v-model="user.roles">
                     <template v-slot:chip="{ props, item }">
@@ -257,7 +242,45 @@
                   </v-autocomplete>
               </v-col>
             </v-row>
+            <v-row v-for="(flyer, flyerCounter) in user.flyerNos" class="flex flex-row justify-center items-center border border-solid  border-black">
+           
+           
+           <v-col md="3">
+             <v-text-field
+             name="airline"
+             :label="'Airline ' + (flyerCounter + 1) + '*'"
+             id="airline"
+             type="text"
+             v-model="user.flyerNos[flyerCounter].airline"
+             :rules="exist"
+             >
 
+             </v-text-field>
+
+           </v-col>
+           <v-col md="3">
+                     
+             <v-text-field  
+            name="frequest flyer number"
+            :label="'Frequent Flyer Number' + ' ' + (flyerCounter + 1) + '*'"
+            id="frequesnt flyer number"
+            type="text"
+            v-model="user.flyerNos[flyerCounter].number"
+            :rules="exist"
+            ></v-text-field>
+         
+           </v-col>
+
+           <v-col md="6" class="flex flex-row justify-start items-center mb-4" >
+             <v-btn  class="bg-blue-darken-4 mr-4" @click="insertFlyer(flyerCounter)">
+             <v-icon>mdi-plus</v-icon>
+             </v-btn>
+     
+             <v-btn class="bg-blue-lighten-2 text-white"  @click="removeFlyer(flyerCounter)">
+             <v-icon>mdi-minus</v-icon>
+             </v-btn>
+           </v-col>
+         </v-row>
     
           </v-container >
 

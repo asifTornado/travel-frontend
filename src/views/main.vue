@@ -83,7 +83,7 @@
 
          
           <!-- <v-list-item v-if="user.userType == 'admin'"  prepend-icon="mdi-poll" title="Analytics" value="analytics" @click="router.push('/travel/analytics')">   </v-list-item> -->
-          <v-list-item v-if="user.userType == 'admin'" prepend-icon="mdi-google-analytics"  value="analytics" @click=""> Analytics </v-list-item>
+          <!-- <v-list-item v-if="user.userType == 'admin'" prepend-icon="mdi-google-analytics"  value="analytics" @click=""> Analytics </v-list-item> -->
 
         
 

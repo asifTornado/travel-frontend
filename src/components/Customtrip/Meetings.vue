@@ -22,16 +22,17 @@
     
     
                  <v-row  v-for="(meeting, meetingCounter) in meetings" :key="meetingCounter">
-                  <v-col md="3" class="mr-2">
+                  <v-col md="4" class="">
                        <v-textarea      variant="outlined"  density="compact" rows="1" v-model="meetings[meetingCounter].subject">
                                                     
                        </v-textarea>
                   </v-col>
-                  <v-col md="3" class="mr-2">
+                  <v-col md="3" class="">
                     <v-combobox
                         chips
                         multiple
                         clearable
+                        label
                         variant="outlined"
                         filter-mode="every"
                         density="compact"
@@ -41,14 +42,14 @@
                     </v-combobox>
                     
                   </v-col>
-                  <v-col md="3" class="mr-2">
+                  <v-col md="3" class="">
                     <v-textarea       variant="outlined" density="compact" rows="1" v-model="meetings[meetingCounter].agenda">
                                                     
                         </v-textarea>
                   </v-col>
                   <v-col md="2">
-                       <v-btn class="bg-blue-darken-4" @click="add(meetingCounter)"><v-icon>mdi-plus</v-icon></v-btn>
-                       <v-btn class="bg-blue-lighten-1" @click="remove(meetingCounter)" ><v-icon>mdi-minus</v-icon></v-btn>
+                       <v-btn class="bg-blue-lighten-1" @click="add(meetingCounter)"><v-icon>mdi-plus</v-icon></v-btn>
+                       <v-btn class="bg-blue-darken-4" @click="remove(meetingCounter)" ><v-icon>mdi-minus</v-icon></v-btn>
                   </v-col>
                  </v-row>
             
@@ -75,6 +76,9 @@
   
   
   var remove = (counter) => {
+    if(counter < 1){
+        return
+    }
     meetings.value.splice(counter, 1)
   }
   

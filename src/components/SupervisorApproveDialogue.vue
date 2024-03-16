@@ -2,7 +2,7 @@
 
     <v-dialog
     v-model="superVisorApproveDialogue"
-    width="400"
+    width="600"
     persistent
     
     >
@@ -17,7 +17,7 @@
         clearable
       clear-icon="mdi-close-circle"
        ></v-textarea >
-       <div v-else>
+       <div v-else class="text-h5">
           Are you sure you want to approve this request?
        </div>
       </v-card-text>

@@ -8,7 +8,7 @@
     >
    
     <v-card>
-      <v-card-text>
+      <v-card-text class="text-h5">
        Is this the best refundable economy rate ?
       </v-card-text>
       <v-card-actions class="justify-end">

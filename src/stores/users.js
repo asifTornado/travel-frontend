@@ -144,6 +144,7 @@ export const useUserStore = defineStore("users", () => {
    async function addUser(){
         var validation = await form.value.validate();
         if(validation.valid){
+            debugger
         toast.info("Adding User....")
         
         var data = new FormData()
@@ -155,7 +156,7 @@ export const useUserStore = defineStore("users", () => {
         user.value.superVisor = supervisor;
         user.value.zonalHead = zonalHead;
         user.value.travelHandler = travelHandler;
-    
+        debugger
         var data = new FormData()
         data.append("user", JSON.stringify(user.value))
         data.append("token", authStore.token)

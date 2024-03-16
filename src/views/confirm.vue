@@ -207,10 +207,8 @@
     import { useGlobalStore } from '../stores/global';
     import {storeToRefs} from 'pinia'
     import {ref, onMounted, computed} from 'vue';
-    import Quill from 'quill';
     import axios from "axios";
     
-    import Editor from 'primevue/editor';
     
     
     var route = useRoute();

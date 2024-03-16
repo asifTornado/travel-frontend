@@ -12,7 +12,7 @@
 <v-row>
     <v-col md="3">
        <v-text-field
-        label="Total Daily Allowance"
+        label="Total Daily Allowance (In Dollars)"
         v-model="requestBudget.totalDailyAllowance"
         type="text"
         density="compact"
@@ -22,7 +22,7 @@
     </v-col>
     <v-col md="3">
        <v-text-field
-        label="Emergency Fund"
+        label="Emergency Fund (In Dollars)"
         v-model="requestBudget.emergencyFund"
         type="text"
         density="compact"
@@ -32,7 +32,7 @@
     </v-col>
     <v-col md="3">
        <v-text-field
-        label="Total Budget"
+        label="Total Budget (In Dollars)"
         v-model="requestBudget.totalBudget"
         type="text"
         density="compact"
@@ -58,7 +58,7 @@
 <v-row>
     <v-col md="12">
           <v-row v-for="(breakdown, breakdownCounter) in requestBudget.breakdown" :key="breakdownCounter">
-               <v-col md="4">
+               <v-col md="2">
                    <v-text-field
                     label="Item"
                     id="id"
@@ -67,6 +67,17 @@
                     :rules="exist"
                     variant="outlined"
                     v-model="requestBudget.breakdown[breakdownCounter].item"
+                   ></v-text-field>
+               </v-col>
+               <v-col md="2">
+                   <v-text-field
+                    label="Measure"
+                    id="measure"
+                    density="compact"
+                    type="text"
+                    :rules="exist"
+                    variant="outlined"
+                    v-model="requestBudget.breakdown[breakdownCounter].measure"
                    ></v-text-field>
                </v-col>
                <v-col md="2">
@@ -100,11 +111,14 @@
                     type="text"
                     :rules="exist"
                     density="compact"
+                    class="pa-0"
                     variant="outlined"
                     v-model="requestBudget.breakdown[breakdownCounter].total"
-                   ></v-text-field>
+                   >
+           
+                </v-text-field>
                </v-col>
-               <v-col md="2" class="mt-2">
+               <v-col md="2" class="mt-1">
                        <v-btn  class="bg-blue-darken-4 mr-2" @click="add(breakdownCounter)"><v-icon>mdi-plus</v-icon></v-btn>
                        <v-btn  class="bg-blue-lighten-2 mr-2" @click="remove(breakdownCounter)"><v-icon>mdi-minus</v-icon></v-btn>
                </v-col>

@@ -3,6 +3,7 @@ import { useGlobalStore } from './global';
 import {ref, computed} from "vue"
 import Fuse from "fuse.js"
 import axios from 'axios';
+import { useTripStore } from './trips';
 import {useRouter, useRoute} from 'vue-router'
 import {useAuthStore} from "./auth"
 import { storeToRefs } from 'pinia';
@@ -16,6 +17,7 @@ import html2pdf from 'html2pdf.js';
 
 
 export const useRequestsStore = defineStore("requests", () => {
+    var tripStore = useTripStore();
     var requests = ref([])
     var myRequests = ref([])
     var request = ref()
@@ -430,7 +432,7 @@ function book(condition){
      toast.info("Seeking approval please wait")
      toast.clear()
     var data = new FormData();
-
+   debugger
 
     data.append("user", JSON.stringify(user.value))
     data.append("request", JSON.stringify(request.value))
@@ -447,10 +449,37 @@ function book(condition){
     console.log(message.value)
  
     axios.post(globalUrl.value + "supervisorApprove", data).then((result)=>{
-       if(result.data == true){
+
+         
+       
           superVisorApproveDialogue.value = false;
+          debugger
+
+          if(what == "ticket"){
+            tripStore.trip.quotations.map((quotation)=>{
+              if(quotation.linker == result.data){
+                debugger
+                quotation.approved == true;
+                return quotation
+              }else{
+                return quotation
+              }
+            })
+          }else{
+            tripStore.trip.hotelQuotations.map((quotation)=>{
+              if(quotation.linker == result.data){
+                quotation.approved == true;
+                return quotation
+              }else{
+                return quotation
+              }
+            })
+
+          }
+          toast.clear()
+          toast.success("Quotation Approved")
           router.push("/travel/requestsForMe")
-       }
+       
     }).catch((error)=>console.log(error))
  }
 

@@ -153,7 +153,7 @@
 
 
 
-<v-container class="elevation-4 mb-10">
+<v-container class="elevation-4 mb-10" align="start">
   <v-row class="bg-blue-lighten-1 pa-2">
         <v-col md="12">
             Allocated Budget
@@ -163,29 +163,30 @@
     <v-col md="2">
            Total Daily Allowance
     </v-col>
-    <v-col md="10">
+    <v-col md="2">
          {{request.requestBudget.totalDailyAllowance}}
     </v-col>
-  </v-row>
-  <v-row>
+
     <v-col md="2">
            Emergency Fund
     </v-col>
-    <v-col md="10">
+    <v-col md="2">
          {{request.requestBudget.emergencyFund}}
     </v-col>
-  </v-row>
-  <v-row>
+
+
     <v-col md="2">
            Total Budget
     </v-col>
-    <v-col md="10">
+    <v-col md="2">
          {{request.requestBudget.totalBudget}}
     </v-col>
   </v-row>
+  
+  
   <v-row>
-    <v-col md="2">
-           Notes
+    <v-col md="2" class=""  justify="start" align="start">
+        Notes
     </v-col>
     <v-col md="10">
         {{ request.requestBudget.notes }}
@@ -200,24 +201,30 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col md="3">
+          <v-col class="font-weight-bold">
                Item
           </v-col>
-          <v-col md="3">
+          <v-col class="font-weight-bold">
+            Measure
+          </v-col>
+          <v-col class="font-weight-bold">
                Quantity
           </v-col>
-          <v-col>
+          <v-col class="font-weight-bold">
             Cost
           </v-col>
-          <v-col>
+          <v-col class="font-weight-bold">
             Total
           </v-col>
         </v-row>
         <v-row v-for="(breakdown, breakdownCounter) in request.requestBudget.breakdown">
-              <v-col md="3">
+              <v-col>
                 {{ breakdown.item }}
               </v-col>
-              <v-col md="3">
+              <v-col>
+                {{ breakdown.measure }}
+              </v-col>
+              <v-col >
                    {{ breakdown.quantity }}
               </v-col>
               <v-col>

@@ -16,8 +16,8 @@
                      </v-textarea>
                 </v-col>
                 <v-col md="2">
-                     <v-btn class="bg-blue-lighten-1" @click="add(personnelCounter)"><v-icon>mdi-plus</v-icon></v-btn>
-                     <v-btn class="bg-blue-darken-4" @click="remove(personnelCounter)" ><v-icon>mdi-minus</v-icon></v-btn>
+                     <v-btn class="bg-blue-darken-4" @click="add(personnelCounter)"><v-icon>mdi-plus</v-icon></v-btn>
+                     <v-btn class="bg-blue-lighten-1" @click="remove(personnelCounter)" ><v-icon>mdi-minus</v-icon></v-btn>
                 </v-col>
                </v-row>
          
@@ -44,6 +44,9 @@ var add = (counter) => {
 
 
 var remove = (counter) => {
+  if(counter < 1 ){
+    return
+  }
   personnel.value.splice(counter, 1)
 }
 

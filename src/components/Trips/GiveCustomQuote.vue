@@ -51,13 +51,14 @@ onMounted(() => {
         '/', // Line break
         ['outdent', 'indent'],
         ['align', 'horizontalRule', 'list', 'lineHeight'],
-        ['table', 'link', 'image', 'video', 'audio' /** ,'math' */], // You must add the 'katex' library at options to use the 'math' plugin.
+        ['table', 'link',   /** ,'math' */], // You must add the 'katex' library at options to use the 'math' plugin.
         /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
-        ['fullScreen', 'showBlocks', 'codeView'],
+        ['fullScreen', ],
         ['preview', 'print'],
         ['save', 'template'],
         /** ['dir', 'dir_ltr', 'dir_rtl'] */ // "dir": Toggle text direction, "dir_ltr": Right to Left, "dir_rtl": Left to Right
     ],
+    maxCharCount:2000000000000000,
     value:contentValue.value
 
 //     callBackSave: function (contents, isChanged) {
@@ -70,9 +71,16 @@ if(suneditorholder){
     
     suneditorholder.onInput = function (e, core) { 
         tripStore.customQuote = core.getFullContents()
-
+        console.log(core.getFullContents())
         emits("textChanged", core.getFullContents())
 
+    }
+
+    suneditorholder.onPaste = function (e, cleanData, maxCharCount, core){
+        console.log("on paste called")
+        debugger
+        tripStore.customQuote = cleanData
+        emits("textChanged", cleanData)
     }
 }
 })

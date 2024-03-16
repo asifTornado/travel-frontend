@@ -8,7 +8,7 @@
       <v-card-text>
        Are you sure you want to revoke this quotation?
       </v-card-text>
-      <v-card-actions class="justify-end">
+      <v-card-actions class="justify-end text-h5">
         <v-btn color="primary"  @click="TTicketRevoke">Yes</v-btn>
         <v-btn color="primary"  @click="ticketRevokeDialog = false">No</v-btn>
       </v-card-actions>

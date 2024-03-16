@@ -30,6 +30,7 @@ var route = useRoute();
 var authStore = useAuthStore()
 
 var form = ref(null)
+var brand = ref('')
 
 var exist = ref([
     value => {
@@ -57,6 +58,7 @@ var requestBudget = ref({
   notes:'',
   breakdown:[{
     item:'',
+    measure:'',
     cost:'',
     quantity:'',
   total:''
@@ -159,7 +161,7 @@ var submit = async () => {
    accomodationRequired:accomodationRequired.value,
    startDate:startDate.value,
    endDate:endDate.value,
-   costItems:costItems.value,
+  //  costItems:costItems.value,
    date,
    activities:activities.value,
    meetings:meetings.value,
@@ -177,8 +179,9 @@ var submit = async () => {
   var requester2 = getUserByName(requester.value)
   var data = new FormData();
   data.append("request", JSON.stringify(request))
-  data.append("user", JSON.stringify(authStore.user))
+  data.append("user", JSON.stringify(requester2))
   data.append("token", authStore.token)
+  data.append("brand", brand.value)
   
   console.log("these are the data being sent")
   console.log(data)
@@ -431,6 +434,7 @@ return {
     form,
     exist,
     request,
+    brand,
     departmentHeadApproveTrip,
     departmentHeadRejectTrip,
     DepartmentHeadPermanentlyRejectTrip,

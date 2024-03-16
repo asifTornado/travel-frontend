@@ -16,7 +16,7 @@
         clearable
       clear-icon="mdi-close-circle"
        ></v-textarea >
-       <div v-else>
+       <div v-else class="text-h5">
           Are you sure you want to approve this request?
        </div>
       </v-card-text>

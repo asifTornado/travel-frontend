@@ -111,6 +111,7 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
     
     
     var ticketQuotationsProcessingComplete = () => {
+        debugger
         toast.info("Completing Ticket Quotations Payment Process. Please Wait...")
         var data = new FormData();
         data.append("user", JSON.stringify(authStore.user))
@@ -119,6 +120,7 @@ export const useTicketQuotationsStore = defineStore("ticketQuotations", () => {
     
     
         axios.post(globalUrl.value + "ticketQuotationsProcessingComplete", data).then((result)=>{
+            debugger
             trip.value.currentHandlerId = result.data;
             trip.value.ticketsApprovedByAccounts = true;
 

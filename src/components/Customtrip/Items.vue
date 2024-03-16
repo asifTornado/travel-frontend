@@ -41,6 +41,9 @@
   
   
   var remove = (counter) => {
+    if(counter < 1){
+        return
+    }
     debugger
     items.value.splice(counter, 1)
   }

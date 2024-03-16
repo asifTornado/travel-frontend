@@ -241,6 +241,17 @@
                 
                 ></v-select>
               </v-col>
+
+              <v-col  md="3">
+                <v-text-field  
+               name="Password"
+               label="Password*"
+               id="Password"
+               type="text"
+               :rules="exist"
+               v-model="user.password"
+               ></v-text-field>
+              </v-col>
             </v-row>
           </v-container >
 
@@ -259,12 +270,13 @@
               </v-col>
             </v-row>
 
-
+            
             <v-row>
               <v-col cols="12" md="12">
                  <v-autocomplete label="User's Travel Manager*" :items="mappedUsers"  :rules="exist" v-model="user.travelHandler"></v-autocomplete>
               </v-col>
             </v-row>
+          
           </v-container>
     
     

@@ -194,7 +194,7 @@ function resetBudget(){
 var getBudgets = () => {
   var data = new FormData();
     data.append("token", token.value)
-    axios.post(globalUrl.value + "getBudgets").then((result)=>{
+    axios.post(globalUrl.value + "getBudgets", data).then((result)=>{
         budgets.value = result.data
         filteredBudgets.value = result.data
         fuse.value = new Fuse(result.data, options.value)

@@ -2,17 +2,12 @@ import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
 import router from './router/index'
-import Vueform from '@vueform/vueform'
-import vueformConfig from './../vueform.config'
 import { createPinia } from 'pinia'
-import VueApexCharts from "vue3-apexcharts";
 import loader from "./components/Loader.vue"
-import {useRouter} from "vue-router";
 
 // import Editor from 'vue-editor-js'
 
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-import 'quill/dist/quill.snow.css';
 
 import ToastPlugin from 'vue-toast-notification';
 // Import one of the available themes

@@ -14,7 +14,6 @@ import axios from 'axios';
 
 import {useRouter, useRoute} from 'vue-router'
 import { useAuthStore } from './auth';
-import { globalEventBus } from 'vue-toastification';
 
 
 
@@ -293,12 +292,12 @@ var emailRequest = () => {
     toast.info("Mailing please wait...")
 
     var data = new FormData();
-    data.append("recipient", emailRecipient.value)
+    // data.append("recipient", emailRecipient.value)
     data.append("user", JSON.stringify(authStore.user))
     data.append("request", JSON.stringify(request.value))
     data.append("userId", authStore.user._id)
     data.append("whom", "accounts")
-    data.append("type", type.value)
+    data.append("type", "all")
     data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "emailRequest", data).then((result)=>{
@@ -327,13 +326,15 @@ var openEmailDialogCustom = (request2) => {
 
 
 var complete = (request2) => {
+    debugger
    var data = new FormData();
    data.append("token", authStore.token)
    data.append("request", JSON.stringify(request2))
    data.append("userId", authStore.user._id)
-   data.append("token", authStore.token)
+
 
    axios.post(globalUrl.value + "processed", data).then((result)=>{
+       trip.value.requests = trip.value
        location.reload()
     }).catch((error)=>console.log(error))
 }
@@ -827,6 +828,7 @@ var showTrip = (id) => {
  }
 
 var TAddCustomQuote = (what) => {
+    debugger
     toast.info("Adding custom quote please wait")
     var data = new FormData()
     data.append("token", authStore.token)
@@ -1171,6 +1173,7 @@ var sendToAccounts = () => {
     var data = new FormData();
     data.append("budget", JSON.stringify(trip.value))
     data.append("token", authStore.token)
+    data.append("user", JSON.stringify(authStore.user))
 
     axios.post(globalUrl.value + "sendToAccounts", data).then((result)=>{
         if(result.data == true){

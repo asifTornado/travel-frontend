@@ -695,16 +695,11 @@ class="align-center justify-center w-full"
     <script setup>
     
     
-    import {ref, onMounted} from 'vue'
-    import {useRoute, useRouter} from 'vue-router'
     import { useGlobalStore } from '../stores/global';
     import { useAuthStore } from '../stores/auth';
     import { useLogStore } from '../stores/log';
     import { storeToRefs } from 'pinia';
    
-    import {useToast} from "vue-toast-notification";
-    import Quill from 'quill';
-    import axios from "axios"
     import Editor from '../components/editor.vue'
     import { useRequestsStore } from '../stores/request';
     import BookDialog from "../components/bookDialog.vue"
