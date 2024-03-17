@@ -12,6 +12,7 @@
         :items="adminCodes"
         @keyup.enter="open"
         
+        
         item-title="code"
               item-value="code"
         append-icon="mdi-arrow-right-bold-outline"
@@ -67,11 +68,18 @@
 
 
 <script setup>
-import {ref} from "vue"
+import {ref, onMounted} from "vue"
 import {useCodeStore} from '../stores/codes'
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/auth";
+
+onMounted(()=>{
+  var elements = document.querySelectorAll("input")
+  for(var element of elements){
+    element.setAttribute("autocomplete", "off")
+  }
+})
 
 
 var {user} = storeToRefs(useAuthStore())
@@ -89,3 +97,5 @@ var open = () =>{
 
 
 </script>
+
+

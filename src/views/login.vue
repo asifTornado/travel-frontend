@@ -3,7 +3,7 @@
     <div v-if="mappedUserEmails" class=" w-full h-full flex flex-row justify-center items-start    ml-[50px] bg-blue-lighten-5 pa-10"   id="login">
    
  <div class="flex flex-col"> 
-  <img src="../assets/front.png" class=" mt-10 mr-24 " style="filter:grayscale(0.4)" alt="" srcset="">
+  <img src="../assets/front.png" class=" mt-10 mr-24 plane" style="filter:grayscale(0.4)" alt="" srcset="">
 <div class="text-[60px] bg-red-darken-4 mt-10 mr-15 font-bold text-white ">Travel </div>
 <div class="text-[60px]    bg-blue-darken-4  mr-15 font-bold text-white mt-0 ">Management </div>
 
@@ -42,12 +42,13 @@
         id="id"
         type="password"
         v-model="password"
+        variant="outlined"
       ></v-text-field>
     
      </div>
     </div>
   
-  <div class="flex items-center px-4 justify-between"><button @click="login" class="bg-blue-darken-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">Submit</button></div>
+  <div class="flex items-center px-4 justify-between"><button @click="takeOff" class="bg-blue-darken-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">Submit</button></div>
   <hr class="border border-solid border-slate-200 mb-5  flex flex-row justify-center items-center ml-5 mt-5" style="width:90%"/>
   
   
@@ -86,7 +87,12 @@
   var {mappedUserEmails} = storeToRefs(useUserStore())
   var {user, email, password} = storeToRefs(useAuthStore())
 
-
+  var takeOff = () => {
+    var plane = document.querySelector(".plane")
+    plane.style.display = "fixed"
+    plane.style.top = "0px"
+    login()
+  }
    
 
   

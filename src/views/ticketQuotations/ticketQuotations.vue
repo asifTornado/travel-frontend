@@ -222,7 +222,7 @@
             
                   <v-col md="12" >
                   
-                             <div v-html="quotation.quotationText"></div>
+                             <div class="quotation" v-html="quotation.quotationText"></div>
                                                    
                   </v-col>
                
@@ -344,8 +344,22 @@
 
 <v-container class="mt-2 border-2 border-solid border-black" v-if="trip.ticketsMoneyDisbursed == true">
 
-   
-               
+   <div class="grid grid-cols-6 grid-rows-1">
+    
+   <div class="text-end text-md font-bold">Amount Disbursed:</div>
+   <div>{{ trip.amountDisbursedTickets }}</div>
+
+   <div class="text-end text-md font-bold">Acount Number:</div>
+   <div>{{ trip.ticketsAccountNumber }}</div>
+
+   <div class="text-end text-md font-bold">Account Holder's Name:</div>
+   <div>{{ trip.ticketsAccountHolderName }}</div>
+
+   </div>            
+
+
+
+<!--                
                <v-table>
                   <thead class="bg-blue-darken-2 ">
                      <th class="pa-4 text-h6">Amount Disbursed</th>
@@ -359,7 +373,7 @@
                         <td>{{ trip.ticketsAccountHolderName }}</td>
                      </tr>
                   </tbody>
-               </v-table>
+               </v-table> -->
  
          
       
@@ -525,3 +539,15 @@
     
     
     </script>
+
+
+   <style scoped>
+.quotation{
+  
+
+   overflow-x: auto;
+   overflow-y:auto 
+   
+}
+   
+   </style>

@@ -9,13 +9,13 @@ class="align-center justify-center w-full pa-10"
 >
 
 
-  <v-icon style="position:absolute; top:0px; right:10px" class="hover:cursor-pointer font-weight-bold" @click="hotelQuotationDialog = false">
+  <v-icon style="position:absolute; top:0px; right:10px" class="hover:cursor-pointer  font-weight-bold" @click="hotelQuotationDialog = false">
     mdi-close
   </v-icon>
 
 
 
-<div class="w-[90vw] bg-grey-lighten-4 h-[95vh]  p-[10px] flex ml-15 flex-col  elevation-10">
+<div class="w-[88vw] bg-grey-lighten-4 h-[95vh]  p-[10px] flex ml-15 flex-col  elevation-10 ">
     
     
     

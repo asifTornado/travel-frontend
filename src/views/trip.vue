@@ -76,6 +76,8 @@
            {{ trip.arrival_date }}
         </v-col>
      </v-row>
+
+     <template v-if="trip.custom == false">
      <v-row class="pl-[80px]">
         <v-col md="6" class="text-left">
            Total Number Of Travelers
@@ -151,6 +153,8 @@
            {{ trip.totalTripBudget }}
         </v-col>
      </v-row>
+
+   </template>
    
     </v-card>
 
@@ -318,9 +322,9 @@ Ticket Quotations
       </v-row>
            <v-row class="border-2 border-solid p-4">
         
-              <v-col md="12" >
+              <v-col md="12"  >
               
-                         <div style="" class="" v-html="quotation.quotationText" ></div>
+                         <div  class="quotation" v-html="quotation.quotationText" ></div>
                                                
               </v-col>
            
@@ -470,7 +474,7 @@ class="align-center justify-center w-full  border-2 border-solid border-black"
 <v-container>
 <v-row>
 <v-col cols v-for="(request, requestCounter) in trip.requests" :key="requestCounter">
-   <v-checkbox v-if="request.supervisorApproved == true" :label="request.requester.empName" @change="addOrRemoveTraveler($event, request)" :value="request._id" v-model="ticketQuotationSelection"></v-checkbox>
+   <v-checkbox v-if="request.supervisorApproved == true && request.departmentHeadApproved == true" :label="request.requester.empName" @change="addOrRemoveTraveler($event, request)" :value="request._id" v-model="ticketQuotationSelection"></v-checkbox>
 </v-col>
 <v-col cols>
    <v-checkbox v-if="trip.requests.filter(x => x.supervisorApproved == true && x.departmentHeadApproved == true).length > 1" label="All" value="All" @change="ticketQuotationAll"></v-checkbox>
@@ -567,21 +571,18 @@ class="align-center justify-center w-full  border-2 border-solid border-black"
 
    
                
-               <v-table>
-                  <thead class="bg-blue-darken-2 ">
-                     <th class="pa-4 text-h6">Amount Disbursed</th>
-                     <th class="pa-4 text-h6">Account Number</th>
-                     <th class="pa-4 text-h6">Account Holder's Name</th>
-                  </thead>
-                  <tbody>
-                     <tr>
-                        <td>{{ trip.amountDisbursedTickets }}</td>
-                        <td>{{ trip.ticketsAccountNumber }}</td>
-                        <td>{{ trip.ticketsAccountHolderName }}</td>
-                     </tr>
-                  </tbody>
-               </v-table>
+   <div class="grid grid-cols-6 grid-rows-1">
+    
+    <div class="text-end text-md font-bold">Amount Disbursed:</div>
+    <div>{{ trip.amountDisbursedTickets }}</div>
  
+    <div class="text-end text-md font-bold">Acount Number:</div>
+    <div>{{ trip.ticketsAccountNumber }}</div>
+ 
+    <div class="text-end text-md font-bold">Account Holder's Name:</div>
+    <div>{{ trip.ticketsAccountHolderName }}</div>
+ 
+    </div>  
          
       
 
@@ -620,9 +621,9 @@ Hotel Quotations
       </v-row>
        <v-row>
     
-          <v-col md="12" class="border-2 border-solid p-4" >
+          <v-col md="12" class="border-2 border-solid p-4 h-[100%] overflow-y-auto" >
          
-                     <div v-html="quotation.quotationText"></div>
+                     <div class="quotation" v-html="quotation.quotationText"></div>
                                            
           </v-col>
        
@@ -776,7 +777,7 @@ class="align-center justify-center w-full border-2 border-solid border-black"
 <v-container>
 <v-row>
 <v-col cols v-for="(request, requestCounter) in trip.requests" :key="requestCounter">
-   <v-checkbox v-if="request.supervisorApproved == true && request.confirmed == true" @change="addOrRemoveTraveler($event, request)" :label="request.requester.empName" :value="request._id" v-model="ticketQuotationSelection"></v-checkbox>
+   <v-checkbox v-if="request.supervisorApproved == true && request.confirmed == true && request.departmentHeadApproved == true" @change="addOrRemoveTraveler($event, request)" :label="request.requester.empName" :value="request._id" v-model="ticketQuotationSelection"></v-checkbox>
 </v-col>
 <v-col cols>
    <v-checkbox label="All" v-if="trip.requests.filter(x => x.supervisorApproved == true && x.departmentHeadApproved == true).length > 1" value="All" @change="ticketQuotationAll"></v-checkbox>
@@ -1094,3 +1095,17 @@ quoteGiver, hotelQuotationDialog, showLogs, customHotelOverlay, travelerCosts} =
 
 
 </script>
+
+
+
+<style >
+.quotation{
+  
+
+   overflow-x: auto;
+   overflow-y:auto 
+   
+}
+
+
+</style>

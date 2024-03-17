@@ -52,6 +52,10 @@ function removeFlyer(counter){
  
  function login(){
   var router = useRouter()
+
+
+
+
   debugger
     toast.info("Loging in please wait.....")
     var data = new FormData();
@@ -59,10 +63,17 @@ function removeFlyer(counter){
     data.append("password", password.value);
    
 
-    
+    var plane = document.querySelector(".plane");
+    plane.style.display = "fixed";
+    plane.style.top = "0px";
   
     axios.post(globalUrl.value + "login", data).then((result) =>{
-            if(result.data.success ==  true){   
+            if(result.data.success ==  true){  
+              
+             
+            
+
+
               debugger
                toast.clear()
                toast.success("Success")

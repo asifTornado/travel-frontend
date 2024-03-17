@@ -536,7 +536,7 @@ var generateCustomQuoteString = () => {
         debugger
 
         var newString =  `
-        <div>
+        <div style="margin-top:30px">
         <span>${request.name}</span>
         <span>${request.totalcost} </span>
         </div>
@@ -547,7 +547,7 @@ var generateCustomQuoteString = () => {
     }
      
     var totalCostString = `
-    <div>
+    <div style="margin-top:30px">
     <span>Total Cost</span>
     <span>${totalCosts} </span>
     </div>
@@ -568,7 +568,7 @@ var generateQuoteString = () => {
         var total = hotel.numberOfRooms * hotel.actual_rate
         grandTotal += total;
         var string = `
-        <div style="border:2px solid black; padding:10px; margin-bottom:10px">
+        <div style="border:2px solid black; padding:10px; margin-bottom:40px">
         <div style="font-weight:bold"><span>Hotel</span> ${hotel.hotel}</div>      
         
         <div>
@@ -586,7 +586,7 @@ var generateQuoteString = () => {
     }
    
    
-    var grandTotalString = `<div>
+    var grandTotalString = `<div style="margin-top:30px">
     <div>  
  <span style=" font-weight:bold">Grand Total</span>
  <span>${grandTotal}</span>
@@ -599,7 +599,7 @@ var generateQuoteString = () => {
     for(var request of travelerCosts.value){
         debugger
         var newString =  `
-        <div>
+        <div style="margin-top:30px">
         <span style=" font-weight:bold">${request.name}</span>
         <span>${request.totalcost} </span>
         </div>

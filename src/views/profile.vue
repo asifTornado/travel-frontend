@@ -11,60 +11,65 @@
         <div class='flex flex-col w-full   pa-1  bg-white shadow-md shadow-black ' v-if="authStore.user">
         
             
-                <div class=" mt-5 text-black  w-full flex flex-row">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Name:</div>
-                   
-                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ authStore.user.empName }}</div>
-                </div>
-    
-    
                 <div class=" mt-5 text-black  w-full flex flex-row ">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Official Email:</div>
+                    <div  class='w-44  mr-10 items-center flex flex-row ml-2 justify-start font-bold'>Name:</div>
                    
-                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ authStore.user.mailAddress }}</div>
-                </div>
-    
-    
-                <div class=" mt-5 text-black  w-full flex flex-row">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Department:</div>
-                   
-                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ authStore.user.department }}</div>
-                </div>
-    
-                <div class=" mt-5 text-black  w-full flex flex-row">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Designation:</div>
-                   
-                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ authStore.user.designation }}</div>
-                </div>
-    
-    
-                <div class=" mt-5 text-black  w-full flex flex-row">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Section:</div>
-                   
-                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'>{{ authStore.user.section }}</div>
-                </div>
-    
-    
-                <div class=" mt-5 text-black  w-full flex flex-row">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Unit:</div>
-                   
-                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9  p-1'> {{ authStore.user.unit }}</div>
-                </div>
+                     <div class='w-8/12 items-center flex flex-row justify-start rounded-md h-9  p-1'> {{ authStore.user.empName }}</div>
 
 
-                <div class=" mt-5 text-black  w-full flex flex-row">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Location:</div>
+                     <div for="" class='w-44 items-center  mr-10 flex flex-row justify-center font-bold'>Official Email:</div>
+                   
+                     <div class='w-8/12  items-center flex flex-row justify-start rounded-md h-9  p-1'> {{ authStore.user.mailAddress }}</div>
+
+
+                     <div for="" class='w-44   mr-10 flex flex-row items-center justify-center font-bold'>Department:</div>
+                   
+                     <div class='w-8/12 flex flex-row justify-start rounded-md h-9 items-center  p-1'> {{ authStore.user.department }}</div>
+
+                     
+                </div>
+    
+    
+            
+    
+                <div class=" mt-5 text-black  w-full flex flex-row justify-start mt-10 ">
+                    <div for="" class='w-44 items-center  mr-10 flex flex-row ml-2 justify-start font-bold'>Designation:</div>
+                   
+                     <div class='w-8/12 flex flex-row justify-start items-center rounded-md h-9  p-1'> {{ authStore.user.designation }}</div>
+
+
+                     <div for="" class='w-44 items-center text-end mr-10 flex flex-col justify-center font-bold'>Section:</div>
+                   
+                     <div class='w-8/12 flex flex-row justify-start items-center rounded-md h-9  p-1'>{{ authStore.user.section }}</div>
+
+
+                     <div for="" class='w-44  items-center text-end mr-10 flex flex-row justify-start font-bold'>Unit:</div>
+                   
+                     <div class='w-8/12 flex flex-row justify-start items-center rounded-md h-9  p-1'> {{ authStore.user.unit }}</div>
+                </div>
+    
+    
+            
+    
+    
+             
+
+
+                <div class=" mt-5 text-black  w-full flex flex-row mt-10">
+                    <div for="" class='w-44 items-center  flex flex-row justify-start ml-2 font-bold'>Location:</div>
                    
                      <select class='w-8/12 rounded-md h-9  p-1 border border-solid border-black'  v-model="authStore.user.location" >
                     <option v-for="(location, locationCounter) in locations" :value="location.name">{{ location.name }}</option>
                     </select>
+
+                    
                 </div>
     
     
     
     
                 <div class=" mt-5 text-black  w-full flex flex-row">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Phone Number:</div>
+                    <div for="" class='w-44  items-center flex flex-row justify-start ml-2 font-bold'>Phone Number:</div>
                    
                      <input class='w-8/12 rounded-md h-9  p-1 border border-solid border-black'  v-model="authStore.user.mobileNo" />
                 </div>
@@ -72,7 +77,7 @@
     
                 
                 <div class=" mt-5 text-black  w-full flex flex-row">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Extension Number:</div>
+                    <div for="" class='w-44  items-center flex flex-row justify-start ml-2 font-bold'>Extension Number:</div>
                    
                     <input class='w-8/12 rounded-md h-9 border border-solid border-black p-1'  v-model="authStore.user.extension" />
                 </div>
@@ -80,14 +85,14 @@
 
                       
                 <div class=" mt-5 text-black  w-full flex flex-row">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Passport Number:</div>
+                    <div for="" class='w-44  items-center flex flex-row justify-start ml-2 font-bold'>Passport Number:</div>
                    
                     <input class='w-8/12 rounded-md h-9 border border-solid border-black p-1'  v-model="authStore.user.passportNo" />
                 </div>
 
 
                 <div class=" mt-5 text-black  w-full flex flex-row">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Has Frequent Flyer Number:</div>
+                    <div for="" class='w-44 items-center   flex flex-row justify-start ml-2 font-bold'>Has Frequent Flyer Number:</div>
                    <select name="" id="" @change="addFlyer" v-model="authStore.user.hasFrequentFlyerNo" class='w-8/12 rounded-md h-9  p-1 border border-solid border-black'>
                       <option value="Yes">
                              Yes
@@ -114,18 +119,18 @@
 
 
                 <div class=" mt-5 text-black  w-full flex flex-row">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-start font-bold'>User Type:</div>
+                    <div for="" class='w-44   flex flex-row justify-start items-center ml-2 font-bold'>User Type:</div>
                    
-                     <div class="flex flex-row justify-start rounded-md h-9  p-1"> {{authStore.user.userType == "leader" ? "Ticket Manager" : authStore.user.userType }}</div>
+                     <div class="flex flex-row justify-start rounded-md h-9  p-2"> {{authStore.user.userType == "leader" ? "Ticket Manager" : authStore.user.userType }}</div>
                 </div>
     
     
     
                 <div class=" mt-5 text-black  w-full flex flex-row">
-                    <div for="" class='w-44 text-end mr-10 flex flex-col justify-center font-bold'>Password:</div>
+                    <div for="" class='w-44   flex flex-row justify-start ml-2 font-bold items-center'>Password:</div>
                    
                  <div class="flex flex-row justify-start  items-center w-8/12 rounded-md h-9  p-1">
-                         <input v-model="authStore.user.password" type="password" class="border border-solid border-black" id="password" /> <v-icon icon="mdi-eye" class="ml-2" @click="togglePassword()" id="eye"></v-icon>
+                         <input v-model="authStore.user.password" type="password" class="border border-solid border-black p-2" id="password" /> <v-icon icon="mdi-eye" class="ml-2" @click="togglePassword()" id="eye"></v-icon>
                        
                  </div>
 
