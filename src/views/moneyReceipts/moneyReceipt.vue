@@ -178,7 +178,7 @@
          
                 <v-text-field
                     name="name"
-                    v-bind:readonly="checkIfAccounts() ? false : true"
+                    v-bind:readonly="checkIfAccountsAndNotGiven() ? false : true"
                     
                     density="compact"
                     v-model="moneyReceipt.serialNo"
@@ -311,7 +311,7 @@ import MoneyReceiptMoneyDisburse from '../../components/MoneyReceiptMoneyDisburs
     
     var {moneyReceipt, disburseDialog} = storeToRefs(useMoneyReceiptStore())
     var checkIfAccounts = () => moneyReceipt.value.currentHandlerId == user.value._id && moneyReceipt.value.supervisorApproved == true && moneyReceipt.value.processed == false
-    
+    var checkIfAccountsAndNotGiven = () => moneyReceipt.value.currentHandlerId == user.value._id && moneyReceipt.value.supervisorApproved == true && moneyReceipt.value.processed == false
 
     var showTripInformation = () => {
         {

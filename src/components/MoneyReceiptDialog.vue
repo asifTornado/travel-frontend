@@ -160,7 +160,7 @@
         </v-row>
 
 
-        <v-row  no-gutters  align="center">
+        <!-- <v-row  no-gutters  align="center">
             <v-col md="7" justify="center" items="center" align="center">
                     <span class="text-body-1">These Purposes are Entered in Movement Register at Serial No:</span>
             </v-col>
@@ -182,7 +182,7 @@
         
           
           
-        </v-row>
+        </v-row> -->
 
      </v-container>
       </v-card-text>

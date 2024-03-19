@@ -393,6 +393,7 @@ var uploadVoucher = (event, counter) => {
 }
 
 var disburse = () => {
+  debugger
   toast.info("Disbursing Payment, please wait...")
   var data = new FormData();
   data.append("amount", disburseAmount.value);

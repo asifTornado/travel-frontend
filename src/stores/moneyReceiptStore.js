@@ -260,6 +260,7 @@ var moneyReceiptForward = () => {
     next.value = users.value.filter((x)=> x.mailAddress == selectedUserEmail.value)[0]
     data.append("next", next.value._id)
     data.append("token", authStore.token)
+    data.append("serial", moneyReceipt.serialNo)
 
     axios.post(globalUrl.value + "moneyReceiptForward", data).then((result)=>{
         moneyReceipt.value = result.data
@@ -277,6 +278,7 @@ var moneyReceiptBackWard = () => {
     data.append("user", JSON.stringify(authStore.user))
     data.append("id", moneyReceipt.value._id)
     data.append("token", authStore.token)
+    data.append("serial", moneyReceipt.serialNo)
 
 
     axios.post(globalUrl.value + "moneyReceiptBackWard", data).then((result)=>{
@@ -295,6 +297,7 @@ var moneyReceiptProcessingComplete = () => {
     data.append("user", JSON.stringify(authStore.user))
     data.append("id", moneyReceipt.value._id)
     data.append("token", authStore.token)
+    data.append("serial", moneyReceipt.serialNo)
 
 
     axios.post(globalUrl.value + "moneyReceiptProcessingComplete", data).then((result)=>{

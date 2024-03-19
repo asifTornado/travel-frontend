@@ -66,18 +66,22 @@ import {useExpenseReportStore} from '../stores/expenseReport'
 import { useGlobalStore } from '../stores/global';
 import {storeToRefs} from "pinia"
 import { useToast } from 'vue-toast-notification';
+import { useAuthStore } from '../stores/auth';
 import axios from "axios";
 
 
 var toast = useToast()
 var {expenseReport, disburseDialog} = storeToRefs(useExpenseReportStore())
 var {globalUrl} = storeToRefs(useGlobalStore())
+var authStore = useAuthStore()
+
 
 var disburse = () => {
     debugger
     toast.info("Disbursing Amount Please Wait...")
     var data = new FormData()
     data.append("expenseReport", JSON.stringify(expenseReport.value))
+    data.append("token", authStore.token)
 
     axios.post(globalUrl.value + "expenseReportMoneyDisburse", data).then((result) =>{
         expenseReport.value = result.data

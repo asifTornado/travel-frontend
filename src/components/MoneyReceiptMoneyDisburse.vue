@@ -75,11 +75,12 @@ import { useMoneyReceiptStore } from '../stores/moneyReceiptStore';
 import { useGlobalStore } from '../stores/global';
 import {storeToRefs} from "pinia"
 import { useToast } from 'vue-toast-notification';
+import { useAuthStore } from '../stores/auth';
 import axios from 'axios'
 
 var toast = useToast()
 var {globalUrl} = storeToRefs(useGlobalStore())
-
+var authStore = useAuthStore()
 var {moneyReceipt, disburseDialog} = storeToRefs(useMoneyReceiptStore())
 
 
@@ -94,6 +95,8 @@ var disburse = () => {
     toast.info("Disbursing Amount Please Wait...")
     var data = new FormData()
     data.append("moneyReceipt", JSON.stringify(moneyReceipt.value))
+    data.append("user", JSON.stringify(authStore.user))
+    data.append("serial", moneyReceipt.serialNo)
 
     axios.post(globalUrl.value + "moneyReceiptMoneyDisburse", data).then((result) =>{
         moneyReceipt.value = result.data
