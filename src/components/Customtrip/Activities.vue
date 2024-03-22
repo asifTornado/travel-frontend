@@ -12,7 +12,7 @@
             <v-col md="2">
                    Date
             </v-col>
-            <v-col md="7">
+            <v-col md="8">
                  Activity
             </v-col>
         </v-row>
@@ -24,7 +24,7 @@
                   
             </v-col>
             <v-spacer></v-spacer>
-            <v-col md=7>
+            <v-col md="8">
                 <v-textarea  variant="outlined" rows="1" density="compact" auto-grow v-model="activities[activityCounter].description" />
 
                 </v-col>

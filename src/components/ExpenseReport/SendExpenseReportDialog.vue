@@ -72,9 +72,9 @@
                     </v-text-field>
                 </v-col>
                 <v-col md="2"  class="text-center font-weight-bold">
-                     <v-text-field density="compact" type="text" v-model="expenses[expenseCounter].expenseType">
+                     <v-combobox density="compact" type="text" v-model="expenses[expenseCounter].expenseType" :items="helperStore.expenseTypes">
                         
-                    </v-text-field>
+                     </v-combobox>
                 </v-col>
                 <v-col md="2" class="text-center font-weight-bold">
                     <v-textarea density="compact" rows="1" auto-grow v-model="expenses[expenseCounter].description">
@@ -139,9 +139,11 @@ import {ref, provide} from "vue"
 import ExpenseReportProceedDialog from './ExpenseReportProceedDialog.vue';
 import { useUserStore } from '../../stores/users';
 import { useAuthStore } from '../../stores/auth';
+import {useHelperStore} from "../../stores/helper";
 
 
 
+var helperStore = useHelperStore()
 
 var showProceedDialog = ref()
 

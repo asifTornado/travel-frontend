@@ -25,6 +25,15 @@ var travelMode = ref([
 ])
 
 
+var expenseTypes = ref([
+    "hotel",
+    "transport",
+    "air-ticket",
+    "incidental",
+    "miscellaneuous"
+])
+
+
 var initiatedValues = ref([
     "Yes",
     "No"
@@ -50,7 +59,8 @@ var userTypes = ref([
 return {
     travelMode,
     initiatedValues,
-    userTypes
+    userTypes,
+    expenseTypes
 }
 
 })

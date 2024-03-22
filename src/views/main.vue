@@ -311,7 +311,7 @@
         </v-card-actions>
       </v-card>
     </v-menu>
-
+    <v-list-item  prepend-icon="mdi-account-multiple" title="Reports" value="Reports" @click="router.push('/travel/reports')">   </v-list-item>
 
         </v-list>
       </v-navigation-drawer>
