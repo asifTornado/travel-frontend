@@ -202,6 +202,9 @@
         </v-row>
         <v-row>
           <v-col class="font-weight-bold">
+               Expense Type
+          </v-col>
+          <v-col class="font-weight-bold">
                Item
           </v-col>
           <v-col class="font-weight-bold">
@@ -218,6 +221,9 @@
           </v-col>
         </v-row>
         <v-row v-for="(breakdown, breakdownCounter) in request.requestBudget.breakdown">
+          <v-col>
+                {{ breakdown.expenseType }}
+              </v-col>
               <v-col>
                 {{ breakdown.item }}
               </v-col>

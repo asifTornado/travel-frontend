@@ -311,8 +311,8 @@ Ticket Quotations
 
       <v-col md="5"    v-for="(quotation, quotationCounter) in trip.quotations" :key="quotationCounter" class="relative mr-5 mt-5   pa-10 bg-white   mb-10   shadow-md shadow-black"  >
   
-      <v-row>
-              <v-col md="12" class="bg-blue-darken-1 border-2  border-solid  font-bold text-xl text-white ">{{ quotation.quoteGiver }}</v-col>
+      <v-row class="">
+              <v-col md="12" class="bg-blue-darken-1 border-2  border-solid  font-bold text-xl text-white pa-1 mb-1">{{ quotation.quoteGiver }}</v-col>
            </v-row>
 
       <v-row>

@@ -59,6 +59,16 @@
     <v-col md="12">
           <v-row v-for="(breakdown, breakdownCounter) in requestBudget.breakdown" :key="breakdownCounter">
                <v-col md="2">
+                <v-select
+                    label="Expense Type"
+                    :items="helperStore.expenseTypes"
+                    v-model="requestBudget.breakdown[breakdownCounter].expenseType"
+                    autocomplete
+                    variant="outlined"
+                    density="compact"
+                ></v-select>
+               </v-col>
+               <v-col md="2">
                    <v-text-field
                     label="Item"
                     id="id"
@@ -80,7 +90,7 @@
                     v-model="requestBudget.breakdown[breakdownCounter].measure"
                    ></v-text-field>
                </v-col>
-               <v-col md="2">
+               <v-col md="1">
                    <v-text-field
                     label="Quantity"
                     id="id"
@@ -118,9 +128,9 @@
            
                 </v-text-field>
                </v-col>
-               <v-col md="2" class="mt-1">
-                       <v-btn  class="bg-blue-darken-4 mr-2" @click="add(breakdownCounter)"><v-icon>mdi-plus</v-icon></v-btn>
-                       <v-btn  class="bg-blue-lighten-2 mr-2" @click="remove(breakdownCounter)"><v-icon>mdi-minus</v-icon></v-btn>
+               <v-col md="1" class="">
+                       <v-btn  class="bg-blue-darken-4 mr-2" size="extra-small" @click="add(breakdownCounter)"><v-icon>mdi-plus</v-icon></v-btn>
+                       <v-btn  class="bg-blue-lighten-2 mr-2" size="extra-small" @click="remove(breakdownCounter)"><v-icon>mdi-minus</v-icon></v-btn>
                </v-col>
           </v-row>
     </v-col>
@@ -140,12 +150,14 @@
   import { useCustomStore } from '../../stores/custom';
   import {Events} from "../../stores/events";
   import { useAuthStore } from "../../stores/auth";
+  import {useHelperStore} from "../../stores/helper"
 
 
 
   var {request, requestBudget, exist} = storeToRefs(useCustomStore())
   var {approve, reject, permanentlyReject} =  useCustomStore()
   var {user} = storeToRefs(useAuthStore())
+  var helperStore = useHelperStore()
 
 
   var add = (counter) => {

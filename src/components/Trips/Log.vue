@@ -26,7 +26,7 @@
     
        
     
-       <v-row class="shadow-sm shadow-black ">
+       <v-row class="bg-black text-white ">
          <v-col md="1" class="text-sm font-bold">
             Serial
          </v-col>
@@ -47,7 +47,7 @@
          </v-col>
        </v-row>
     
-       <v-row v-for="(log, logCounter) in logs" class="shadow-sm shadow-black">
+       <v-row v-for="(log, logCounter) in logs" class="border border-solid border-black">
           <v-col md="1" class="text-sm">
             {{ logCounter + 1 }}
           </v-col>
