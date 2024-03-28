@@ -2,9 +2,9 @@
 
 <div class="h-screen w-screen bg-blue-500">
 
-<div class="h-auto pb-[200px] w-screen bg-blue-50  flex flex-col mt-[50px] items-center" v-if="reportStore.report">
+<div class="h-auto pb-[200px] w-screen bg-blue-50  flex flex-col mt-[50px] items-center " v-if="reportStore.report">
 
-    <div class="w-[90vw] h-auto grid grid-cols-8 grid-rows-6 gap-1 bg-white">
+    <div class="w-[90vw] h-auto grid grid-cols-8 grid-rows-6 gap-1 bg-white border-black border border-solid">
         <div class="col-span-8 mb-[20px] text-xl font-bold bg-blue-500 text-white p-1">
             Budget Information       </div>
         <div class="col-span-2 grid grid-cols-2 grid-rows-1 ">
@@ -122,8 +122,8 @@
 
     </div>
 
-    <div  class="mt-[5vh] w-[90vw] h-[70vh] grid grid-cols-4 grid-rows-8 gap-1 bg-white" v-for="(request, requestCounter) in reportStore.report.requests" :key="requestCounter">
-        <div class="col-span-4 row-start-1 mb-[20px] text-xl font-bold bg-blue-500 text-white p-1">
+    <div  class="mt-[5vh] w-[90vw] h-[70vh] grid grid-cols-4 grid-rows-8 gap-1 bg-white border-black border border-solid" v-for="(request, requestCounter) in reportStore.report.requests" :key="requestCounter">
+        <div class="col-span-4 row-start-1 mb-[2px] text-xl font-bold bg-blue-500 text-white p-1">
             {{request.requester.empName}}
         </div> 
 

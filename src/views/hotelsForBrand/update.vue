@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-10 pl-[20px] mt-15  b" >
+    <div class="mx-10 pl-[20px]  b" >
             
             <v-form @submit.prevent="updateHotelsForBrand"  ref="form">
   
@@ -49,7 +49,7 @@
           
           
           
-          <v-row v-for="(location, locationCounter) in hotelsForBrand.locations" class=" mt-10   pa-5">
+          <v-row v-for="(location, locationCounter) in hotelsForBrand.locations" class="   ">
             <v-col cols="11" md="10" class="">
               <!-- Your content for the first column -->
           <v-card class="pa-10 border-2 border-black border-solid shadow-md shadow-black">
@@ -62,7 +62,7 @@
                 :rules="exist"
               id="id"></v-text-field></v-card-title>
               <v-card-text>
-                <v-container  v-for="(hotel, hotelCounter) in location.hotels" class=" border border-black mt-5">
+                <v-container  v-for="(hotel, hotelCounter) in location.hotels" class=" border border-black ">
                   <v-row  class="border-b border-b-black" align="center" justify="center">
                  
                       <v-col md="5">

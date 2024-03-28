@@ -86,7 +86,7 @@ export const useRequestsStore = defineStore("requests", () => {
           {name:'requester.superVisor.empName', weight:0.1},
           {name:'purpose', weight:0.1},
           {name:'destination', weight:0.1},
-          {name:'mode', weight:0.5},
+          {name:'custom', weight:0.5},
           {name:'startDate', weight:0.5},
           {name:'endDate', weight:0.5},
           {name:'status', weight:0.1},

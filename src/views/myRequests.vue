@@ -46,12 +46,13 @@
         v-for="(request, requestCounter) in filteredRequests"
         :key="requestCounter" class="hover:cursor-pointer hover:bg-gray-200 hover:font-bold hover:text-black" @click="showRequest(request)"
       >
-        <td >{{ request.number }}</td>
+        <td >{{ request.tripId }}</td>
         <td >{{ request.status }}</td>
         <td >{{ request.purpose }}</td>
         <td >{{ request.destination }}</td>
         <td >{{ request.startDate }}</td>
         <td >{{ request.endDate }}</td>
+     
         <td v-if="request.currentHandlerName" >{{ request.currentHandlerName }}</td>
         <td v-else >Not Assigned</td>
         <td v-if="request.custom == false">Planned</td>

@@ -47,7 +47,7 @@
             v-for="(request, requestCounter) in filteredRequests"
             :key="requestCounter" class="hover:cursor-pointer hover:bg-gray-400 hover:font-bold" @click="requestStore.showRequest(request)"
           >
-            <td >{{ request.number }}</td>
+            <td >{{ request.tripId }}</td>
             <td >{{ request.status }}</td>
             <td >{{ request.purpose }}</td>
             <td >{{ request.destination }}</td>

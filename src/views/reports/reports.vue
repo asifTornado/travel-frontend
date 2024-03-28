@@ -3,9 +3,9 @@
 
 <SearchBarGlobal :store="useReportStore"/>
     
-    <div class="mx-16    elevation-4  " v-if="reportStore.filteredReports">
+    <div class="mx-16    elevation-4  border-2 border-solid border-black" v-if="reportStore.filteredReports">
     
-    <v-table class=" elevation-4 " density="compact">
+    <v-table class=" elevation-10" density="compact">
         <thead class="bg-blue-lighten-1 ">
           <tr>
             <th class="text-center text-white">

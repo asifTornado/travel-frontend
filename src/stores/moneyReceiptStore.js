@@ -85,6 +85,7 @@ var submitReceipt = () =>{
         moneyReceiptDialog.value = false
         toast.clear()
         toast.success("Receipt Submitted")
+        request.value.moneyReceiptSubmitted = true;
     }).catch((error)=> toast.warning(error))
 }
 

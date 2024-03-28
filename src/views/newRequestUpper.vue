@@ -31,14 +31,14 @@
              
               >
               
-               <v-select
+               <v-combobox
                 :items="locations"
                 v-model="destination"
                 label="Location*"
                 :rules="exist"
                 density="compact"
                 variant="outlined"
-               ></v-select>
+               ></v-combobox>
               </v-col>
       
               <v-col

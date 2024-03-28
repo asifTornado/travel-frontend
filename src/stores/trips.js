@@ -301,6 +301,7 @@ var emailRequestCustom = () => {
                 return r
             }
         })
+        emailDialogCustom.value = false
         toast.clear();
         toast.success("Mailed Successfully")
     }).catch((error)=> toast.warning(error))
@@ -328,6 +329,7 @@ var emailRequest = () => {
                 return r
             }
         })
+        emailDialogAccounts.value = false
         toast.clear()
         toast.success("Mailed Successfully")
     }).catch((error)=> toast.warning(error))

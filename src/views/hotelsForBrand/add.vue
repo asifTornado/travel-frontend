@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-10 pl-[20px] mt-15 " >
+  <div class="mx-10 pl-[20px]  " >
             
           <v-form @submit.prevent="insertHotelsForBrand" class="bg-blue-lighten-5" ref="form">
 
@@ -49,7 +49,7 @@
         
         
         
-        <v-row v-for="(location, locationCounter) in hotelsForBrand.locations" class=" mt-10 pa-10 ">
+        <v-row v-for="(location, locationCounter) in hotelsForBrand.locations" class="   ">
           <v-col cols="11" md="10">
             <!-- Your content for the first column -->
         <div class="border pa-5 bg-white  shadow-md shadow-black">
@@ -61,8 +61,8 @@
               :rules="exist"
             id="id"></v-text-field></v-card-title>
             <v-card-text>
-              <v-container v-for="(hotel, hotelCounter) in location.hotels" class=" border border-black border-solid mt-10" >
-                <v-row >
+              <v-container v-for="(hotel, hotelCounter) in location.hotels" class=" border border-black border-solid " >
+                <v-row class="border-b border-b-black">
                
                     <v-col md="5">
                       
@@ -74,7 +74,7 @@
                       v-model="hotel.hotelName"
                       prepend-inner-icon="mdi-rename"
                       clearable
-                      variant="solo"
+                      variant="outlined"
                       :rules="exist"
                       ></v-text-field>
                       
@@ -89,7 +89,7 @@
                       class="hotelAddress"
                       prepend-inner-icon="mdi-store-marker"
                       clearable
-                      variant="solo"
+                      variant="outlined"
                       :rules="exist"
                       v-model="hotel.hotelAddress"
                       ></v-text-field>
@@ -125,12 +125,12 @@
 
                   <v-row v-for="(room, roomCounter) in hotel.rooms" :key="roomCounter">
                     <v-col md="3" density="compact" style="font-size: 2px;">
-                   <v-text-field label="Room Type" v-model="hotel.rooms[roomCounter].type">
+                   <v-text-field label="Room Type" variant="outlined" v-model="hotel.rooms[roomCounter].type">
 
                    </v-text-field>
                   </v-col>
                    <v-col md="3">
-                     <v-text-field label="Average Rate" v-model="hotel.rooms[roomCounter].average_rate">
+                     <v-text-field label="Average Rate" variant="outlined" v-model="hotel.rooms[roomCounter].average_rate">
   
                      </v-text-field>
 
