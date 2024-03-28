@@ -10,28 +10,28 @@
       <tr>
       
         
-        <th class="text-center text-xl text-white bg-blue-lighten-2" >
+        <th class="text-center  text-white bg-blue-lighten-2" >
           Destination
         </th> 
-        <th class="text-center text-xl text-white bg-blue-lighten-2" >
+        <th class="text-center  text-white bg-blue-lighten-2" >
           Purpose
         </th>
-        <th class="text-center text-xl text-white bg-blue-lighten-2" >
+        <th class="text-center  text-white bg-blue-lighten-2" >
           Departure Date
         </th>
-        <th class="text-center text-xl text-white bg-blue-lighten-2" >
+        <th class="text-center  text-white bg-blue-lighten-2" >
           Arrival Date
         </th>
-        <th class="text-center text-xl text-white bg-blue-lighten-2" >
+        <th class="text-center  text-white bg-blue-lighten-2" >
           Estimated Total Cost
         </th>
-        <th class="text-center text-xl text-white bg-blue-lighten-2" >
+        <th class="text-center  text-white bg-blue-lighten-2" >
           Initiated
         </th>
-        <th class="text-center text-xl text-white bg-blue-lighten-2" >
+        <th class="text-center  text-white bg-blue-lighten-2" >
 
         </th>
-        <th class="text-center text-xl text-white bg-blue-lighten-2" >
+        <th class="text-center  text-white bg-blue-lighten-2" >
 
         </th>
       

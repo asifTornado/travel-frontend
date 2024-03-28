@@ -36,6 +36,9 @@
               <th class="text-center text-white bg-blue-lighten-2 ">
                 Current Handler
               </th>
+              <th class="text-center text-white bg-blue-lighten-2">
+           Type
+        </th>
             </tr>
           </thead>
           <tbody>
@@ -53,6 +56,8 @@
               <td >{{ request.endDate }}     </td>
               <td v-if="request.currentHandlerName">{{ request.currentHandlerName }}</td>
               <td v-else>Not Assigned</td>
+              <td v-if="request.custom == false">Planned</td>
+        <td v-else>Unplanned</td>
             </tr>
           </tbody>
         </v-table>

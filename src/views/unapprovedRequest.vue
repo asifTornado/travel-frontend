@@ -119,6 +119,16 @@
                    {{ request.status }}
                 </v-col>
              </v-row>
+             <v-row class="pl-[80px]">
+        <v-col md="6" class="text-left">
+           Type
+        </v-col>
+        
+        <v-col md="6" class="text-left">
+           <span v-if="request.custom">Planned</span>
+           <span v-else>Unplanned</span>
+        </v-col>
+     </v-row>
              <v-row class="pl-[80px] text-black" v-if=request.currentHandler>
                 <v-col md="6" class="text-left">
                    Current Handler

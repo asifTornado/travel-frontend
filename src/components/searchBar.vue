@@ -18,9 +18,10 @@
 
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, defineProps } from 'vue'
 import { storeToRefs } from 'pinia';
 import { useRequestsStore } from '../stores/request';
+
 
 
 var {searchTerm} = storeToRefs(useRequestsStore())

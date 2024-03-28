@@ -17,15 +17,15 @@
 <v-container v-if="logs" class=" ">
 
  <v-row class="mb-[2px] ">
-   <v-col md='12' class="text-center">
-      <span class="font-bold text-2xl">Request Log</span>
+   <v-col md='12' class="text-center ">
+      <span class="font-bold text-2xl ">Request Log</span>
    </v-col>
 
  </v-row>
 
  
 
- <v-row class=" shadow-sm shadow-black">
+ <v-row class="bg-black text-white ">
    <v-col md="1" class="text-sm font-bold">
       Serial
    </v-col>
@@ -46,7 +46,7 @@
    </v-col>
  </v-row>
 
- <v-row v-for="(log, logCounter) in logs" class=" shadow-sm shadow-black ">
+ <v-row v-for="(log, logCounter) in logs" class=" border border-solid border-black ">
     <v-col md="1" class="text-sm">
       {{ logCounter + 1 }}
     </v-col>

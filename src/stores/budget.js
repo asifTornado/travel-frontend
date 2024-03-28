@@ -202,7 +202,9 @@ var getBudgets = () => {
 }
 
 
-function addBudget(){
+async function addBudget(){
+  var validation = await form.value.validate()
+  if(validation.valid){
     toast.info("Adding to budget please wait.....")
     var data = new FormData()
 
@@ -228,6 +230,9 @@ function addBudget(){
         toast.clear()
         router.push("/travel/budget")
     }).catch((error)=>console.log(error))
+  }else{
+    toast.warning("Please fill up all the required fields first")
+  }
 }
 
 
@@ -275,8 +280,14 @@ var updateBudget =async () => {
     data.append("budget", JSON.stringify(budget.value))
     data.append("token", token.value)
     axios.post(globalUrl.value + "updateBudget", data).then((result)=>{
-          toast.clear()
-          toast.success("Budget Updated Successfully")
+      if(result.data == false){
+        toast.clear()
+        toast.warning("This trip has already been initiated and hence cannot be updated")
+      }else{
+        toast.clear()
+        toast.success("Budget Updated Successfully")
+        
+      }
     }).catch((error)=>console.log(error))
   }
 }
@@ -322,6 +333,7 @@ function searchBudget(){
       console.log("these are the data being sent")
       console.log(newSearch)
       axios.post(globalUrl.value + "searchBudget", data).then((result)=>{
+        
               budgets.value = result.data.value
              console.log("these are the returned values")
              console.log(result.data.value)

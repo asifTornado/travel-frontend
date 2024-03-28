@@ -8,6 +8,7 @@ import {useRoute, useRouter} from "vue-router";
 import { useAuthStore } from './auth';
 import { useGlobalStore } from './global';
 import { useHelperStore } from './helper';
+import Fuse from "fuse.js"
 
 
 import axios from 'axios';
@@ -17,8 +18,27 @@ import axios from 'axios';
 
 
 export const useReportStore = defineStore("report", () => {
+
+    var options = ref({
+        includeScore: false,
+
+          keys: [{name:'_id', weight:0.2},
+         
+          {name:'subject', weight:0.2},
+          {name:'destination', weight:0.2},
+          {name:'departure_date', weight:0.1},
+          {name:'arrival_date', weight:0.1},
+          {name:'numderOfTravelers', weight:0.1},
+          {name:'budget', weight:0.1},
+         
+       
+        
+        ]
+        })
      
+    var searchTerm = ref("")
     var helperStore = useHelperStore()
+    var filteredReports = ref([])
     var reports = ref([])
     var requestReportsBudget = ref([])
     var requestReportsActual = ref([])
@@ -28,6 +48,7 @@ export const useReportStore = defineStore("report", () => {
     var toast = useToast()
     var router = useRouter()
     var route = useRoute()
+    var fuse = ref(null)
     var actualCost = ref(0)
     var difference = computed(()=>{
        return report.value.totalTripBudget - actualCost.value
@@ -61,6 +82,8 @@ export const useReportStore = defineStore("report", () => {
           
        
             reports.value = result.data
+            filteredReports.value = result.data
+            fuse.value = new Fuse(result.data, options.value)
             toast.clear()
             toast.success("Success")
         })
@@ -109,6 +132,21 @@ export const useReportStore = defineStore("report", () => {
     }
 
 
+    var search = () => {
+
+         
+  
+    if(searchTerm.value == '' || searchTerm.value == null || searchTerm.value == undefined){
+        filteredReports.value = requests.value
+    return
+    }
+    var result = fuse.value.search(searchTerm.value);
+  
+    filteredReports.value = result.map(result => result.item);
+
+    }
+
+
     
 
     var showReport = (id) => {
@@ -123,6 +161,7 @@ export const useReportStore = defineStore("report", () => {
 
 
     return {
+     fuse,
      reports,
      report,
      actualCost,
@@ -130,6 +169,9 @@ export const useReportStore = defineStore("report", () => {
      getActualCost,
      requestReportsBudget,
      requestReportsActual,
+     searchTerm,
+     search,
+     filteredReports,
      showReport,
      getReport,
      getReports,

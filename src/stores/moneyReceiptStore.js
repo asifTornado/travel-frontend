@@ -33,24 +33,19 @@ var router = useRouter();
 var route = useRoute();
 var authStore = useAuthStore()
 var disburseDialog = ref(false);
+var searchTerm = ref("")
 
 var fuse = ref(null)
 var options = ref({
     includeScore: true,
 
-      keys: [{name:'requester.empName', weight:0.1},
+      keys: [{name:'_id', weight:0.1},
      
-      {name:'requester.mailAddress', weight:0.1},
-      {name:'requester.departmentHead.mailAddress', weight:0.1},
-      {name:'requester.departmentHead.empName', weight:0.5},
-      {name:'requester.superVisor.mailAddress', weight:0.1},
-      {name:'requester.superVisor.empName', weight:0.1},
-      {name:'purpose', weight:0.1},
-      {name:'destination', weight:0.1},
-      {name:'mode', weight:0.5},
-      {name:'startDate', weight:0.5},
-      {name:'endDate', weight:0.5},
-      {name:'status', weight:0.1},
+      {name:'date', weight:0.1},
+      {name:'i', weight:0.2},
+      {name:'requiredTK', weight:0.5},
+      {name:'currentHandler.empName', weight:0.1},
+     
    
     
     ]
@@ -327,6 +322,20 @@ var checkIfEditable = () => {
 }
 
 
+function search(){
+   
+    
+  
+    if(searchTerm.value == '' || searchTerm.value == null || searchTerm.value == undefined){
+        filteredMoneyReceipts.value = trips.value
+        return
+    }
+    var result = fuse.value.search(searchTerm.value);
+  
+    filteredMoneyReceipts.value = result.map(result => result.item);
+  
+    }
+
 
 
 
@@ -342,6 +351,9 @@ return {
  moneyReceiptForwardDialog,
  selectedUserEmail,
  disburseDialog,
+ searchTerm,
+ options,
+ search,
  moneyReceiptResend,
  checkIfEditable,
  openMoneyReceiptForwardDialog,

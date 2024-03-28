@@ -19,10 +19,14 @@
                <v-text-field
                 :items="locations"
                 v-model="budget.subject"
+                id="subject"
                 label="Subject *"
                 :rules="exist"
                 density="compact"
-               ></v-text-field>
+               >
+           
+              
+              </v-text-field>
               </v-col>
       
               <v-col
@@ -31,10 +35,14 @@
               >
               <v-text-field
                 v-model="budget.brand"
+                id="brand"
                 label="Brand *"
                 density="compact"
                 :rules="exist"
-              ></v-text-field>
+              >
+             
+            
+            </v-text-field>
               </v-col>
 
               <v-col
@@ -44,9 +52,13 @@
               <v-text-field
                 v-model="budget.destination"
                 label="destination *"
+                id="destination"
                 :rules="exist"
                 density="compact"
-              ></v-text-field>
+              >
+            
+            
+            </v-text-field>
 
               </v-col>
         
@@ -66,7 +78,10 @@
                 :rules="exist"
                 @change="getNumberOfDays"
                 density="compact"
-              ></v-text-field>
+              >
+              
+            
+            </v-text-field>
               </v-col>
               <v-col
                 cols="12"
@@ -81,7 +96,10 @@
                 :rules="exist"
                 @change="getNumberOfDays"
                 density="compact"
-              ></v-text-field>
+              >
+              
+            
+            </v-text-field>
               </v-col>
                 <v-col
                 cols="12"
@@ -90,7 +108,7 @@
               <v-text-field 
                 name="Travel Duration"
                 label="Travel Duration *"
-                id="id"
+                id="duration"
                 type="text"
                 v-model="budget.numberOfDays"
                 :rules="exist"
@@ -135,7 +153,9 @@
                         :label="'Traveler ' + (travelerCounter+1) + ' Email *'"
                         :rules="exist"
                         density="compact"
+                        :id="'traveler' + (travelerCounter + 1)"
                        >
+                      
 
                        </v-autocomplete>
                   </v-col>    

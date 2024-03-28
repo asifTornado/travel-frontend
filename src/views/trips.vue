@@ -1,7 +1,7 @@
 <template>
 
 
-<SearchBar/>
+<SearchBarGlobal :store="useTripStore"/>
 
 <div class="mx-16    elevation-4  ">
 
@@ -32,6 +32,10 @@
         <th class="text-center text-white">
           Arrival Date
         </th>    
+
+        <th class="text-center text-white">
+          Type
+        </th>    
      
       </tr>
     </thead>
@@ -46,6 +50,9 @@
         <td >{{ trip.destination }}</td>
         <td >{{ trip.departure_date }}</td>
         <td >{{ trip.arrival_date }}</td>
+        <td v-if="trip.custom == false">Planned</td>
+        <td v-else>Unplanned</td>
+      
       
       </tr>
     </tbody>
@@ -61,8 +68,8 @@
 import { storeToRefs } from 'pinia';
 import {useTripStore} from '../stores/trips'
 import {ref} from "vue";
-import SearchBar from '../components/searchBar.vue'
 import { VDataTable } from 'vuetify/labs/VDataTable'
+import SearchBarGlobal from '../components/SearchBarGlobal.vue';
 
 var {getAllTrips, showTrip} = useTripStore()
 getAllTrips()

@@ -34,7 +34,9 @@ export const useCodeStore = defineStore("code", ()=>{
             {code:"R5", description:"All Unapproved Requests"},
             {code:"A1", description:"All Air Ticket Quotations"},
             {code:"A2", description:"Air Ticket Quotations Approved By Me"},
-            {code:"A3", description:"Air Ticket Quotations For Me"}
+            {code:"A3", description:"Air Ticket Quotations For Me"},
+            {code:"RE1", description:"Reports" }
+            
             
 
     ])
@@ -87,7 +89,9 @@ export const useCodeStore = defineStore("code", ()=>{
         "R5" : "/travel/unapproved-requests",
         "A1" : "/travel/allTicketQuotations",
         "A2" : "/travel/ticketQuotationsForMe",
-        "A3" : "/travel/ticketQuotationsApprovedByMe" 
+        "A3" : "/travel/ticketQuotationsApprovedByMe",
+        "RE1": "/travel/reports"
+        
     }
         
 )

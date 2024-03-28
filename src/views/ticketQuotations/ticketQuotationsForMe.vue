@@ -27,6 +27,9 @@
           <th class="text-center text-white">
             Arrival Date
           </th>    
+          <th class="text-center text-white">
+             Type
+          </th>    
        
         </tr>
       </thead>
@@ -41,6 +44,8 @@
           <td >{{ trip.destination }}</td>
           <td >{{ trip.departure_date }}</td>
           <td >{{ trip.arrival_date }}</td>
+          <td v-if="trip.custom == false">Planned</td>
+        <td v-else>Unplanned</td>
         
         </tr>
       </tbody>

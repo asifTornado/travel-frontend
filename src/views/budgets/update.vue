@@ -109,6 +109,7 @@
              id="traveler's email"
              density="compact"
              type="text"
+             :value="budget.travellerEmails.length"
              v-model="budget.numberOfTravelers"
              :rules="exist"
              

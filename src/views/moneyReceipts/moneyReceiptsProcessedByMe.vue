@@ -1,5 +1,5 @@
 <template>
-    <SearchBar/> 
+     <SearchBarGlobal :store="useMoneyReceiptStore"/> 
   
       <div class="mx-16    elevation-4  ">
   
@@ -57,7 +57,7 @@
       
       <script setup>
   
-      import SearchBar from '../../components/searchBar.vue';
+      import SearchBarGlobal from '../../components/SearchBarGlobal.vue';
     
       import { useMoneyReceiptStore } from '../../stores/moneyReceiptStore';
       import { storeToRefs } from 'pinia';

@@ -20,9 +20,11 @@ import { useAuthStore } from './auth';
 export const useTripStore = defineStore("trip", ()=>{
 var trips = ref([])
 debugger
+var searchTerm = ref('')
 var authStore = useAuthStore()
 var userStore = useUserStore()
 var best = ref();
+var fuse = ref(null);
 var ticketRevokeDialog = ref(false)
 var ticketBookDialog = ref(false)
 var hotelBookDialog = ref(false)
@@ -63,6 +65,24 @@ var accountsTripForwardDialog = ref(false);
 var auditTripForwardDialog = ref(false);
 var selectedUserEmail = ref("")
 var next = ref();
+
+
+
+    
+var options = ref({
+    includeScore: true,
+
+      keys: [{name:'tripId', weight:0.1},
+     
+      {name:'brand', weight:0.1},
+      {name:'subject', weight:0.1},
+      {name:'destination', weight:0.5},
+      {name:'departure_date', weight:0.1},
+      {name:'arrival_date', weight:0.1},
+   
+    
+    ]
+    })
 
 
 
@@ -802,6 +822,7 @@ var getAllTrips = () => {
         
         trips.value = result.data
         filteredTrips.value = result.data
+        fuse.value = new Fuse(result.data, options.value)
   
     }).catch((error)=> console.log(error))
 }
@@ -1202,7 +1223,26 @@ var sendToAccountAndAudit = () => {
 
 }
 
+
+function search(){
+   
+    
+  
+    if(searchTerm.value == '' || searchTerm.value == null || searchTerm.value == undefined){
+        filteredTrips.value = trips.value
+        return
+    }
+    var result = fuse.value.search(searchTerm.value);
+  
+    filteredTrips.value = result.map(result => result.item);
+  
+    }
+
 return {
+    fuse,
+    options,
+    searchTerm,
+    search,
     getAllTrips,
     getTrip,
     showTrip,

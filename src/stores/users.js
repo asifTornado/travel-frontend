@@ -151,11 +151,11 @@ export const useUserStore = defineStore("users", () => {
          
         var supervisor = users.value.filter((item)=>item.empName == user.value.superVisor)[0]
         var zonalHead = users.value.filter((item)=>item.empName == user.value.zonalHead)[0]
-        var travelHandler = users.value.filter((item)=>item.empName == user.value.travelHandler)[0]
+     
 
         user.value.superVisor = supervisor;
         user.value.zonalHead = zonalHead;
-        user.value.travelHandler = travelHandler;
+      
         debugger
         var data = new FormData()
         data.append("user", JSON.stringify(user.value))

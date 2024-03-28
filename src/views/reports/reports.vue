@@ -1,9 +1,9 @@
 <template>
 
 
-    <SearchBar/>
+<SearchBarGlobal :store="useReportStore"/>
     
-    <div class="mx-16    elevation-4  " v-if="reportStore.reports">
+    <div class="mx-16    elevation-4  " v-if="reportStore.filteredReports">
     
     <v-table class=" elevation-4 " density="compact">
         <thead class="bg-blue-lighten-1 ">
@@ -43,11 +43,11 @@
         <tbody>
           <tr
             
-            v-for="(report, reportCounter) in reportStore.reports"
+            v-for="(report, reportCounter) in reportStore.filteredReports"
             :key="tripCounter" class="hover:cursor-pointer hover:bg-gray-200 hover:font-bold hover:text-black" 
             @click="reportStore.showReport(report._id)"
           >
-            <td >{{ report._id }}</td>
+            <td >{{ report.tripId }}</td>
             <!-- <td >{{ trip.brand }}</td> -->
             <td >{{ report.subject }}</td>
             <td >{{ report.destination }}</td>
@@ -70,7 +70,7 @@
     <script setup>
     import { storeToRefs } from 'pinia';
     import {useTicketQuotationsStore} from '../../stores/ticketQuotationStore'
-    import SearchBar from '../../components/searchBar.vue'
+    import SearchBarGlobal from '../../components/SearchBarGlobal.vue';
     import {useReportStore} from "../../stores/report"
     
 

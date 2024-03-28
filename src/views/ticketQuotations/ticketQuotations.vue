@@ -76,6 +76,16 @@
                {{ trip.arrival_date }}
             </v-col>
          </v-row>
+         <v-row class="pl-[80px]">
+        <v-col md="6" class="text-left">
+           Type
+        </v-col>
+        
+        <v-col md="6" class="text-left">
+           <span v-if="trip.custom == false">Planned</span>
+           <span v-else>Unplanned</span>
+        </v-col>
+     </v-row>
        
         </v-card>
     

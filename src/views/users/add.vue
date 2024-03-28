@@ -271,11 +271,7 @@
             </v-row>
 
             
-            <v-row>
-              <v-col cols="12" md="12">
-                 <v-autocomplete label="User's Travel Manager*" :items="mappedUsers"  :rules="exist" v-model="user.travelHandler"></v-autocomplete>
-              </v-col>
-            </v-row>
+          
           
           </v-container>
     

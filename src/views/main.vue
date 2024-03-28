@@ -50,8 +50,8 @@
 
       <v-card min-width="300" style="z-index: 99999999999999;">
         <v-list>
-          <v-list-item  v-if="user.userType == 'admin' || user.userType == 'manager'"  prepend-icon="mdi-airplane" title="New Request (Normal)" value="myfiles" @click="router.push('/travel/newRequest')"> </v-list-item>
-          <v-list-item   prepend-icon="mdi-airplane-alert" title="New Request (Custom)" value="myfiles 2" @click="router.push('/travel/newRequestUpper')"> </v-list-item>
+          <v-list-item  v-if="user.userType == 'admin' || user.userType == 'manager'"  prepend-icon="mdi-airplane" title="New Request (Planned)" value="myfiles" @click="router.push('/travel/newRequest')"> </v-list-item>
+          <v-list-item   prepend-icon="mdi-airplane-alert" title="New Request (Unplanned)" value="myfiles 2" @click="router.push('/travel/newRequestUpper')"> </v-list-item>
         
         </v-list>
 
@@ -311,7 +311,7 @@
         </v-card-actions>
       </v-card>
     </v-menu>
-    <v-list-item  prepend-icon="mdi-account-multiple" title="Reports" value="Reports" @click="router.push('/travel/reports')">   </v-list-item>
+    <v-list-item  prepend-icon="mdi-file-chart" title="Reports" value="Reports" @click="router.push('/travel/reports')">   </v-list-item>
 
         </v-list>
       </v-navigation-drawer>

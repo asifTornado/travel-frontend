@@ -34,24 +34,21 @@ var route = useRoute();
 var authStore = useAuthStore()
 var disburseAmount = ref("")
 var disburseDialog = ref(false)
+var searchTerm = ref("")
+
 
 var fuse = ref(null)
 var options = ref({
     includeScore: true,
 
-      keys: [{name:'requester.empName', weight:0.1},
+      keys: [{name:'_id', weight:0.1},
      
-      {name:'requester.mailAddress', weight:0.1},
-      {name:'requester.departmentHead.mailAddress', weight:0.1},
-      {name:'requester.departmentHead.empName', weight:0.5},
-      {name:'requester.superVisor.mailAddress', weight:0.1},
-      {name:'requester.superVisor.empName', weight:0.1},
-      {name:'purpose', weight:0.1},
-      {name:'destination', weight:0.1},
-      {name:'mode', weight:0.5},
+      {name:'employeeName', weight:0.1},
+      {name:'department', weight:0.1},
       {name:'startDate', weight:0.5},
-      {name:'endDate', weight:0.5},
+      {name:'currentHandler.empName', weight:0.1},
       {name:'status', weight:0.1},
+      
    
     
     ]
@@ -421,6 +418,20 @@ var cancelDisburse = () => {
   disburseAmount.value = '';
 }
 
+function search(){
+   
+    
+  
+  if(searchTerm.value == '' || searchTerm.value == null || searchTerm.value == undefined){
+      filteredExpenseReports.value = expenseReport.value
+      return
+  }
+  var result = fuse.value.search(searchTerm.value);
+
+  filteredExpenseReports.value = result.map(result => result.item);
+
+  }
+
 
 return {
     expenseReportDialog,
@@ -432,7 +443,9 @@ return {
     expenseReportForwardDialog,
     selectedUserEmail,
     disburseDialog,
-
+    searchTerm,
+    fuse,
+    search,
     cancelDisburse,
     disburse,
     openDisburseDialog,
