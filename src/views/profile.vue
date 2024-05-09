@@ -8,7 +8,7 @@
 <div class="flex flex-col  ">
     <div class=" bg-blue-lighten-1 text-white flex flex-row justify-center items-center  p-4 mb-10 shadow-md shadow-black">  <label class="text-white text-4xl font-bold">My Profile</label></div>
     
-        <div class='flex flex-col w-full   pa-1  bg-white shadow-md shadow-black ' v-if="authStore.user">
+        <div class='flex flex-col w-full   pa-15  bg-white shadow-md shadow-black ' v-if="authStore.user">
         
             
                 <div class=" mt-5 text-black  w-full flex flex-row ">
