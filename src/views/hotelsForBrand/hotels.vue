@@ -19,10 +19,7 @@
     
             </th>
           
-            <th class="text-center text-xl  bg-blue-lighten-1 " style="padding: 8px;">
-   
-           </th>
-
+       
           
           </tr>
         </thead>
@@ -30,7 +27,7 @@
         
        <TableRow  v-for="(hotelForBrand, Counter) in hotelsForBrands" :key="Counter" :hotelForBrand="hotelForBrand" />
     
-       
+    
       </tbody>
       </table>
     
@@ -42,8 +39,8 @@
     
     <input ref="fileInput" type="file" style="display: none" @change="handleFileChange" />
     
-    <div class=" bg-blue-500  border-2 border-solid border-black  bottom-10 right-3 mr-[100px] p-2 font-bold text-white hover:cursor-pointer hover:bg-emerald-600" @click="router.push('/travel/hotelsForBrand/addBrand')">
-    Add Brand
+    <div class=" bg-blue-500  border-2 border-solid border-black  bottom-10 right-3 mr-[100px] p-2 font-bold text-white hover:cursor-pointer hover:bg-emerald-600" @click="addHotelsForBrand">
+    Add Hotels For Brand
     </div>
     </div>
     </div>
@@ -55,8 +52,7 @@
     import { storeToRefs } from 'pinia';
     import {useHotelsForBrandStore} from "../../stores/hotelsForBrand"
     import TableRow from "./components/tableRow.vue"
-    import { useRouter } from 'vue-router';
-    var router = useRouter()
+    
 
     import {ref} from "vue"
 

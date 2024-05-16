@@ -138,7 +138,7 @@
     
     <div class="ml-[40px]   ">
     
-    <v-table  fixed-header max-height="60vh" class="h-[60vh] m-[20px]   elevation-4tr " density="compact">
+    <v-table  fixed-header max-height="60vh" class=" m-[20px]   elevation-4tr " density="compact">
         <thead   class="bg-blue-lighten-2">
           <tr>
             <th class="text-center font-extrabold text-xl text-white bg-blue-lighten-2">

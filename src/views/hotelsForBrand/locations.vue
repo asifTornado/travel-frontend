@@ -1,16 +1,15 @@
 <template>
 
-    <div class="mx-10 pl-[50px] mt-16 ">
+    <div class="mx-10 pl-[50px] mt-16 bg-red-500 ">
     
     <table  class="w-full elevation-4 bg-white" density="compact"> 
         <thead class=" text-white" >
           <tr>
             <th class="text-center font-extrabold text-xl  bg-blue-lighten-1" style="padding: 8px;">
-              Brand Name
+             Name
             </th>
-            <th class="text-center text-xl  bg-blue-lighten-1 ">
-              Office Address
-            </th>
+        
+            
            
             <th class="text-center text-xl  bg-blue-lighten-1 " style="padding: 8px;">
     
@@ -18,19 +17,18 @@
             <th class="text-center text-xl  bg-blue-lighten-1 " style="padding: 8px;">
     
             </th>
-          
             <th class="text-center text-xl  bg-blue-lighten-1 " style="padding: 8px;">
-   
-           </th>
-
+    
+  </th>
+       
           
           </tr>
         </thead>
         <tbody>
         
-       <TableRow  v-for="(hotelForBrand, Counter) in hotelsForBrands" :key="Counter" :hotelForBrand="hotelForBrand" />
+       <TableRowLocations  v-for="(location, Counter) in locations" :key="Counter" :location="location" />
     
-       
+    
       </tbody>
       </table>
     
@@ -42,8 +40,8 @@
     
     <input ref="fileInput" type="file" style="display: none" @change="handleFileChange" />
     
-    <div class=" bg-blue-500  border-2 border-solid border-black  bottom-10 right-3 mr-[100px] p-2 font-bold text-white hover:cursor-pointer hover:bg-emerald-600" @click="router.push('/travel/hotelsForBrand/addBrand')">
-    Add Brand
+    <div class=" bg-blue-500  border-2 border-solid border-black  bottom-10 right-3 mr-[100px] p-2 font-bold text-white hover:cursor-pointer hover:bg-emerald-600" @click="router.push(`/travel/hotelsForBrand/addLocation/${route.params.id}/${route.params.brand}`)">
+    Add Location
     </div>
     </div>
     </div>
@@ -54,25 +52,41 @@
     <script setup>
     import { storeToRefs } from 'pinia';
     import {useHotelsForBrandStore} from "../../stores/hotelsForBrand"
-    import TableRow from "./components/tableRow.vue"
-    import { useRouter } from 'vue-router';
-    var router = useRouter()
-
+    import TableRowLocations from "./components/tableRowLocations.vue"
+    import { useRouter, useRoute } from 'vue-router';
+    import { useGlobalStore } from '../../stores/global';
+    import axios from "axios"
     import {ref} from "vue"
+    
+    var router = useRouter()
+    var route = useRoute()
+    var globalStore = useGlobalStore()
+    var {locations}  = storeToRefs(useHotelsForBrandStore())
+    
+   function getLocations(){
+         var data = new FormData()
+         data.append("id", route.params.id)
+    
+        
+          axios.post(globalStore.globalUrl + "getHotelLocations", data)
+          .then((result)=>{
+            console.log("these are the locations", result)
+            locations.value = result.data
+          }).catch((error)=>{
+            console.log(error)
+          })
+        
+    }
+   
+getLocations()
+
+    
+
+
+ 
 
    
-
-
-    var {updateHotelsForBrandPage, deleteHotelsForBrand, getHotelsForBrands, addHotelsForBrand} = useHotelsForBrandStore()
-
-
-    getHotelsForBrands()
-
-    function removeItem(id){
-            hotelsForBrands.value = hotelsForBrands.value.filter((x)=>x != id)
-    }
-
-     var {hotelsForBrands} = storeToRefs(useHotelsForBrandStore())
+   
 
 
    

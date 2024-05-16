@@ -4,7 +4,7 @@
   
      <v-divider></v-divider>
 
-     <v-form @submit.prevent="updateUser" ref="form">
+     <v-form @submit.prevent=" " action="#" ref="form">
       <v-container class="bg-blue-lighten-5 font-weight-bold">
       <v-row >
         Fields with * are mandatory
@@ -323,13 +323,14 @@
         
 </v-container>
           <v-divider></v-divider>
-     <v-container style="margin-bottom:20vh" class="mt-5 bg-blue-lighten-5">
+     <v-container style="margin-bottom:20vh" class="mt-5 bg-blue-lighten-5 space-x-2">
        
 
          
     
 
-       <v-btn size="large" color="indigo-darken-3" type="submit">Update</v-btn>
+       <v-btn size="large" color="indigo-darken-3" @click="updateUser('update')" type="submit">Update</v-btn>
+       <v-btn size="large" color="indigo-darken-3" @click="updateUser('continue')" type="submit">Update and Continue Editing</v-btn>
           </v-container>
 
         </v-form>

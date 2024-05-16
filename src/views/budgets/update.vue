@@ -8,7 +8,7 @@
         Fields with * are mandatory
       </v-row>
      </v-container>
-     <v-form @submit.prevent="updateBudget" ref=form>       
+     <v-form @submit.prevent=" " action="#" ref=form>       
       <v-container class="elevation-4  mb-10">
          <v-row><v-col cols="12" class="text-h4">Travel Information</v-col></v-row>
          <v-row>
@@ -258,14 +258,16 @@
 
 
 
-         <v-container style="margin-bottom:20vh" class="mt-10 bg-blue-lighten-5">
+         <v-container style="margin-bottom:20vh" class="mt-10 space-x-2 bg-blue-lighten-5">
     
 
       
    
  
  
-    <v-btn size="large" color="bg-blue-lighten-5"  @click="updateBudget">Update Budget</v-btn>
+
+          <v-btn size="large" color="indigo-darken-3" @click="updateBudget('update')" type="submit">Update</v-btn>
+       <v-btn size="large" color="indigo-darken-3" @click="updateBudget('continue')" type="submit">Update and Continue Editing</v-btn>
        </v-container>
 
       </v-form>

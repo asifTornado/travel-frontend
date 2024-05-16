@@ -257,7 +257,7 @@ var deleteBudget = (id) => {
 
 
 
-var updateBudget =async () => {
+var updateBudget =async (type) => {
     var validation = await form.value.validate()
     if(validation.valid){
 
@@ -286,6 +286,9 @@ var updateBudget =async () => {
       }else{
         toast.clear()
         toast.success("Budget Updated Successfully")
+        if(type == "update"){
+          router.push("/travel/budget")
+        }
         
       }
     }).catch((error)=>console.log(error))

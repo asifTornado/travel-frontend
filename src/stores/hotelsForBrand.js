@@ -56,6 +56,8 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
     var router = useRouter()
 
     var route = useRoute()
+    var locations = ref([])
+    var brands = ref([])
 
 
     var toast = useToast()
@@ -389,8 +391,8 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
 
     return {
         hotelsForBrand, brand, location, form, exist, hotelsForBrands, selectedHotels,
-         
-        addRoom, deleteRoom,
+        locations, brands,
+        addRoom, deleteRoom, 
         searchHotelsForBrands, resetHotelsForBrand, deleteHotelBackEnd, deleteLocationBackEnd,
         getHotelsForBrands, updateHotelsForBrand, deleteHotelsForBrand, getHotelsForBrand, addHotelsForBrand,
         updateHotelsForBrandPage, addLocation, deleteLocation, addHotel, deleteHotel, insertHotelsForBrand

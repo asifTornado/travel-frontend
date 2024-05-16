@@ -248,7 +248,7 @@ function getUser(){
 
 
 
-var updateUser = async () => {
+var updateUser = async (type) => {
     var validation = await form.value.validate();
     if(validation.valid){
         debugger
@@ -285,6 +285,9 @@ var updateUser = async () => {
     axios.post(globalUrl.value + "updateUserNormal", data).then((result)=>{
         toast.clear()
         toast.success("User Updated Successfully")
+        if(type == "update"){
+            router.push("/travel/users")
+        }
   
     }).catch((error)=>console.log(error))
     

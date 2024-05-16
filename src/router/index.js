@@ -210,9 +210,33 @@ const routes = [
       },
 
       {
-        path: 'hotelsForBrand/add',
+        path: 'hotelsForBrand/hotels/:brandId/brand/:locationId/location',
+        name: 'hotelsForBrandHotels',
+        component: () => import('../views/hotelsForBrand/hotels.vue')
+      },
+
+      {
+        path: 'hotelsForBrand/locations/:id/:brand',
+        name: 'hotelsForBrandLocations',
+        component: () => import('../views/hotelsForBrand/locations.vue')
+      },
+
+      {
+        path: 'hotelsForBrand/addBrand',
         name: 'hotelsForBrandAdd',
-        component: () => import('../views/hotelsForBrand/add.vue')
+        component: () => import('../views/hotelsForBrand/addBrand.vue')
+      },
+
+      {
+        path: 'hotelsForBrand/addLocation/:id/:brand',
+        name: 'hotelsForBrandAddLocation',
+        component: () => import('../views/hotelsForBrand/addLocation.vue')
+      },
+
+      {
+        path: 'hotelsForBrand/addHotel/:brandId/brand/:locationId/location',
+        name: 'hotelsForBrandAddHotel',
+        component: () => import('../views/hotelsForBrand/addHotel.vue')
       },
 
       {
