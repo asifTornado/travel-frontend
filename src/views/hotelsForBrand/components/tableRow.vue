@@ -86,15 +86,11 @@ async function save(){
 
 async function deleteBrand(){
   var data = new FormData()
-  var brandData = {
-    brand:brand.value,
-    brandOfficeAddress:address.value,
-    _id:item.hotelForBrand._id
-  }
-  data.append("brand", JSON.stringify(brandData))
+  
+  data.append("id", item.hotelForBrand._id)
   try {
-    var result = await axios.post(globalStore.globalUrl + "deleteBrand", data)
-    hotelsForBrands.value = hotelsForBrands.value.filter((x)=>x._id != brandData._id)
+    var result = await axios.post(globalStore.globalUrl + "deleteHotelsForBrand", data)
+    hotelsForBrands.value = hotelsForBrands.value.filter((x)=>x._id != item.hotelForBrand._id)
   } catch (error) {
     console.log(error)
   }  

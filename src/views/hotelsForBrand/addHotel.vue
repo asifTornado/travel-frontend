@@ -1,67 +1,18 @@
 <template>
   <div class="mx-10 pl-[20px]  " >
             
-          <v-form @submit.prevent="insertHotelsForBrand" class="bg-blue-lighten-5" ref="form">
+          <v-form @submit.prevent="insertHotel" class="bg-blue-lighten-5" ref="form">
 
             <v-container class="pa-10  bg-blue-lighten-5 ">
               <v-row class="mb-2 text-subtitle font-weight-bold">
                   Fields with * are mandatory
               </v-row>
-              <v-row class="row1  bg-white shadow-md shadow-black  pa-4" >
-                
-                <v-col md="12"  class="col1">
-                  
-            <v-text-field
-            name="name"
-              label="Brand Name *"
-              id="brand"
-              v-model="hotelsForBrand.brand"
-              class="brand "
-              :rules="exist"
-              variant="outlined"
-            
-           
-              
-              prepend-inner-icon="mdi-shield-star"
-          
-              clearable
-              ></v-text-field>
-              
-            </v-col>
-            
-            <v-col md="12">
-              <v-text-field 
-              name="brandOfficeAddress"
-              label="Brand Office Address *"
-              id="brandOfficeAddress"
-              class="brandOfficeAddress"
-              prepend-inner-icon="mdi-map-marker"
-              v-model="hotelsForBrand.brandOfficeAddress"
-              variant="outlined"
-      
-              clearable
-              :rules="exist"
-              >
-              
-            </v-text-field>
-          </v-col>
-        </v-row>
         
         
         
-        <v-row v-for="(location, locationCounter) in hotelsForBrand.locations" class="   ">
-          <v-col cols="11" md="10">
-            <!-- Your content for the first column -->
-        <div class="border pa-5 bg-white  shadow-md shadow-black">
-          <v-card-title>
-            <v-text-field name="name" label="City/State *" prepend-inner-icon="mdi-city"
-             v-model="location.locationName"  
-              variant="outlined"  
-              clearable
-              :rules="exist"
-            id="id"></v-text-field></v-card-title>
-            <v-card-text>
-              <v-container v-for="(hotel, hotelCounter) in location.hotels" class=" border border-black border-solid " >
+        
+       
+              <v-container class=" border border-black border-solid " >
                 <v-row class="border-b border-b-black">
                
                     <v-col md="5">
@@ -71,7 +22,7 @@
                       label="Hotel Name *"
                       id="hotelName"
                       class="hotelName"
-                      v-model="hotel.hotelName"
+                      v-model="hotelName"
                       prepend-inner-icon="mdi-rename"
                       clearable
                       variant="outlined"
@@ -91,7 +42,7 @@
                       clearable
                       variant="outlined"
                       :rules="exist"
-                      v-model="hotel.hotelAddress"
+                      v-model="hotelAddress"
                       ></v-text-field>
                       
                     </v-col>
@@ -109,41 +60,30 @@
                     :rules="exist"
                     ></v-text-field></v-col> -->
             
-                    <v-col md="1" class="flex flex-col ">
-                      <v-btn  class="mt-3 bg-blue-darken-4" size="small"  dark @click="addHotel(hotelCounter, locationCounter)">
-                        <v-icon>mdi-plus</v-icon>
-                      </v-btn>
-                       
-                    </v-col>
-                    <v-col md="1" class="flex flex-col ">
-                      <v-btn  class="mt-3 text-white bg-blue-lighten-2"  size="small" dark @click="deleteHotel(hotelCounter, locationCounter)">
-                      <v-icon>mdi-minus</v-icon>
-                      </v-btn>
-                      
-                    </v-col>
+                    
                   </v-row>
 
-                  <v-row v-for="(room, roomCounter) in hotel.rooms" :key="roomCounter">
+                  <v-row v-for="(room, roomCounter) in rooms" :key="roomCounter">
                     <v-col md="3" density="compact" style="font-size: 2px;">
-                   <v-text-field label="Room Type" variant="outlined" v-model="hotel.rooms[roomCounter].type">
+                   <v-text-field label="Room Type" variant="outlined" v-model="rooms[roomCounter].type">
 
                    </v-text-field>
                   </v-col>
                    <v-col md="3">
-                     <v-text-field label="Average Rate" variant="outlined" v-model="hotel.rooms[roomCounter].average_rate">
+                     <v-text-field label="Average Rate" variant="outlined" v-model="rooms[roomCounter].average_rate">
   
                      </v-text-field>
 
                    </v-col>
 
                    <v-col md="1" class="flex flex-col ">
-                      <v-btn   class="mt-3 bg-indigo-darken-3" size="extra-small" dark   @click="addRoom(roomCounter, hotelCounter, locationCounter)">
+                      <v-btn   class="mt-3 bg-indigo-darken-3" size="extra-small" dark   @click="addRoom(roomCounter)">
                       <v-icon>mdi-plus</v-icon>
                       </v-btn>
                       
                     </v-col>
                     <v-col md="1" class="flex flex-col ">
-                      <v-btn  class="mt-3 bg-indigo-lighten-2"  size="extra-small" dark  @click="deleteRoom(roomCounter, hotelCounter, locationCounter)">
+                      <v-btn  class="mt-3 bg-indigo-lighten-2"  size="extra-small" dark  @click="deleteRoom(roomCounter)">
                       <v-icon>mdi-minus</v-icon>
                       </v-btn>
                       
@@ -152,26 +92,8 @@
 
                   </v-row>
                 </v-container>
-              </v-card-text>
-            </div>
-          </v-col>
-          <v-col>
-            <v-btn class="mt-[20px] bg-blue-darken-4" @click="addLocation(locationCounter)">
-            <v-icon>
-              mdi-plus
-            </v-icon>
-            </v-btn>
-          </v-col>
-          
-          <v-col>
-            <v-btn  class="mt-[20px] bg-blue-lighten-2 text-white" @click="deleteLocation(locationCounter)">
-            <v-icon>
-              mdi-minus
-            </v-icon>
-            </v-btn>
-          </v-col>
-          
-        </v-row>
+         
+         
   </v-container>
 
   
@@ -179,7 +101,7 @@
   
   
   <v-btn type="submit" color="success" class="mt-15 mb-10 shadow-md shadow-black  " size="large">Insert</v-btn>
-  
+  <v-btn  color="warning"  class="mt-15   mb-10 shadow-md shadow-black ml-2  " size="large" @click=" router.push(`/travel/hotelsForBrand/hotels/${route.params.brandId}/${route.params.brand}/${route.params.locationId}/${route.params.location}`)">Cancel</v-btn>
   
   
 </v-form>
@@ -194,12 +116,57 @@
 import { useHotelsForBrandStore } from '../../stores/hotelsForBrand';
 import {ref} from 'vue'
 import { storeToRefs } from 'pinia';
+import { useGlobalStore } from '../../stores/global';
+import {useRouter, useRoute} from "vue-router"
+import axios from "axios";  
+
+var route = useRoute()
+var router = useRouter()
+var hotelName = ref('')
+var hotelAddress = ref('')
+var rooms = ref([{
+  type:"",
+  average_rate:"",
+  actual_rate:""
+}])
 
 
-var {hotelsForBrand, form, exist} = storeToRefs(useHotelsForBrandStore())
-var {addLocation, addRoom, deleteRoom, deleteLocation, addHotel, deleteHotel, insertHotelsForBrand, resetHotelsForBrand} = useHotelsForBrandStore()
-resetHotelsForBrand();
+var globalStore = useGlobalStore()
 
+
+function addRoom(counter){
+  var newRoom = {
+    type:"",
+    average_rate:"",
+    actual_rate:"",
+  }
+
+  rooms.value.splice(counter + 1, 0, newRoom)
+}
+
+
+function deleteRoom(counter){
+  if(rooms.value.length < 2) return
+  rooms.value.splice(counter, 1)
+}
+
+
+function insertHotel(){
+  var hotel = {
+    hotelName : hotelName.value,
+    hotelAddress : hotelAddress.value,
+    rooms : rooms.value
+  }
+
+  var data = new FormData()
+  data.append("hotel", JSON.stringify(hotel))
+  data.append("id", route.params.locationId)
+
+  axios.post(globalStore.globalUrl + "createHotel", data).then((result)=>{
+    
+    router.push(`/travel/hotelsForBrand/hotels/${route.params.brandId}/${route.params.brand}/${route.params.locationId}/${route.params.location}`)
+  }).catch((error)=>console.log(error))
+}
 
 
 

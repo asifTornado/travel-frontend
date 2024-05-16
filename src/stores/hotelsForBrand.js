@@ -47,7 +47,7 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
 
 
  
-
+    var hotels = ref([])
     var form = ref(null)
     var brand = ref('')
     var location = ref('')
@@ -373,6 +373,7 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
                 toast.clear()
                 toast.success("Hotels Added Successfully")
                 hotelsForBrands.value.push(result.data)
+                router.push('/travel/hotelsForBrand')
             }).catch((error)=>console.log(error));
 
         }
@@ -391,7 +392,7 @@ export const useHotelsForBrandStore = defineStore("hotelsForBrand", () => {
 
     return {
         hotelsForBrand, brand, location, form, exist, hotelsForBrands, selectedHotels,
-        locations, brands,
+        locations, brands, hotels,
         addRoom, deleteRoom, 
         searchHotelsForBrands, resetHotelsForBrand, deleteHotelBackEnd, deleteLocationBackEnd,
         getHotelsForBrands, updateHotelsForBrand, deleteHotelsForBrand, getHotelsForBrand, addHotelsForBrand,

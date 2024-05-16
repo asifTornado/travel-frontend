@@ -210,7 +210,7 @@ const routes = [
       },
 
       {
-        path: 'hotelsForBrand/hotels/:brandId/brand/:locationId/location',
+        path: 'hotelsForBrand/hotels/:brandId/:brand/:locationId/:location',
         name: 'hotelsForBrandHotels',
         component: () => import('../views/hotelsForBrand/hotels.vue')
       },
@@ -234,9 +234,15 @@ const routes = [
       },
 
       {
-        path: 'hotelsForBrand/addHotel/:brandId/brand/:locationId/location',
+        path: 'hotelsForBrand/addHotel/:brandId/:brand/:locationId/:location',
         name: 'hotelsForBrandAddHotel',
         component: () => import('../views/hotelsForBrand/addHotel.vue')
+      },
+
+      {
+        path: 'hotelsForBrand/editHotel/:brandId/:brand/:locationId/:location/:hotelId',
+        name: 'hotelsForBrandEditHotel',
+        component: () => import('../views/hotelsForBrand/editHotel.vue')
       },
 
       {

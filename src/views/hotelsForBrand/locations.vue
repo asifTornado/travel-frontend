@@ -1,6 +1,13 @@
 <template>
 
-    <div class="mx-10 pl-[50px] mt-16 bg-red-500 ">
+    <div class="mx-10 pl-[50px] mt-10 bg-red-500 ">
+
+      <div class="flex flex-row p-1  w-[10vw] ">
+        <RouterLink to="/travel/hotelsForBrand" class=""><span class="hover:cursor-pointer underline text-lg mr-2 whitespace-nowrap">Main</span><span class="text-lg mr-2">></span></RouterLink>
+        <RouterLink to="" class="hover:cursor-pointer underline text-lg whitespace-nowrap">{{ route.params.brand }}</RouterLink>
+        
+
+      </div>
     
     <table  class="w-full elevation-4 bg-white" density="compact"> 
         <thead class=" text-white" >
@@ -25,9 +32,10 @@
           </tr>
         </thead>
         <tbody>
-        
-       <TableRowLocations  v-for="(location, Counter) in locations" :key="Counter" :location="location" />
+      
+          <TableRowLocations  v-for="(location, Counter) in locations" :key="Counter" :location="location" />
     
+
     
       </tbody>
       </table>

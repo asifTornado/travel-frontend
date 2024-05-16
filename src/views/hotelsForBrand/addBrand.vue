@@ -57,6 +57,7 @@
   
   
   <v-btn type="submit" color="success" class="mt-15 mb-10 shadow-md shadow-black  " size="large">Insert</v-btn>
+  <v-btn  color="warning"  class="mt-15   mb-10 shadow-md shadow-black ml-2  " size="large" @click=" router.push(`/travel/hotelsForBrand`)">Cancel</v-btn>
   
   
   
@@ -72,8 +73,9 @@
 import { useHotelsForBrandStore } from '../../stores/hotelsForBrand';
 import {ref} from 'vue'
 import { storeToRefs } from 'pinia';
+import {useRouter} from "vue-router"
 
-
+var router = useRouter()
 var {hotelsForBrand, form, exist} = storeToRefs(useHotelsForBrandStore())
 var {addLocation, addRoom, deleteRoom, deleteLocation, addHotel, deleteHotel, insertHotelsForBrand, resetHotelsForBrand} = useHotelsForBrandStore()
 resetHotelsForBrand();
