@@ -1,16 +1,16 @@
 <template>
 
 
-<div class="flex flex-row justify-end w-full pb-[20px] pr-[100px] mt-10">
+<div class="flex flex-row justify-end  pb-[20px]  pr-[100px] mt-10">
 
-<div class="flex flex-row mt-5 justify-center elevation-4 ">
+<div class="flex flex-row  justify-center elevation-4 ">
 
  <input v-model="searchTerm" type="search" name="" placeholder="Search Request" id="" class="focus:outline-none text-bold  p-3 w-[200px] bg-white">
  <div class="flex flex-col  justify-center bg-blue-lighten-2 items-center p-3  hover:cursor-pointer" @click="requestStore.search"><v-icon class="text-white">mdi-magnify</v-icon></div>
 </div>
 
 </div>
-    <div class="box pl-[100px]">
+    <div class="h-[70vh] pl-[2vw] overflow-y-auto mx-16 ">
     
     <v-table density="compact" fixed-header max-height="60vh"  class=" elevation-4 hover-y-scroll elevation-4">
         <thead class="bg-blue-lighten-1 ">
@@ -58,6 +58,8 @@
             <td v-if="request.custom == false">Planned</td>
         <td v-else>Unplanned</td>
           </tr>
+
+
         </tbody>
       </v-table>
     

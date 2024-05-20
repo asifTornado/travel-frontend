@@ -1,11 +1,11 @@
 <template>
   <SearchBar  /> 
 
-    <div class="mx-16    elevation-4  ">
+    <div class="mx-16      ">
 
     
-
-    <v-table fixed-header max-height="60vh" class="elevation-4 " density="compact"   
+      <div class="h-[70vh] ml-10 overflow-y-auto">
+    <v-table fixed-header  class=" " density="compact"   
    
     >
         <thead class="bg-blue-lighten-1 text-white  ">
@@ -60,7 +60,7 @@
           </tr>
         </tbody>
       </v-table>
-    
+    </div>
     </div>
     
     

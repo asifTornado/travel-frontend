@@ -29,8 +29,8 @@ var expenseTypes = ref([
     "hotel",
     "transport",
     "air-ticket",
-    "incidental",
-    "miscellaneuous"
+    "daily expense",
+    "others"
 ])
 
 

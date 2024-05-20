@@ -324,13 +324,13 @@ var approve = () => {
   var data = new FormData();
    
 
-   var valid = validate(requestBudget)
+  //  var valid = validate(requestBudget)
     
-   if(valid == false){
-    toast.clear()
-    toast.warning("Required Fields Missing")
-    return
-   }
+  //  if(valid == false){
+  //   toast.clear()
+  //   toast.warning("Required Fields Missing")
+  //   return
+  //  }
 
 
   request.value.activities = activities.value;
@@ -386,13 +386,13 @@ var departmentHeadApproveTrip = () => {
   var data = new FormData();
    
 
-   var valid = validate(requestBudget)
+  //  var valid = validate(requestBudget)
     
-   if(valid == false){
-    toast.clear()
-    toast.warning("Required Fields Missing")
-    return
-   }
+  //  if(valid == false){
+  //   toast.clear()
+  //   toast.warning("Required Fields Missing")
+  //   return
+  //  }
 
 
   

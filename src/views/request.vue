@@ -1,5 +1,5 @@
 <template>
-<div class="w-screen px-[20px] mt-15" >
+<div class="w-screen px-[20px] " >
 
    
     <div class="sticky   bg-blue-lighten-5 h-12 w-full flex flex-row justify-center"  v-if="request && request.currentHandler && user">
@@ -308,7 +308,7 @@
            </v-row>
            <v-row>
               <v-col md="12" class="shadow-sm shadow-black p-4" >
-                         <div v-html="quotation.quotationText"></div>                           
+                         <div class="max-h-[20vh] overflow-y-auto overflow-x-auto" v-html="quotation.quotationText"></div>                           
               </v-col>
             
            </v-row>
@@ -405,7 +405,7 @@
             </v-row>
            <v-row>
               <v-col md="12" class="shadow-sm shadow-black">
-                         <div v-html="quotation.quotationText"></div>                           
+                         <div class="max-h-[20vh] overflow-y-auto overflow-x-auto" v-html="quotation.quotationText"></div>                           
               </v-col>
             
            </v-row>

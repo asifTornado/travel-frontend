@@ -3,13 +3,13 @@
 
 <div class="flex flex-row mt-5 justify-center elevation-4">
 
- <input v-model="searchTerm" type="search" name="" placeholder="Search Request" id="" class="focus:outline-none text-bold  p-3 w-[200px]">
+ <input v-model="searchTerm" type="search" name="" placeholder="Search Request" id="" class="focus:outline-none text-bold bg-white  p-3 w-[200px]">
  <div class="flex flex-col  justify-center bg-blue-lighten-1 items-center p-3 hover:cursor-pointer" @click="search"><v-icon>mdi-magnify</v-icon></div>
 </div>
 
 </div>
 
-    <div class="box pl-[100px] ">
+<div class="h-[70vh] pl-[2vw] overflow-y-auto mx-16 ">
     
     <v-table fixed-header max-height="60vh" class="elevation-4" density="compact">
         <thead  class="bg-blue-lighten-1 ">
@@ -60,6 +60,8 @@
           </tr>
         </tbody>
       </v-table>
+
+
     
     </div>
     

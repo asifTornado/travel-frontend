@@ -1,8 +1,7 @@
 <template>
-<div class="w-[100vw] py-[20px] mt-10" v-if="user.userType == 'admin' || user.userType == 'manager'">
+<div class="w-[100vw] py-[20px] " v-if="user.userType == 'admin' || user.userType == 'manager'">
 
    
-
 
 
 <v-container id="info"  grid-list-xs  color="indigo-darken-200" class="bg-blue-lighten-5 mb-[20px]">
@@ -335,7 +334,7 @@ Ticket Quotations
         
               <v-col md="12"  >
               
-                         <div  class="quotation" v-html="quotation.quotationText" ></div>
+                         <div  class="quotation max-h-[20vh] overflow-y-auto" v-html="quotation.quotationText" ></div>
                                                
               </v-col>
            
@@ -618,9 +617,9 @@ Hotel Quotations
 </v-col>    
 </v-row>
 
-<v-row justify="center">
+<v-row  class="d-flex flex-row  justify-start align-start">
 
-<v-col  v-for="(quotation, quotationCounter) in trip.hotelQuotations" :key="quotationCounter" md="5"  class="relative  mb-10 mr-5 mt-5  bg-white  hover:bg-emerald-300 shadow-md shadow-black pa-10"  >
+<v-col  v-for="(quotation, quotationCounter) in trip.hotelQuotations" :key="quotationCounter" md="5"  class="relative  mb-10 mr-5 mt-5  bg-white  hover:bg-emerald-300 shadow-md shadow-black "  >
     
   <v-row>
           <v-col md="12" class="bg-blue-darken-2 font-bold text-xl text-white border-2 border-solid ">{{ quotation.quoteGiver }}</v-col>
@@ -634,7 +633,7 @@ Hotel Quotations
     
           <v-col md="12" class="border-2 border-solid p-4 h-[100%] overflow-y-auto" >
          
-                     <div class="quotation" v-html="quotation.quotationText"></div>
+                     <div class="quotation max-h-[20vh]" v-html="quotation.quotationText"></div>
                                            
           </v-col>
        

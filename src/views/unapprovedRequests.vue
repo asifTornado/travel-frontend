@@ -1,10 +1,10 @@
 <template>
     <SearchBar/> 
   
-      <div class="mx-16    elevation-4  ">
+      <div class="mx-16     ">
   
       
-  
+        <div class="h-[70vh] pl-[2vw] overflow-y-auto ">
       <v-table class=" elevation-4  "
       density="compact" 
       fixed-header max-height="60vh"  
@@ -61,6 +61,7 @@
             </tr>
           </tbody>
         </v-table>
+</div>
       
       </div>
       

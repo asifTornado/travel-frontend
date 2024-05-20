@@ -136,9 +136,9 @@
     <!-- update agent end  -->
     
     
-    <div class="ml-[40px]   ">
-    
-    <v-table  fixed-header max-height="60vh" class=" m-[20px]   elevation-4tr " density="compact">
+    <div class="ml-[40px]  mt-2 mx-16">
+      <div class="h-[60vh] pl-[2vw] overflow-y-auto">
+    <v-table  fixed-header  class="h-full" density="compact">
         <thead   class="bg-blue-lighten-2">
           <tr>
             <th class="text-center font-extrabold text-xl text-white bg-blue-lighten-2">
@@ -194,7 +194,7 @@
           </tr>
         </tbody>
       </v-table>
-    
+    </div>
     
     <div class="flex flex-row justify-end w-full items-end fixed bottom-2 pr-[20px]">
       <!-- <div class=" bg-emerald-500 bottom-10 border-2 border-solid border-black right-3 p-2 mr-[20px]  font-bold text-white hover:cursor-pointer hover:bg-emerald-600" @click="uploadExcel">

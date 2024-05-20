@@ -8,7 +8,7 @@
         
 
       </div>
-    
+      <div class="h-[60vh] pl-[2vw] overflow-y-auto">
     <table  class="w-full elevation-4 bg-white" density="compact"> 
         <thead class=" text-white" >
           <tr>
@@ -39,7 +39,7 @@
     
       </tbody>
       </table>
-    
+      </div>
     
     <div class="flex flex-row justify-end w-full items-end fixed bottom-10 pr-[70px] ">
       <!-- <div class=" bg-emerald-500 bottom-10 right-3 p-2 mr-[20px] border-2 border-solid border-black  font-bold text-white hover:cursor-pointer hover:bg-emerald-600" @click="uploadExcel">

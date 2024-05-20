@@ -3,18 +3,21 @@
 
 <SearchBarGlobal :store="useTripStore"/>
 
-<div class="mx-16    elevation-4  ">
+<div class="mx-16     ">
 
 
 
 
 
-
-<v-table class=" elevation-4 " density="compact">
+<div class="h-[70vh] ml-10 overflow-y-auto">
+<v-table class="  " density="compact">
     <thead class="bg-blue-lighten-1 ">
       <tr>
         <th class="text-center text-white">
          Trip Id
+        </th>
+        <th class="text-center text-white">
+         Travelers
         </th>
         <th class="text-center text-white">
           Brand
@@ -45,6 +48,23 @@
         :key="tripCounter" class="hover:cursor-pointer hover:bg-gray-200 hover:font-bold hover:text-black" @click="showTrip(trip._id)"
       >
         <td >{{ trip.tripId }}</td>
+        <td ><v-chip class="rounded-sm text-xs border border-solid border-black  p-1 m-1" v-for="(traveler, counter) in trip.travelers">{{traveler.empName}}</v-chip></td>
+       <td >{{ trip.brand }}</td> 
+        <td >{{ trip.subject }}</td>
+        <td >{{ trip.destination }}</td>
+        <td >{{ trip.departure_date }}</td>
+        <td >{{ trip.arrival_date }}</td>
+        <td v-if="trip.custom == false">Planned</td>
+        <td v-else>Unplanned</td>
+      
+      
+      </tr>
+      <tr
+        v-for="(trip, tripCounter) in filteredTrips"
+        :key="tripCounter" class="hover:cursor-pointer hover:bg-gray-200 hover:font-bold hover:text-black" @click="showTrip(trip._id)"
+      >
+        <td >{{ trip.tripId }}</td>
+        <td ><v-chip class="rounded-sm text-xs border border-solid border-black  p-1 m-1" v-for="(traveler, counter) in trip.travelers">{{traveler.empName}}</v-chip></td>
        <td >{{ trip.brand }}</td> 
         <td >{{ trip.subject }}</td>
         <td >{{ trip.destination }}</td>
@@ -57,7 +77,7 @@
       </tr>
     </tbody>
   </v-table>
-
+</div>
 </div>
 
 

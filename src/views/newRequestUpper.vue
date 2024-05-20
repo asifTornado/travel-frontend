@@ -1,6 +1,6 @@
 <template>
 
-    <div class="mt-12 "> 
+    <div class="mt-12 pl-20 w-[90vw]"> 
 
      <v-divider></v-divider>
 

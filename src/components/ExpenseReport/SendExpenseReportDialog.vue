@@ -1,10 +1,10 @@
 <template>
-    <v-dialog v-model="sendExpenseReportDialog"  width="100vw" class="ml-10 elevation-10" height="100vh">
-        <v-icon class=" hover:cursor-pointer" style="position:absolute; top:0px; right:40px" @click="sendExpenseReportDialog = false" >
+    <v-dialog v-model="sendExpenseReportDialog"  width="80vw" class="dialog"  height="100vh">
+        <v-icon class=" hover:cursor-pointer" style="position:absolute; font-weight: bold; top:5px; right:5px" @click="sendExpenseReportDialog = false" >
             mdi-close
         </v-icon>
 
-        <v-container class=" overflow-y-scroll bg-white ml-10 report elevation-10   "  ref="report">
+        <v-container class="container overflow-y-scroll bg-white ml-3  report elevation-10   "  ref="report">
             <v-row class="bg-white">
                 <v-col md="11" class="text-center text-h2">
                     Travel Expense Report
@@ -97,10 +97,10 @@
                 </v-col>
                 <v-col md="1" class="font-weight-bold ">
                      
-                        <v-btn class="bg-blue-darken-2 "  size="x-small" @click="addExpense(expenseCounter)">
+                        <v-btn class="bg-blue-darken-2 button-2"  size="x-small" @click="addExpense(expenseCounter)">
                         <v-icon>mdi-plus</v-icon>
                         </v-btn>
-                        <v-btn class="bg-blue-lighten-4"  size="x-small" @click="deleteExpense(expenseCounter)">
+                        <v-btn class="bg-blue-lighten-4 button-2"  size="x-small" @click="deleteExpense(expenseCounter)">
                         <v-icon>
                             mdi-minus
                         </v-icon>
@@ -163,9 +163,16 @@ console.log("dialog opened")
 </script>
 
 <style scoped>
+.container{
+    background-color: red!;
+    border-radius: 2px;
+    
+}
 
 
-
+.button{
+    border-radius: 0px!;
+}
 
 
 
