@@ -1,7 +1,7 @@
 <template>
 
 
-<SearchBarGlobal :store="useReportStore"/>
+    <SearchBarReports :store="useReportStore"/>
     
     <div class="mx-16    " v-if="reportStore.filteredReports">
       <div class="h-[70vh] pl-[2vw] overflow-y-auto">
@@ -70,7 +70,7 @@
     <script setup>
     import { storeToRefs } from 'pinia';
     import {useTicketQuotationsStore} from '../../stores/ticketQuotationStore'
-    import SearchBarGlobal from '../../components/SearchBarGlobal.vue';
+    import SearchBarReports from '../../components/SearchBarReports.vue';
     import {useReportStore} from "../../stores/report"
     
 
